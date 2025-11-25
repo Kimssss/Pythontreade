@@ -3,7 +3,8 @@ import json
 import hashlib
 import hmac
 import base64
-from datetime import datetime
+import time
+from datetime import datetime, timedelta
 
 class KisAPI:
     def __init__(self, appkey, appsecret, account_no, is_real=False):
@@ -293,10 +294,272 @@ class KisAPI:
             
             result = response.json()
             return result
-            
+
         except Exception as e:
             print(f"주문 내역 조회 중 오류 발생: {e}")
             return None
+
+    def get_daily_price(self, stock_code, period_type="D", count=30):
+        """
+        주식 일별 시세 조회
+
+        Args:
+            stock_code: 종목코드
+            period_type: 기간분류 (D:일, W:주, M:월)
+            count: 조회 개수
+
+        Returns:
+            일별 시세 데이터
+        """
+        if not self.access_token:
+            if not self.get_access_token():
+                return None
+
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHKST01010400"
+        }
+
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+            "FID_PERIOD_DIV_CODE": period_type,
+            "FID_ORG_ADJ_PRC": "0"
+        }
+
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"일별 시세 조회 중 오류 발생: {e}")
+            return None
+
+    def get_volume_rank(self, market="J"):
+        """
+        거래량 순위 조회
+
+        Args:
+            market: 시장구분 (J:코스피, Q:코스닥)
+
+        Returns:
+            거래량 순위 데이터
+        """
+        if not self.access_token:
+            if not self.get_access_token():
+                return None
+
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/volume-rank"
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHPST01710000"
+        }
+
+        params = {
+            "FID_COND_MRKT_DIV_CODE": market,
+            "FID_COND_SCR_DIV_CODE": "20101",
+            "FID_INPUT_ISCD": "0000",
+            "FID_DIV_CLS_CODE": "0",
+            "FID_BLNG_CLS_CODE": "0",
+            "FID_TRGT_CLS_CODE": "111111111",
+            "FID_TRGT_EXLS_CLS_CODE": "000000",
+            "FID_INPUT_PRICE_1": "0",
+            "FID_INPUT_PRICE_2": "0",
+            "FID_VOL_CNT": "0",
+            "FID_INPUT_DATE_1": ""
+        }
+
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"거래량 순위 조회 중 오류 발생: {e}")
+            return None
+
+    def get_fluctuation_rank(self, market="J", sort_type="0"):
+        """
+        등락률 순위 조회
+
+        Args:
+            market: 시장구분 (J:코스피, Q:코스닥)
+            sort_type: 정렬 (0:상승률, 1:하락률)
+
+        Returns:
+            등락률 순위 데이터
+        """
+        if not self.access_token:
+            if not self.get_access_token():
+                return None
+
+        url = f"{self.base_url}/uapi/domestic-stock/v1/ranking/fluctuation"
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHPST01700000"
+        }
+
+        params = {
+            "fid_cond_mrkt_div_code": market,
+            "fid_cond_scr_div_code": "20170",
+            "fid_input_iscd": "0000",
+            "fid_rank_sort_cls_code": sort_type,
+            "fid_input_cnt_1": "0",
+            "fid_prc_cls_code": "0",
+            "fid_input_price_1": "",
+            "fid_input_price_2": "",
+            "fid_vol_cnt": "",
+            "fid_trgt_cls_code": "0",
+            "fid_trgt_exls_cls_code": "0",
+            "fid_div_cls_code": "0",
+            "fid_rsfl_rate1": "",
+            "fid_rsfl_rate2": ""
+        }
+
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"등락률 순위 조회 중 오류 발생: {e}")
+            return None
+
+    def get_market_cap_rank(self, market="J"):
+        """
+        시가총액 상위 종목 조회
+
+        Args:
+            market: 시장구분 (J:코스피, Q:코스닥)
+
+        Returns:
+            시가총액 순위 데이터
+        """
+        if not self.access_token:
+            if not self.get_access_token():
+                return None
+
+        url = f"{self.base_url}/uapi/domestic-stock/v1/ranking/market-cap"
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHPST01740000"
+        }
+
+        params = {
+            "fid_cond_mrkt_div_code": market,
+            "fid_cond_scr_div_code": "20174",
+            "fid_input_iscd": "0000",
+            "fid_div_cls_code": "0",
+            "fid_trgt_cls_code": "0",
+            "fid_trgt_exls_cls_code": "0",
+            "fid_input_price_1": "",
+            "fid_input_price_2": "",
+            "fid_vol_cnt": ""
+        }
+
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"시가총액 순위 조회 중 오류 발생: {e}")
+            return None
+
+    def get_stock_info(self, stock_code):
+        """
+        종목 기본 정보 조회
+
+        Args:
+            stock_code: 종목코드
+
+        Returns:
+            종목 기본 정보
+        """
+        if not self.access_token:
+            if not self.get_access_token():
+                return None
+
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/search-stock-info"
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "CTPF1002R"
+        }
+
+        params = {
+            "PRDT_TYPE_CD": "300",
+            "PDNO": stock_code
+        }
+
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"종목 정보 조회 중 오류 발생: {e}")
+            return None
+
+    def get_holding_stocks(self):
+        """
+        보유 종목 리스트 조회 (잔고에서 추출)
+
+        Returns:
+            보유 종목 리스트
+        """
+        balance = self.get_balance()
+        if not balance or balance.get('rt_cd') != '0':
+            return []
+
+        holdings = []
+        output1 = balance.get('output1', [])
+
+        for stock in output1:
+            if int(stock.get('hldg_qty', 0)) > 0:
+                holdings.append({
+                    'stock_code': stock.get('pdno', ''),
+                    'stock_name': stock.get('prdt_name', ''),
+                    'quantity': int(stock.get('hldg_qty', 0)),
+                    'buy_price': float(stock.get('pchs_avg_pric', 0)),
+                    'current_price': float(stock.get('prpr', 0)),
+                    'profit_rate': float(stock.get('evlu_pfls_rt', 0)),
+                    'profit_amount': int(stock.get('evlu_pfls_amt', 0))
+                })
+
+        return holdings
+
+    def get_available_cash(self):
+        """
+        주문 가능 현금 조회
+
+        Returns:
+            주문 가능 현금
+        """
+        balance = self.get_balance()
+        if not balance or balance.get('rt_cd') != '0':
+            return 0
+
+        output2 = balance.get('output2', [{}])
+        if output2:
+            return int(output2[0].get('ord_psbl_cash', 0))
+        return 0
 
 # 사용 예시
 if __name__ == "__main__":
