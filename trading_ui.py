@@ -1,25 +1,25 @@
 import os
 import sys
+import subprocess
 from kis_api import KisAPI
+from config import Config
+
+# 필요한 패키지 자동 설치
+def install_requirements():
+    """필요한 패키지 자동 설치"""
+    try:
+        import requests
+        import dotenv
+        print("✅ 모든 필요한 패키지가 설치되어 있습니다.")
+    except ImportError as e:
+        print(f"🔄 필요한 패키지를 설치합니다: {e.name}")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+        print("✅ 패키지 설치 완료!")
 
 class TradingUI:
     def __init__(self):
         self.api = None
         self.current_mode = None
-        
-        # 계좌 정보
-        self.accounts = {
-            'real': {
-                'appkey': 'PSCqWTEJAst52ZjLzjv78vCj0eEUix0TNOzS',
-                'appsecret': 'I9iBCx+BK++QFgq6mb6KPJj/x7I0jB/8L9xl79NGoFLvVknEpIST/yWwKuyoe9rwUIwAYVDmwip1+/ety0NTTtFrTNwV6Gym5sVRRN1r3iEC+/UsMN0POLH3Ba3OhwG96EqCCk2aI1CfOKS9AHf9i1lnPucAGOxGzXOVL2FqTsEZaUchOTI=',
-                'account': '74824766-01'
-            },
-            'demo': {
-                'appkey': 'PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I',
-                'appsecret': 'acvrN9QSZYfam2V2rAEyFsUisSv1dyDo8kXD3JXHeGQUqxLtZrQYngSlb/RVqhsxuAhPnbJodPXyakzqrxbsBX54ZOZnkduxKFnqqEqxgFte+UjmZvxgyRPx4BrxzUnZY6zEH3qh9n8tzDm6J6oEdyVURXIES26lIEca5BZ7+YyHgG87YKQ=',
-                'account': '50144239-01'
-            }
-        }
     
     def clear_screen(self):
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -80,15 +80,21 @@ class TradingUI:
                 input("엔터를 눌러 계속...")
     
     def setup_api(self, mode):
-        account_info = self.accounts[mode]
-        is_real = (mode == 'real')
-        
-        self.api = KisAPI(
-            account_info['appkey'],
-            account_info['appsecret'], 
-            account_info['account'],
-            is_real=is_real
-        )
+        try:
+            account_info = Config.get_account_info(mode)
+            is_real = (mode == 'real')
+            
+            self.api = KisAPI(
+                account_info['appkey'],
+                account_info['appsecret'], 
+                account_info['account'],
+                is_real=is_real
+            )
+        except ValueError as e:
+            print(f"❌ 설정 오류: {e}")
+            print("📝 .env 파일을 확인하고 필요한 API 키를 설정해주세요.")
+            input("엔터를 눌러 종료...")
+            sys.exit(1)
         
         print(f"\n🔄 {('실전투자' if is_real else '모의투자')} API 연결 중...")
         if self.api.get_access_token():
@@ -242,6 +248,9 @@ class TradingUI:
     
     def run(self):
         try:
+            # 패키지 설치 확인
+            install_requirements()
+            
             self.select_mode()
             
             while True:

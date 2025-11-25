@@ -270,18 +270,19 @@ class KisAPI:
 
 # 사용 예시
 if __name__ == "__main__":
-    # 실전 계좌 정보
-    real_appkey = "PSCqWTEJAst52ZjLzjv78vCj0eEUix0TNOzS"
-    real_appsecret = "I9iBCx+BK++QFgq6mb6KPJj/x7I0jB/8L9xl79NGoFLvVknEpIST/yWwKuyoe9rwUIwAYVDmwip1+/ety0NTTtFrTNwV6Gym5sVRRN1r3iEC+/UsMN0POLH3Ba3OhwG96EqCCk2aI1CfOKS9AHf9i1lnPucAGOxGzXOVL2FqTsEZaUchOTI="
-    real_account = "74824766-01"
+    from config import Config
     
-    # 모의 계좌 정보
-    demo_appkey = "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I"
-    demo_appsecret = "acvrN9QSZYfam2V2rAEyFsUisSv1dyDo8kXD3JXHeGQUqxLtZrQYngSlb/RVqhsxuAhPnbJodPXyakzqrxbsBX54ZOZnkduxKFnqqEqxgFte+UjmZvxgyRPx4BrxzUnZY6zEH3qh9n8tzDm6J6oEdyVURXIES26lIEca5BZ7+YyHgG87YKQ="
-    demo_account = "50144239-01"
+    # 환경 변수에서 계좌 정보 로드
+    real_account_info = Config.get_account_info('real')
+    demo_account_info = Config.get_account_info('demo')
     
     print("=== 모의투자 계좌 테스트 ===")
-    demo_api = KisAPI(demo_appkey, demo_appsecret, demo_account, is_real=False)
+    demo_api = KisAPI(
+        demo_account_info['appkey'], 
+        demo_account_info['appsecret'], 
+        demo_account_info['account'], 
+        is_real=False
+    )
     
     # 토큰 발급 테스트
     if demo_api.get_access_token():
@@ -298,7 +299,12 @@ if __name__ == "__main__":
             print("삼성전자 현재가 조회 성공!")
     
     print("\n=== 실전투자 계좌 테스트 ===")
-    real_api = KisAPI(real_appkey, real_appsecret, real_account, is_real=True)
+    real_api = KisAPI(
+        real_account_info['appkey'], 
+        real_account_info['appsecret'], 
+        real_account_info['account'], 
+        is_real=True
+    )
     
     # 토큰 발급 테스트
     if real_api.get_access_token():

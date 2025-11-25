@@ -1,12 +1,16 @@
 from kis_api import KisAPI
+from config import Config
 
-# 모의투자 계좌로 매매 테스트
-demo_appkey = "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I"
-demo_appsecret = "acvrN9QSZYfam2V2rAEyFsUisSv1dyDo8kXD3JXHeGQUqxLtZrQYngSlb/RVqhsxuAhPnbJodPXyakzqrxbsBX54ZOZnkduxKFnqqEqxgFte+UjmZvxgyRPx4BrxzUnZY6zEH3qh9n8tzDm6J6oEdyVURXIES26lIEca5BZ7+YyHgG87YKQ="
-demo_account = "50144239-01"
+# 환경 변수에서 모의투자 계좌 정보 로드
+demo_account_info = Config.get_account_info('demo')
 
 # API 인스턴스 생성
-api = KisAPI(demo_appkey, demo_appsecret, demo_account, is_real=False)
+api = KisAPI(
+    demo_account_info['appkey'], 
+    demo_account_info['appsecret'], 
+    demo_account_info['account'], 
+    is_real=False
+)
 
 print("=== 한국투자증권 API 테스트 ===")
 
