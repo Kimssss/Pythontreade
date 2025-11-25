@@ -99,11 +99,22 @@ class TradingUI:
         print(f"\n🔄 {('실전투자' if is_real else '모의투자')} API 연결 중...")
         if self.api.get_access_token():
             print("✅ API 연결 성공!")
-            input("엔터를 눌러 메인 메뉴로...")
+            print("💡 팁: 모든 기능이 준비되었습니다!")
+            input("\n엔터를 눌러 메인 메뉴로...")
         else:
             print("❌ API 연결 실패!")
-            input("엔터를 눌러 다시 시도...")
-            self.select_mode()
+            print("🔍 문제 해결 방법:")
+            print("   1. 인터넷 연결 상태 확인")
+            print("   2. .env 파일의 API 키 정보 확인")
+            print("   3. 한국투자증권 API 서비스 상태 확인")
+            print("   4. 계정의 API 사용 권한 확인")
+            
+            choice = input("\n다시 시도하시겠습니까? (y/N): ").strip().lower()
+            if choice == 'y':
+                self.setup_api(self.current_mode)
+            else:
+                print("모드 선택으로 돌아갑니다.")
+                self.select_mode()
     
     def show_main_menu(self):
         self.clear_screen()
@@ -126,9 +137,17 @@ class TradingUI:
         if balance and balance.get('rt_cd') == '0':
             output2 = balance.get('output2', [{}])[0]
             print("\n✅ 계좌 정보:")
-            print(f"   💵 총 평가 금액: {output2.get('tot_evlu_amt', 'N/A'):,}원")
-            print(f"   💳 주문 가능 현금: {output2.get('ord_psbl_cash', 'N/A')}원")
-            print(f"   📈 총 평가 손익: {output2.get('evlu_pfls_smtl_amt', 'N/A')}원")
+            tot_amt = output2.get('tot_evlu_amt', 'N/A')
+            ord_cash = output2.get('ord_psbl_cash', 'N/A')
+            evlu_pf = output2.get('evlu_pfls_smtl_amt', 'N/A')
+            
+            if tot_amt != 'N/A':
+                print(f"   💵 총 평가 금액: {int(tot_amt):,}원")
+            else:
+                print(f"   💵 총 평가 금액: {tot_amt}원")
+                
+            print(f"   💳 주문 가능 현금: {ord_cash}원")
+            print(f"   📈 총 평가 손익: {evlu_pf}원")
         else:
             print("❌ 계좌 정보 조회 실패")
     
@@ -144,9 +163,21 @@ class TradingUI:
         if price and price.get('rt_cd') == '0':
             output = price.get('output', {})
             print(f"\n✅ {stock_code} 현재가 정보:")
-            print(f"   💰 현재가: {output.get('stck_prpr', 'N/A'):,}원")
-            print(f"   📊 등락율: {output.get('prdy_ctrt', 'N/A')}%")
-            print(f"   📈 거래량: {output.get('acml_vol', 'N/A'):,}")
+            price = output.get('stck_prpr', 'N/A')
+            rate = output.get('prdy_ctrt', 'N/A')
+            vol = output.get('acml_vol', 'N/A')
+            
+            if price != 'N/A':
+                print(f"   💰 현재가: {int(price):,}원")
+            else:
+                print(f"   💰 현재가: {price}원")
+                
+            print(f"   📊 등락율: {rate}%")
+            
+            if vol != 'N/A':
+                print(f"   📈 거래량: {int(vol):,}")
+            else:
+                print(f"   📈 거래량: {vol}")
         else:
             print("❌ 현재가 조회 실패")
     

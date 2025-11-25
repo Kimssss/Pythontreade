@@ -29,7 +29,7 @@ class KisAPI:
         
         self.access_token = None
         
-    def get_access_token(self):
+    def get_access_token(self, retry_count=3):
         """액세스 토큰 발급"""
         url = f"{self.base_url}/oauth2/tokenP"
         
@@ -43,22 +43,52 @@ class KisAPI:
             "appsecret": self.appsecret
         }
         
-        try:
-            response = requests.post(url, headers=headers, data=json.dumps(body))
-            response.raise_for_status()
-            
-            result = response.json()
-            if 'access_token' in result:
-                self.access_token = result['access_token']
-                print(f"토큰 발급 성공: {self.access_token[:20]}...")
-                return True
-            else:
-                print(f"토큰 발급 실패: {result}")
-                return False
+        for attempt in range(retry_count):
+            try:
+                print(f"토큰 발급 시도 {attempt + 1}/{retry_count}...")
+                response = requests.post(url, headers=headers, data=json.dumps(body), timeout=10)
                 
-        except Exception as e:
-            print(f"토큰 발급 중 오류 발생: {e}")
-            return False
+                if response.status_code == 200:
+                    result = response.json()
+                    if 'access_token' in result:
+                        self.access_token = result['access_token']
+                        print(f"토큰 발급 성공: {self.access_token[:20]}...")
+                        return True
+                    else:
+                        print(f"토큰 발급 실패: {result}")
+                        return False
+                elif response.status_code == 403:
+                    print(f"403 오류 - API 키나 권한을 확인하세요")
+                    print(f"응답: {response.text}")
+                    if attempt < retry_count - 1:
+                        import time
+                        print(f"5초 후 재시도...")
+                        time.sleep(5)
+                        continue
+                    return False
+                else:
+                    response.raise_for_status()
+                
+            except requests.exceptions.Timeout:
+                print(f"타임아웃 오류 (시도 {attempt + 1}/{retry_count})")
+                if attempt < retry_count - 1:
+                    import time
+                    time.sleep(2)
+                    continue
+            except requests.exceptions.RequestException as e:
+                print(f"네트워크 오류: {e}")
+                if attempt < retry_count - 1:
+                    import time
+                    time.sleep(2)
+                    continue
+            except Exception as e:
+                print(f"토큰 발급 중 오류 발생: {e}")
+                if attempt < retry_count - 1:
+                    import time
+                    time.sleep(2)
+                    continue
+        
+        return False
     
     def get_hashkey(self, data):
         """해시키 생성"""
