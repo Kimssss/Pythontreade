@@ -267,9 +267,9 @@ class KisAPI:
         if not self.access_token:
             if not self.get_access_token():
                 return None
-        
+
         url = f"{self.base_url}/uapi/domestic-stock/v1/trading/inquire-psbl-order"
-        
+
         headers = {
             "content-type": "application/json; charset=utf-8",
             "authorization": f"Bearer {self.access_token}",
@@ -277,7 +277,7 @@ class KisAPI:
             "appsecret": self.appsecret,
             "tr_id": "VTTC8001R" if not self.is_real else "TTTC8001R"
         }
-        
+
         params = {
             "CANO": self.account_no.split('-')[0],
             "ACNT_PRDT_CD": self.account_no.split('-')[1],
@@ -286,16 +286,136 @@ class KisAPI:
             "INQR_DVSN_1": "0",
             "INQR_DVSN_2": "0"
         }
-        
+
         try:
             response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()
-            
+
             result = response.json()
             return result
-            
+
         except Exception as e:
             print(f"주문 내역 조회 중 오류 발생: {e}")
+            return None
+
+    def get_daily_price(self, stock_code, period_type="D", count=100):
+        """일봉/주봉/월봉 데이터 조회"""
+        if not self.access_token:
+            if not self.get_access_token():
+                return None
+
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice"
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHKST03010100"
+        }
+
+        # 오늘 날짜
+        today = datetime.now().strftime("%Y%m%d")
+
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+            "FID_INPUT_DATE_1": "20200101",
+            "FID_INPUT_DATE_2": today,
+            "FID_PERIOD_DIV_CODE": period_type,  # D:일, W:주, M:월
+            "FID_ORG_ADJ_PRC": "0"
+        }
+
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+
+            result = response.json()
+            return result
+
+        except Exception as e:
+            print(f"일봉 데이터 조회 중 오류 발생: {e}")
+            return None
+
+    def get_volume_rank(self):
+        """거래량 급등 종목 조회"""
+        if not self.access_token:
+            if not self.get_access_token():
+                return None
+
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/volume-rank"
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHPST01710000"
+        }
+
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_COND_SCR_DIV_CODE": "20101",
+            "FID_INPUT_ISCD": "0000",
+            "FID_DIV_CLS_CODE": "0",
+            "FID_BLNG_CLS_CODE": "0",
+            "FID_TRGT_CLS_CODE": "111111111",
+            "FID_TRGT_EXLS_CLS_CODE": "000000",
+            "FID_INPUT_PRICE_1": "0",
+            "FID_INPUT_PRICE_2": "0",
+            "FID_VOL_CNT": "0",
+            "FID_INPUT_DATE_1": ""
+        }
+
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+
+            result = response.json()
+            return result
+
+        except Exception as e:
+            print(f"거래량 순위 조회 중 오류 발생: {e}")
+            return None
+
+    def get_market_cap_rank(self):
+        """시가총액 상위 종목 조회 (우량주)"""
+        if not self.access_token:
+            if not self.get_access_token():
+                return None
+
+        url = f"{self.base_url}/uapi/domestic-stock/v1/ranking/market-cap"
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHPST01740000"
+        }
+
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_COND_SCR_DIV_CODE": "20174",
+            "FID_INPUT_ISCD": "0000",
+            "FID_DIV_CLS_CODE": "0",
+            "FID_BLNG_CLS_CODE": "0",
+            "FID_TRGT_CLS_CODE": "0",
+            "FID_TRGT_EXLS_CLS_CODE": "0",
+            "FID_INPUT_PRICE_1": "0",
+            "FID_INPUT_PRICE_2": "0",
+            "FID_VOL_CNT": "0"
+        }
+
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+
+            result = response.json()
+            return result
+
+        except Exception as e:
+            print(f"시가총액 순위 조회 중 오류 발생: {e}")
             return None
 
 # 사용 예시
