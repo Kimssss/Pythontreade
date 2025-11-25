@@ -1,0 +1,279 @@
+import os
+import sys
+from kis_api import KisAPI
+
+class TradingUI:
+    def __init__(self):
+        self.api = None
+        self.current_mode = None
+        
+        # 계좌 정보
+        self.accounts = {
+            'real': {
+                'appkey': 'PSCqWTEJAst52ZjLzjv78vCj0eEUix0TNOzS',
+                'appsecret': 'I9iBCx+BK++QFgq6mb6KPJj/x7I0jB/8L9xl79NGoFLvVknEpIST/yWwKuyoe9rwUIwAYVDmwip1+/ety0NTTtFrTNwV6Gym5sVRRN1r3iEC+/UsMN0POLH3Ba3OhwG96EqCCk2aI1CfOKS9AHf9i1lnPucAGOxGzXOVL2FqTsEZaUchOTI=',
+                'account': '74824766-01'
+            },
+            'demo': {
+                'appkey': 'PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I',
+                'appsecret': 'acvrN9QSZYfam2V2rAEyFsUisSv1dyDo8kXD3JXHeGQUqxLtZrQYngSlb/RVqhsxuAhPnbJodPXyakzqrxbsBX54ZOZnkduxKFnqqEqxgFte+UjmZvxgyRPx4BrxzUnZY6zEH3qh9n8tzDm6J6oEdyVURXIES26lIEca5BZ7+YyHgG87YKQ=',
+                'account': '50144239-01'
+            }
+        }
+    
+    def clear_screen(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+    
+    def print_header(self):
+        print("=" * 60)
+        print("🏦 한국투자증권 자동매매 시스템")
+        print("=" * 60)
+        if self.current_mode:
+            mode_text = "🔴 실전투자" if self.current_mode == 'real' else "🟡 모의투자"
+            print(f"현재 모드: {mode_text}")
+            print("-" * 60)
+    
+    def show_mode_selection(self):
+        self.clear_screen()
+        self.print_header()
+        print("\n📊 투자 모드를 선택해주세요:")
+        print()
+        print("1. 🟡 모의투자 모드")
+        print("   - 가상 자금으로 안전하게 테스트")
+        print("   - 실제 손실 위험 없음")
+        print("   - 전략 검증 및 학습용")
+        print()
+        print("2. 🔴 실전투자 모드")
+        print("   - 실제 자금으로 거래")
+        print("   - ⚠️  실제 손실 위험 있음")
+        print("   - 충분한 검증 후 사용 권장")
+        print()
+        print("0. ❌ 종료")
+        print()
+    
+    def select_mode(self):
+        while True:
+            self.show_mode_selection()
+            choice = input("선택하세요 (0-2): ").strip()
+            
+            if choice == '0':
+                print("\n👋 프로그램을 종료합니다.")
+                sys.exit()
+            elif choice == '1':
+                self.current_mode = 'demo'
+                self.setup_api('demo')
+                break
+            elif choice == '2':
+                print("\n⚠️  실전투자 모드를 선택하셨습니다.")
+                confirm = input("실제 자금 손실 위험이 있습니다. 계속하시겠습니까? (y/N): ").strip().lower()
+                if confirm == 'y':
+                    self.current_mode = 'real'
+                    self.setup_api('real')
+                    break
+                else:
+                    print("모의투자 모드로 전환합니다.")
+                    self.current_mode = 'demo'
+                    self.setup_api('demo')
+                    break
+            else:
+                print("❌ 잘못된 선택입니다. 다시 선택해주세요.")
+                input("엔터를 눌러 계속...")
+    
+    def setup_api(self, mode):
+        account_info = self.accounts[mode]
+        is_real = (mode == 'real')
+        
+        self.api = KisAPI(
+            account_info['appkey'],
+            account_info['appsecret'], 
+            account_info['account'],
+            is_real=is_real
+        )
+        
+        print(f"\n🔄 {('실전투자' if is_real else '모의투자')} API 연결 중...")
+        if self.api.get_access_token():
+            print("✅ API 연결 성공!")
+            input("엔터를 눌러 메인 메뉴로...")
+        else:
+            print("❌ API 연결 실패!")
+            input("엔터를 눌러 다시 시도...")
+            self.select_mode()
+    
+    def show_main_menu(self):
+        self.clear_screen()
+        self.print_header()
+        print("\n📋 메인 메뉴:")
+        print()
+        print("1. 💰 계좌 정보 조회")
+        print("2. 📈 주식 현재가 조회")
+        print("3. 🛒 주식 매수")
+        print("4. 🛍️  주식 매도") 
+        print("5. 📊 주문 내역 조회")
+        print("6. 🔄 모드 변경")
+        print("0. ❌ 종료")
+        print()
+    
+    def get_balance_info(self):
+        print("\n🔄 계좌 정보를 조회합니다...")
+        balance = self.api.get_balance()
+        
+        if balance and balance.get('rt_cd') == '0':
+            output2 = balance.get('output2', [{}])[0]
+            print("\n✅ 계좌 정보:")
+            print(f"   💵 총 평가 금액: {output2.get('tot_evlu_amt', 'N/A'):,}원")
+            print(f"   💳 주문 가능 현금: {output2.get('ord_psbl_cash', 'N/A')}원")
+            print(f"   📈 총 평가 손익: {output2.get('evlu_pfls_smtl_amt', 'N/A')}원")
+        else:
+            print("❌ 계좌 정보 조회 실패")
+    
+    def get_stock_price_info(self):
+        stock_code = input("\n📈 주식 종목코드를 입력하세요 (예: 005930): ").strip()
+        if not stock_code:
+            print("❌ 종목코드가 입력되지 않았습니다.")
+            return
+        
+        print(f"\n🔄 {stock_code} 현재가를 조회합니다...")
+        price = self.api.get_stock_price(stock_code)
+        
+        if price and price.get('rt_cd') == '0':
+            output = price.get('output', {})
+            print(f"\n✅ {stock_code} 현재가 정보:")
+            print(f"   💰 현재가: {output.get('stck_prpr', 'N/A'):,}원")
+            print(f"   📊 등락율: {output.get('prdy_ctrt', 'N/A')}%")
+            print(f"   📈 거래량: {output.get('acml_vol', 'N/A'):,}")
+        else:
+            print("❌ 현재가 조회 실패")
+    
+    def buy_stock_menu(self):
+        print(f"\n🛒 주식 매수 - {('실전투자' if self.current_mode == 'real' else '모의투자')} 모드")
+        
+        if self.current_mode == 'real':
+            print("⚠️  실제 자금으로 매수 주문을 실행합니다!")
+            confirm = input("정말 진행하시겠습니까? (y/N): ").strip().lower()
+            if confirm != 'y':
+                print("매수 주문을 취소했습니다.")
+                return
+        
+        stock_code = input("종목코드: ").strip()
+        if not stock_code:
+            print("❌ 종목코드가 입력되지 않았습니다.")
+            return
+            
+        try:
+            quantity = int(input("수량: "))
+            order_type = input("주문구분 (1:지정가, 3:시장가) [기본값:3]: ").strip() or "03"
+            
+            if order_type == "1" or order_type == "01":
+                price = int(input("주문가격: "))
+                order_type = "01"
+            else:
+                price = 0
+                order_type = "03"
+            
+            print(f"\n🔄 매수 주문을 실행합니다...")
+            result = self.api.buy_stock(stock_code, quantity, price, order_type)
+            
+            if result and result.get('rt_cd') == '0':
+                print("✅ 매수 주문 성공!")
+                output = result.get('output', {})
+                print(f"   📋 주문번호: {output.get('ODNO', 'N/A')}")
+            else:
+                print("❌ 매수 주문 실패:", result.get('msg1', 'Unknown error'))
+                
+        except ValueError:
+            print("❌ 잘못된 입력입니다.")
+    
+    def sell_stock_menu(self):
+        print(f"\n🛍️  주식 매도 - {('실전투자' if self.current_mode == 'real' else '모의투자')} 모드")
+        
+        if self.current_mode == 'real':
+            print("⚠️  실제 자금으로 매도 주문을 실행합니다!")
+            confirm = input("정말 진행하시겠습니까? (y/N): ").strip().lower()
+            if confirm != 'y':
+                print("매도 주문을 취소했습니다.")
+                return
+        
+        stock_code = input("종목코드: ").strip()
+        if not stock_code:
+            print("❌ 종목코드가 입력되지 않았습니다.")
+            return
+            
+        try:
+            quantity = int(input("수량: "))
+            order_type = input("주문구분 (1:지정가, 3:시장가) [기본값:3]: ").strip() or "03"
+            
+            if order_type == "1" or order_type == "01":
+                price = int(input("주문가격: "))
+                order_type = "01"
+            else:
+                price = 0
+                order_type = "03"
+            
+            print(f"\n🔄 매도 주문을 실행합니다...")
+            result = self.api.sell_stock(stock_code, quantity, price, order_type)
+            
+            if result and result.get('rt_cd') == '0':
+                print("✅ 매도 주문 성공!")
+                output = result.get('output', {})
+                print(f"   📋 주문번호: {output.get('ODNO', 'N/A')}")
+            else:
+                print("❌ 매도 주문 실패:", result.get('msg1', 'Unknown error'))
+                
+        except ValueError:
+            print("❌ 잘못된 입력입니다.")
+    
+    def get_orders_info(self):
+        print("\n🔄 주문 내역을 조회합니다...")
+        orders = self.api.get_orders()
+        
+        if orders and orders.get('rt_cd') == '0':
+            order_list = orders.get('output', [])
+            print(f"\n✅ 주문 내역 ({len(order_list)}건):")
+            
+            if order_list:
+                for i, order in enumerate(order_list[:5], 1):
+                    print(f"   {i}. {order.get('pdno', 'N/A')} | "
+                          f"{order.get('ord_qty', 'N/A')}주 | "
+                          f"{order.get('ord_unpr', 'N/A')}원")
+            else:
+                print("   주문 내역이 없습니다.")
+        else:
+            print("❌ 주문 내역 조회 실패")
+    
+    def run(self):
+        try:
+            self.select_mode()
+            
+            while True:
+                self.show_main_menu()
+                choice = input("메뉴를 선택하세요 (0-6): ").strip()
+                
+                if choice == '0':
+                    print("\n👋 프로그램을 종료합니다.")
+                    break
+                elif choice == '1':
+                    self.get_balance_info()
+                elif choice == '2':
+                    self.get_stock_price_info()
+                elif choice == '3':
+                    self.buy_stock_menu()
+                elif choice == '4':
+                    self.sell_stock_menu()
+                elif choice == '5':
+                    self.get_orders_info()
+                elif choice == '6':
+                    self.select_mode()
+                    continue
+                else:
+                    print("❌ 잘못된 선택입니다.")
+                
+                input("\n엔터를 눌러 계속...")
+                
+        except KeyboardInterrupt:
+            print("\n\n👋 프로그램을 종료합니다.")
+        except Exception as e:
+            print(f"\n❌ 오류 발생: {e}")
+
+if __name__ == "__main__":
+    ui = TradingUI()
+    ui.run()
