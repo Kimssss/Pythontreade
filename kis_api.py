@@ -29,6 +29,7 @@ class KisAPI:
             self.base_url = "https://openapivts.koreainvestment.com:29443"
         
         self.access_token = None
+        self.token_expire_time = None
         
     def get_access_token(self, retry_count=3):
         """액세스 토큰 발급"""
@@ -53,7 +54,11 @@ class KisAPI:
                     result = response.json()
                     if 'access_token' in result:
                         self.access_token = result['access_token']
+                        # 토큰 만료시간 설정 (일반적으로 24시간 유효)
+                        expires_in = result.get('expires_in', 86400)  # 기본 24시간
+                        self.token_expire_time = datetime.now() + timedelta(seconds=expires_in - 300)  # 5분 여유
                         print(f"토큰 발급 성공: {self.access_token[:20]}...")
+                        print(f"토큰 만료시간: {self.token_expire_time}")
                         return True
                     else:
                         print(f"토큰 발급 실패: {result}")
@@ -91,6 +96,31 @@ class KisAPI:
         
         return False
     
+    def is_token_expired(self):
+        """토큰 만료 여부 확인"""
+        if not self.access_token or not self.token_expire_time:
+            return True
+        return datetime.now() >= self.token_expire_time
+    
+    def refresh_token_if_needed(self):
+        """필요시 토큰 갱신"""
+        if self.is_token_expired():
+            print("토큰이 만료되어 재발급을 시도합니다...")
+            return self.get_access_token()
+        return True
+    
+    def ensure_valid_token(self):
+        """유효한 토큰 확보 (만료시 자동 갱신)"""
+        if not self.access_token or self.is_token_expired():
+            return self.get_access_token()
+        return True
+    
+    def set_token_expiry_for_testing(self, minutes_from_now):
+        """테스트용: 토큰 만료시간 설정"""
+        if self.token_expire_time:
+            self.token_expire_time = datetime.now() + timedelta(minutes=minutes_from_now)
+            print(f"테스트용 토큰 만료시간 설정: {self.token_expire_time}")
+    
     def get_hashkey(self, data):
         """해시키 생성"""
         url = f"{self.base_url}/uapi/hashkey"
@@ -112,11 +142,66 @@ class KisAPI:
             print(f"해시키 생성 중 오류 발생: {e}")
             return ""
     
+    def _make_api_request(self, method, url, headers=None, params=None, data=None, retry_on_auth_error=True):
+        """
+        인증 에러 시 토큰 갱신하여 재시도하는 공통 API 요청 메서드
+        
+        Args:
+            method: HTTP 메서드 ('GET', 'POST')
+            url: 요청 URL
+            headers: 요청 헤더
+            params: 쿼리 파라미터 (GET 요청시)
+            data: 요청 데이터 (POST 요청시)
+            retry_on_auth_error: 인증 에러시 재시도 여부
+        
+        Returns:
+            응답 객체 또는 None
+        """
+        try:
+            if method.upper() == 'GET':
+                response = requests.get(url, headers=headers, params=params)
+            else:
+                response = requests.post(url, headers=headers, data=data)
+            
+            # 인증 에러 처리 (401, 403) - 500 에러는 토큰 문제일 수 있음
+            if response.status_code in [401, 403, 500] and retry_on_auth_error:
+                error_msg = ""
+                try:
+                    error_data = response.json()
+                    error_msg = error_data.get('error_description', '')
+                except:
+                    pass
+                
+                # 토큰 관련 에러인지 확인
+                if any(keyword in error_msg.lower() for keyword in ['token', '토큰', 'auth', 'unauthorized']):
+                    print(f"토큰 관련 에러 발생 (HTTP {response.status_code}). 토큰 갱신 후 재시도...")
+                    if self.get_access_token():
+                        # 헤더의 토큰 갱신
+                        if headers and 'authorization' in headers:
+                            headers['authorization'] = f"Bearer {self.access_token}"
+                        # 재시도
+                        if method.upper() == 'GET':
+                            response = requests.get(url, headers=headers, params=params)
+                        else:
+                            response = requests.post(url, headers=headers, data=data)
+                    else:
+                        print("토큰 갱신 실패")
+                        return None
+                elif response.status_code in [401, 403]:
+                    print(f"인증 에러 발생 (HTTP {response.status_code}): {error_msg}")
+                    return None
+            
+            response.raise_for_status()
+            return response
+            
+        except Exception as e:
+            print(f"API 요청 중 오류 발생: {e}")
+            return None
+    
     def get_balance(self):
         """계좌 잔고 조회"""
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
         
         url = f"{self.base_url}/uapi/domestic-stock/v1/trading/inquire-balance"
         
@@ -142,22 +227,15 @@ class KisAPI:
             "CTX_AREA_NK100": ""
         }
         
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            response.raise_for_status()
-            
-            result = response.json()
-            return result
-            
-        except Exception as e:
-            print(f"잔고 조회 중 오류 발생: {e}")
-            return None
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
+            return response.json()
+        return None
     
     def get_stock_price(self, stock_code):
         """주식 현재가 조회"""
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
         
         url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-price"
         
@@ -174,22 +252,15 @@ class KisAPI:
             "FID_INPUT_ISCD": stock_code
         }
         
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            response.raise_for_status()
-            
-            result = response.json()
-            return result
-            
-        except Exception as e:
-            print(f"주식 현재가 조회 중 오류 발생: {e}")
-            return None
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
+            return response.json()
+        return None
     
     def buy_stock(self, stock_code, quantity, price=0, order_type="01"):
         """주식 매수 주문"""
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
         
         url = f"{self.base_url}/uapi/domestic-stock/v1/trading/order-cash"
         
@@ -213,22 +284,15 @@ class KisAPI:
             "hashkey": hashkey
         }
         
-        try:
-            response = requests.post(url, headers=headers, data=json.dumps(order_data))
-            response.raise_for_status()
-            
-            result = response.json()
-            return result
-            
-        except Exception as e:
-            print(f"매수 주문 중 오류 발생: {e}")
-            return None
+        response = self._make_api_request('POST', url, headers=headers, data=json.dumps(order_data))
+        if response:
+            return response.json()
+        return None
     
     def sell_stock(self, stock_code, quantity, price=0, order_type="01"):
         """주식 매도 주문"""
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
         
         url = f"{self.base_url}/uapi/domestic-stock/v1/trading/order-cash"
         
@@ -252,22 +316,15 @@ class KisAPI:
             "hashkey": hashkey
         }
         
-        try:
-            response = requests.post(url, headers=headers, data=json.dumps(order_data))
-            response.raise_for_status()
-            
-            result = response.json()
-            return result
-            
-        except Exception as e:
-            print(f"매도 주문 중 오류 발생: {e}")
-            return None
+        response = self._make_api_request('POST', url, headers=headers, data=json.dumps(order_data))
+        if response:
+            return response.json()
+        return None
     
     def get_orders(self):
         """주문 내역 조회"""
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
         
         url = f"{self.base_url}/uapi/domestic-stock/v1/trading/inquire-psbl-order"
         
@@ -288,16 +345,10 @@ class KisAPI:
             "INQR_DVSN_2": "0"
         }
         
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            response.raise_for_status()
-            
-            result = response.json()
-            return result
-
-        except Exception as e:
-            print(f"주문 내역 조회 중 오류 발생: {e}")
-            return None
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
+            return response.json()
+        return None
 
     def get_daily_price(self, stock_code, period_type="D", count=30):
         """
@@ -311,9 +362,8 @@ class KisAPI:
         Returns:
             일별 시세 데이터
         """
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
 
         url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
 
@@ -332,13 +382,10 @@ class KisAPI:
             "FID_ORG_ADJ_PRC": "0"
         }
 
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            response.raise_for_status()
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
             return response.json()
-        except Exception as e:
-            print(f"일별 시세 조회 중 오류 발생: {e}")
-            return None
+        return None
 
     def get_volume_rank(self, market="J"):
         """
@@ -350,9 +397,8 @@ class KisAPI:
         Returns:
             거래량 순위 데이터
         """
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
 
         url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/volume-rank"
 
@@ -378,13 +424,10 @@ class KisAPI:
             "FID_INPUT_DATE_1": ""
         }
 
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            response.raise_for_status()
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
             return response.json()
-        except Exception as e:
-            print(f"거래량 순위 조회 중 오류 발생: {e}")
-            return None
+        return None
 
     def get_fluctuation_rank(self, market="J", sort_type="0"):
         """
@@ -397,9 +440,8 @@ class KisAPI:
         Returns:
             등락률 순위 데이터
         """
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
 
         url = f"{self.base_url}/uapi/domestic-stock/v1/ranking/fluctuation"
 
@@ -428,13 +470,10 @@ class KisAPI:
             "fid_rsfl_rate2": ""
         }
 
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            response.raise_for_status()
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
             return response.json()
-        except Exception as e:
-            print(f"등락률 순위 조회 중 오류 발생: {e}")
-            return None
+        return None
 
     def get_market_cap_rank(self, market="J"):
         """
@@ -446,9 +485,8 @@ class KisAPI:
         Returns:
             시가총액 순위 데이터
         """
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
 
         url = f"{self.base_url}/uapi/domestic-stock/v1/ranking/market-cap"
 
@@ -472,13 +510,10 @@ class KisAPI:
             "fid_vol_cnt": ""
         }
 
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            response.raise_for_status()
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
             return response.json()
-        except Exception as e:
-            print(f"시가총액 순위 조회 중 오류 발생: {e}")
-            return None
+        return None
 
     def get_stock_info(self, stock_code):
         """
@@ -490,9 +525,8 @@ class KisAPI:
         Returns:
             종목 기본 정보
         """
-        if not self.access_token:
-            if not self.get_access_token():
-                return None
+        if not self.ensure_valid_token():
+            return None
 
         url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/search-stock-info"
 
@@ -509,13 +543,10 @@ class KisAPI:
             "PDNO": stock_code
         }
 
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            response.raise_for_status()
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
             return response.json()
-        except Exception as e:
-            print(f"종목 정보 조회 중 오류 발생: {e}")
-            return None
+        return None
 
     def get_holding_stocks(self):
         """
