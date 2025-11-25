@@ -11,12 +11,14 @@ from datetime import datetime, timedelta
 from typing import Dict, Optional, Callable
 from strategies.momentum_volume_strategy import MomentumVolumeStrategy
 from strategies.volatility_breakout_strategy import VolatilityBreakoutStrategy
+from strategies.crewai_strategy import CrewAIStrategy
 
 
 # 전략 타입 상수
 STRATEGY_MOMENTUM = 'momentum'
 STRATEGY_VOLATILITY = 'volatility'
 STRATEGY_COMBINED = 'combined'
+STRATEGY_CREWAI = 'crewai'
 
 
 class AutoTrader:
@@ -65,6 +67,10 @@ class AutoTrader:
         if strategy_type == STRATEGY_VOLATILITY:
             self.strategy = VolatilityBreakoutStrategy(self.api, config)
             self.log(f"전략 초기화: 변동성 돌파 (K={self.strategy.config.get('k_value', 0.5)})")
+        elif strategy_type == STRATEGY_CREWAI:
+            # CrewAI 멀티 에이전트 전략
+            self.strategy = CrewAIStrategy(self.api, config)
+            self.log("전략 초기화: Ollama + CrewAI 멀티 에이전트")
         elif strategy_type == STRATEGY_COMBINED:
             # 복합 전략: 두 전략 모두 사용
             self.momentum_strategy = MomentumVolumeStrategy(self.api, config)
@@ -428,5 +434,11 @@ class AutoTraderManager:
                 'name': '복합 전략',
                 'description': '시간대별 전략 자동 전환',
                 'holding_period': '혼합'
+            },
+            STRATEGY_CREWAI: {
+                'name': 'Ollama + CrewAI 멀티 에이전트',
+                'description': 'AI 기반 기술적 분석 + 뉴스 감성 분석 + 종합 판단',
+                'holding_period': '1-3일',
+                'features': ['거래량 상위 50종목 스캔', '보유 종목 필수 분석', '뉴스 감성 분석']
             }
         }
