@@ -4,7 +4,10 @@ import hashlib
 import hmac
 import base64
 import time
+import pickle
+import os
 from datetime import datetime, timedelta
+from pathlib import Path
 
 class KisAPI:
     def __init__(self, appkey, appsecret, account_no, is_real=False):
@@ -31,8 +34,77 @@ class KisAPI:
         self.access_token = None
         self.token_expire_time = None
         
+        # 토큰 캐시 파일 경로
+        self.cache_dir = Path("cache")
+        self.cache_dir.mkdir(exist_ok=True)
+        mode_str = "real" if is_real else "demo"
+        self.token_cache_file = self.cache_dir / f"token_{mode_str}_{appkey[:10]}.pkl"
+        
+        # 캐시된 토큰 로드 시도
+        self._load_cached_token()
+    
+    def _load_cached_token(self):
+        """캐시된 토큰 로드"""
+        try:
+            if self.token_cache_file.exists():
+                with open(self.token_cache_file, 'rb') as f:
+                    cache_data = pickle.load(f)
+                
+                self.access_token = cache_data.get('access_token')
+                self.token_expire_time = cache_data.get('token_expire_time')
+                
+                # 토큰이 유효한지 확인
+                if self.access_token and self.token_expire_time:
+                    if datetime.now() < self.token_expire_time:
+                        print(f"✅ 캐시된 토큰 로드 성공 (만료: {self.token_expire_time})")
+                        return True
+                    else:
+                        print(f"⚠️ 캐시된 토큰이 만료됨 (만료: {self.token_expire_time})")
+                        self._clear_cached_token()
+                        
+        except Exception as e:
+            print(f"⚠️ 토큰 캐시 로드 실패: {e}")
+            self._clear_cached_token()
+        
+        return False
+    
+    def _save_cached_token(self):
+        """토큰 캐시에 저장"""
+        try:
+            cache_data = {
+                'access_token': self.access_token,
+                'token_expire_time': self.token_expire_time,
+                'saved_at': datetime.now()
+            }
+            
+            with open(self.token_cache_file, 'wb') as f:
+                pickle.dump(cache_data, f)
+            
+            print(f"💾 토큰 캐시 저장 완료: {self.token_cache_file}")
+            
+        except Exception as e:
+            print(f"⚠️ 토큰 캐시 저장 실패: {e}")
+    
+    def _clear_cached_token(self):
+        """토큰 캐시 삭제"""
+        try:
+            if self.token_cache_file.exists():
+                self.token_cache_file.unlink()
+            self.access_token = None
+            self.token_expire_time = None
+        except Exception as e:
+            print(f"⚠️ 토큰 캐시 삭제 실패: {e}")
+        
     def get_access_token(self, retry_count=3):
-        """액세스 토큰 발급"""
+        """액세스 토큰 발급 (캐시 우선 사용)"""
+        # 먼저 캐시된 토큰이 유효한지 확인
+        if self.access_token and self.token_expire_time:
+            if datetime.now() < self.token_expire_time:
+                print(f"🔄 기존 토큰 재사용 (만료: {self.token_expire_time})")
+                return True
+        
+        # 캐시된 토큰이 없거나 만료된 경우에만 새로 발급
+        print("🔑 새로운 토큰 발급 요청...")
         url = f"{self.base_url}/oauth2/tokenP"
         
         headers = {
@@ -59,6 +131,9 @@ class KisAPI:
                         self.token_expire_time = datetime.now() + timedelta(seconds=expires_in - 300)  # 5분 여유
                         print(f"토큰 발급 성공: {self.access_token[:20]}...")
                         print(f"토큰 만료시간: {self.token_expire_time}")
+                        
+                        # 토큰을 캐시에 저장
+                        self._save_cached_token()
                         return True
                     else:
                         print(f"토큰 발급 실패: {result}")

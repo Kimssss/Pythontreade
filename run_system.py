@@ -16,10 +16,11 @@ def main():
     print("1. 기본 DQN 시스템 (ai_trading_system.py)")
     print("2. 고급 멀티 에이전트 시스템 (advanced_ai_system.py)")
     print("3. 모니터링 대시보드 (dashboard.py)")
-    print("4. 패키지 설치 (auto_install.py)")
+    print("4. 간소 대시보드 (simple_dashboard.py) 🔥 추천")
+    print("5. 패키지 설치 (auto_install.py)")
     print("-" * 50)
     
-    choice = input("실행할 시스템을 선택하세요 (1-4): ").strip()
+    choice = input("실행할 시스템을 선택하세요 (1-5): ").strip()
     
     try:
         if choice == "1":
@@ -37,6 +38,10 @@ def main():
             os.system("streamlit run dashboard.py")
             
         elif choice == "4":
+            print("🚀 간소 대시보드 실행 (토큰 캐싱 적용)...")
+            os.system("streamlit run simple_dashboard.py")
+            
+        elif choice == "5":
             print("🔧 패키지 설치 실행...")
             import auto_install
             auto_install.main()

@@ -59,9 +59,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-@st.cache_data(ttl=300)  # 5분 캐시
+@st.cache_resource
 def load_kis_api(mode='demo'):
-    """KIS API 로드"""
+    """KIS API 로드 (캐시됨)"""
     try:
         account_info = Config.get_account_info(mode)
         api = KisAPI(
@@ -76,9 +76,8 @@ def load_kis_api(mode='demo'):
         st.error(f"API 초기화 실패: {e}")
     return None
 
-@st.cache_data(ttl=60)  # 1분 캐시
 def get_portfolio_data(api):
-    """포트폴리오 데이터 조회"""
+    """포트폴리오 데이터 조회 (에러 처리 강화)"""
     if not api:
         return None, None, None
     
@@ -89,7 +88,8 @@ def get_portfolio_data(api):
         
         return balance, holdings, available_cash
     except Exception as e:
-        st.error(f"포트폴리오 데이터 조회 실패: {e}")
+        st.warning(f"⚠️ 포트폴리오 데이터 조회 실패: {e}")
+        st.info("💡 데모 서버 불안정성으로 인한 일시적 오류일 수 있습니다.")
         return None, None, None
 
 def load_performance_log(mode='demo'):
@@ -296,10 +296,10 @@ def main():
     
     if auto_refresh:
         st.sidebar.markdown("🔄 자동 새로고침 활성화")
-        # 30초마다 새로고침
-        import time
-        time.sleep(1)
-        st.rerun()
+        # 자동 새로고침 비활성화 (수동으로 새로고침)
+        # import time
+        # time.sleep(1)
+        # st.rerun()
     
     # API 초기화
     api = load_kis_api(mode)
@@ -425,13 +425,15 @@ def main():
     else:
         st.info("현재 보유 중인 주식이 없습니다.")
     
-    # 시장 정보
+    # 시장 정보 (에러 처리 강화)
     st.header("📊 시장 정보")
     
     major_stocks = ['005930', '000660', '035420']  # 삼성전자, SK하이닉스, NAVER
     stock_names = {'005930': '삼성전자', '000660': 'SK하이닉스', '035420': 'NAVER'}
     
     market_data = []
+    error_count = 0
+    
     for stock_code in major_stocks:
         try:
             price_data = api.get_stock_price(stock_code)
@@ -444,7 +446,10 @@ def main():
                     '등락률': float(output['prdy_ctrt']),
                     '거래량': int(output['acml_vol'])
                 })
-        except:
+            else:
+                error_count += 1
+        except Exception as e:
+            error_count += 1
             continue
     
     if market_data:
@@ -459,6 +464,11 @@ def main():
             },
             use_container_width=True
         )
+    else:
+        st.warning("⚠️ 시장 데이터를 불러올 수 없습니다.")
+        
+    if error_count > 0:
+        st.info(f"💡 {error_count}개 종목 조회 실패 (데모 서버 불안정성)")
     
     # 푸터
     st.markdown("---")
