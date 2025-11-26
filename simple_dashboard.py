@@ -14,7 +14,7 @@ from datetime import datetime
 import json
 from pathlib import Path
 
-from kis_api import KisAPI
+from kis_api_enhanced import KisAPIEnhanced as KisAPI
 from config import Config
 
 st.set_page_config(

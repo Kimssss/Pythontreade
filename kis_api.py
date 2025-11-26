@@ -667,6 +667,76 @@ class KisAPI:
             return int(output2[0].get('ord_psbl_cash', 0))
         return 0
 
+    def get_orderbook(self, stock_code):
+        """
+        주식 호가 정보 조회 (10호가)
+        
+        Args:
+            stock_code: 종목코드
+            
+        Returns:
+            호가 정보
+        """
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHKST01010200"
+        }
+        
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code
+        }
+        
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
+            return response.json()
+        return None
+    
+    def get_minute_data(self, stock_code, time_type="1"):
+        """
+        주식 분봉 데이터 조회
+        
+        Args:
+            stock_code: 종목코드
+            time_type: 분봉 타입 (1:1분, 3:3분, 5:5분, 10:10분, 15:15분, 30:30분, 60:60분)
+            
+        Returns:
+            분봉 데이터
+        """
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHKST03010200"
+        }
+        
+        params = {
+            "FID_ETC_CLS_CODE": "",
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+            "FID_INPUT_HOUR_1": time_type,
+            "FID_PW_DATA_INCU_YN": "Y"
+        }
+        
+        response = self._make_api_request('GET', url, headers=headers, params=params)
+        if response:
+            return response.json()
+        return None
+
 # 사용 예시
 if __name__ == "__main__":
     from config import Config

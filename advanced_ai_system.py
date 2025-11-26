@@ -45,6 +45,9 @@ warnings.filterwarnings('ignore')
 
 from kis_api import KisAPI
 from config import Config
+from mlflow_manager import get_manager as get_mlflow_manager
+from transformer_predictor import get_transformer_predictor
+from sentiment_analyzer import get_sentiment_tracker
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -283,15 +286,23 @@ class MultiAgentTrader:
         self.factor_model = DynamicFactorModel()
         self.risk_manager = RiskManager()
         
+        # 새로운 시스템들 추가
+        self.mlflow_manager = get_mlflow_manager()
+        self.transformer_predictor = get_transformer_predictor()
+        self.sentiment_tracker = get_sentiment_tracker()
+        
         # 에이전트별 가중치 (성능에 따라 동적 조정)
         self.agent_weights = {
-            'dqn': 0.4,
-            'factor': 0.3,
-            'technical': 0.3
+            'dqn': 0.3,
+            'factor': 0.25,
+            'technical': 0.2,
+            'transformer': 0.15,
+            'sentiment': 0.1
         }
         
         # 성과 추적
         self.performance_history = []
+        self.current_experiment = None
         
     def initialize_regime_detector(self):
         """레짐 탐지기 초기화 (과거 데이터 학습)"""
@@ -379,8 +390,45 @@ class MultiAgentTrader:
         except:
             return 0
     
+    def get_transformer_signal(self, stock: str) -> float:
+        """Transformer 예측 신호"""
+        try:
+            price_data = self.kis_api.get_daily_price(stock, count=100)
+            if not price_data or price_data.get('rt_cd') != '0':
+                return 0
+            
+            prices = pd.Series([
+                float(item['stck_clpr']) for item in price_data['output'][::-1]
+            ])
+            
+            # Transformer 예측
+            predicted_price = self.transformer_predictor.predict_next_price(prices)
+            current_price = prices.iloc[-1]
+            
+            # 예측 수익률을 신호로 변환
+            expected_return = (predicted_price - current_price) / current_price
+            signal = np.tanh(expected_return * 20)  # -1~1 정규화
+            
+            return signal
+        except:
+            return 0
+    
+    def get_sentiment_signal(self, stock: str) -> float:
+        """감성 분석 신호"""
+        try:
+            sentiment_signal, confidence = self.sentiment_tracker.get_sentiment_signal(stock)
+            
+            if sentiment_signal == 'BUY':
+                return confidence * 0.8
+            elif sentiment_signal == 'SELL':
+                return -confidence * 0.8
+            else:
+                return 0
+        except:
+            return 0
+    
     def get_ensemble_signal(self, stock: str) -> Tuple[float, Dict]:
-        """앙상블 신호 생성"""
+        """앙상블 신호 생성 (확장된 버전)"""
         # 현재 레짐 탐지
         try:
             price_data = self.kis_api.get_daily_price(stock, count=100)
@@ -391,11 +439,13 @@ class MultiAgentTrader:
         except:
             current_regime = 1  # 기본값: 중성
         
-        # 각 에이전트 신호 수집
+        # 모든 에이전트 신호 수집
         signals = {
             'dqn': self.get_dqn_signal(stock),
             'factor': self.get_factor_signal(stock, current_regime),
-            'technical': self.get_technical_signal(stock)
+            'technical': self.get_technical_signal(stock),
+            'transformer': self.get_transformer_signal(stock),
+            'sentiment': self.get_sentiment_signal(stock)
         }
         
         # 가중 평균으로 최종 신호 계산
@@ -410,9 +460,47 @@ class MultiAgentTrader:
             'weights': self.agent_weights.copy()
         }
     
+    def start_mlflow_experiment(self):
+        """모델 추적을 위한 실험 시작"""
+        try:
+            experiment_name = f"multi_agent_trading_{datetime.now().strftime('%Y%m%d')}"
+            self.mlflow_manager.create_experiment(experiment_name)
+            
+            run_name = f"trading_session_{datetime.now().strftime('%H%M%S')}"
+            self.current_experiment = self.mlflow_manager.start_run(experiment_name, run_name)
+            
+            # 파라미터 로깅
+            self.mlflow_manager.log_param(self.current_experiment, "stocks", ",".join(self.stocks))
+            self.mlflow_manager.log_param(self.current_experiment, "agent_weights", str(self.agent_weights))
+            
+            logger.info(f"MLflow 실험 시작: {experiment_name}")
+            
+        except Exception as e:
+            logger.warning(f"MLflow 실험 시작 오류: {e}")
+    
+    def log_trading_metrics(self, stock: str, signal: float, info: Dict):
+        """거래 메트릭 로깅"""
+        if self.current_experiment:
+            try:
+                step = len(self.performance_history)
+                
+                self.mlflow_manager.log_metric(self.current_experiment, f"{stock}_signal", signal, step)
+                self.mlflow_manager.log_metric(self.current_experiment, f"{stock}_regime", info['regime'], step)
+                
+                # 각 에이전트 신호 로깅
+                for agent, agent_signal in info['signals'].items():
+                    self.mlflow_manager.log_metric(self.current_experiment, f"{stock}_{agent}_signal", agent_signal, step)
+                    
+            except Exception as e:
+                logger.warning(f"메트릭 로깅 오류: {e}")
+    
     def execute_trades(self):
-        """실제 거래 실행"""
-        logger.info("멀티 에이전트 트레이딩 시작")
+        """실제 거래 실행 (확장된 버전)"""
+        logger.info("향상된 멀티 에이전트 트레이딩 시작")
+        
+        # MLflow 실험 시작
+        if not self.current_experiment:
+            self.start_mlflow_experiment()
         
         try:
             # 현재 포트폴리오 상태
@@ -423,11 +511,28 @@ class MultiAgentTrader:
             logger.info(f"사용 가능 현금: {available_cash:,}원")
             logger.info(f"보유 종목 수: {len(holdings)}")
             
+            # Transformer 모델 학습 (첫 번째 실행시)
+            if not self.transformer_predictor.is_fitted:
+                logger.info("Transformer 모델 초기 학습 중...")
+                try:
+                    price_data = self.kis_api.get_daily_price('005930', count=500)  # 삼성전자 데이터
+                    if price_data and price_data.get('rt_cd') == '0':
+                        prices = pd.Series([
+                            float(item['stck_clpr']) for item in price_data['output'][::-1]
+                        ])
+                        self.transformer_predictor.fit(prices, epochs=30)
+                except Exception as e:
+                    logger.warning(f"Transformer 학습 오류: {e}")
+            
             # 각 종목별 신호 생성 및 거래
             for stock in self.stocks:
                 signal, info = self.get_ensemble_signal(stock)
                 
                 logger.info(f"{stock} - 신호: {signal:.3f}, 레짐: {info['regime']}")
+                logger.info(f"{stock} - Transformer: {info['signals'].get('transformer', 0):.3f}, 감성: {info['signals'].get('sentiment', 0):.3f}")
+                
+                # 메트릭 로깅
+                self.log_trading_metrics(stock, signal, info)
                 
                 # 포지션 사이징
                 if abs(signal) > 0.1:  # 임계값 이상일 때만 거래
@@ -435,6 +540,8 @@ class MultiAgentTrader:
         
         except Exception as e:
             logger.error(f"거래 실행 중 오류: {e}")
+            if self.current_experiment:
+                self.mlflow_manager.end_run(self.current_experiment, "FAILED")
     
     def _execute_stock_trade(self, stock: str, signal: float, available_cash: float):
         """개별 종목 거래 실행"""

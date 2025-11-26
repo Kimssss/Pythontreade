@@ -21,7 +21,7 @@ import os
 
 # 로컬 모듈 임포트
 sys.path.append('.')
-from kis_api import KisAPI
+from kis_api_enhanced import KisAPIEnhanced as KisAPI
 from config import Config
 from auto_install import auto_install_on_import
 
