@@ -4,6 +4,7 @@
 
 ### 최신 포스트부터 시간순 분석
 ```
+https://twentytwentyone.tistory.com/1874
 https://twentytwentyone.tistory.com/1873 ← 최신 AI 자동매매 시스템
 https://twentytwentyone.tistory.com/1847 ← AutoML + MLOps 파이프라인
 https://twentytwentyone.tistory.com/1842 ← 강화학습 DQN 구현
@@ -206,42 +207,125 @@ https://twentytwentyone.tistory.com/1163 ← 기초 데이터 분석 (시작점)
 - 한국투자증권 API (주가, 거래량)
 - 뉴스 크롤링 (네이버 금융)
 - 경제지표 API (한국은행)
+- Redis 캐싱 (실시간 가격 데이터)
+- PostgreSQL (히스토리컬 데이터)
 
 # 전처리 및 특성 추출
 - 기술적 지표 (RSI, MACD, Bollinger Bands)
 - 팩터 스코어 (PER, PBR, ROE, 성장률)
 - 감성 분석 (뉴스 텍스트)
+- 30일 롤링 윈도우 가격 리턴
+- PMI, CPI, 금리, GDP 성장률
 ```
 
 ### 모델 아키텍처
+
+#### DQN Agent (강화학습)
 ```python
-# RegimeDetector (HMM)
-- 상태: 3개 (강세/횡보/약세)
-- 관찰: 수익률, 변동성, 모멘텀, RSI
+class DQNAgent:
+    def __init__(self):
+        self.state_size = 31  # 30일 가격 리턴 + 현재 포지션
+        self.action_size = 3  # Buy(+1), Sell(-1), Hold(0)
+        self.memory = deque(maxlen=2000)
+        self.epsilon = 1.0
+        self.epsilon_decay = 0.995
+        self.gamma = 0.95  # 할인율
+        self.learning_rate = 0.001
+        
+    def build_model(self):
+        model = Sequential()
+        model.add(Dense(64, activation='relu', input_dim=self.state_size))
+        model.add(Dense(64, activation='relu'))
+        model.add(Dense(self.action_size, activation='linear'))
+        return model
+```
 
-# FactorModel (Dynamic Weighting)
-- 팩터: 5개 (가치/성장/모멘텀/품질/수익성)
-- 가중치: 레짐별 동적 조정
+#### Transformer 시계열 예측
+```python
+class MacroCyclePredictor(nn.Module):
+    def __init__(self, input_dim=10, hidden_dim=64, num_classes=4):
+        super().__init__()
+        self.encoder = nn.TransformerEncoder(
+            nn.TransformerEncoderLayer(
+                d_model=input_dim, 
+                nhead=4,
+                dim_feedforward=256,
+                dropout=0.1
+            ),
+            num_layers=2
+        )
+        self.fc = nn.Linear(input_dim, num_classes)
+```
 
-# DQNAgent (Deep Q-Network)  
-- 상태공간: 시장데이터 + 포지션 정보
-- 행동공간: 매수/보유/매도 조합
-- 보상함수: 위험조정수익률
+#### 경제 사이클 자산 배분
+```python
+alloc_policy = {
+    "Expansion": {"SPY": 0.5, "VNQ": 0.2, "TLT": 0.1, "GLD": 0.1, "BTC-USD": 0.1},
+    "Overheat": {"DBC": 0.4, "GLD": 0.3, "UUP": 0.2, "SPY": 0.1},
+    "Recession": {"TLT": 0.5, "UUP": 0.3, "GLD": 0.2},
+    "Recovery": {"SPY": 0.6, "EEM": 0.2, "VNQ": 0.1, "BTC-USD": 0.1}
+}
+```
+
+### AutoML/MLOps 파이프라인
+```python
+# Optuna 하이퍼파라미터 최적화
+def objective(trial):
+    params = {
+        'learning_rate': trial.suggest_loguniform('lr', 1e-5, 1e-2),
+        'hidden_dim': trial.suggest_int('hidden_dim', 64, 512),
+        'dropout_rate': trial.suggest_uniform('dropout', 0.1, 0.5),
+        'batch_size': trial.suggest_categorical('batch_size', [16, 32, 64])
+    }
+    return train_and_evaluate(params)
+
+# MLflow 모델 추적
+with mlflow.start_run():
+    mlflow.log_params(best_params)
+    mlflow.log_metric("sharpe_ratio", sharpe)
+    mlflow.log_metric("max_drawdown", mdd)
+    mlflow.pytorch.log_model(model, "model")
+```
+
+### 한국투자증권 API 연동
+```python
+class KoreaInvestmentAPI:
+    def __init__(self, app_key, app_secret):
+        self.base_url = "https://openapi.koreainvestment.com:9443"
+        
+    def place_order(self, symbol, qty, order_type, price=None):
+        headers = {
+            "authorization": f"Bearer {self.get_access_token()}",
+            "appkey": self.app_key,
+            "appsecret": self.app_secret,
+            "tr_id": "TTTC0802U" if order_type == "buy" else "TTTC0801U"
+        }
+        body = {
+            "PDNO": symbol,
+            "ORD_QTY": str(qty),
+            "ORD_UNPR": str(price) if price else "0"
+        }
+        return self._post("/uapi/domestic-stock/v1/trading/order-cash", headers, body)
 ```
 
 ### 백테스팅 프레임워크
 ```python
 # 성능 메트릭
 - 연간화 수익률
-- 샤프 비율, 소르티노 비율
-- 최대 낙폭 (MDD)
-- VaR, CVaR
+- 샤프 비율 (1.61 → 1.78)
+- 소르티노 비율
+- 최대 낙폭 (MDD: -19% → -12%)
+- VaR (95%): 5% 한도
+- CVaR
 - 정보 비율
+- 칼마 비율
 
 # 리스크 관리
 - 포지션 제한 (개별 10%, 전체 80%)
-- 동적 스톱로스
+- 동적 스톱로스 (-5%)
 - 변동성 기반 포지션 사이징
+- 켈리 기준 적용
+- 리밸런싱 트리거 (1% 편차)
 ```
 
 ## 💡 핵심 인사이트 및 교훈
