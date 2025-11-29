@@ -118,6 +118,12 @@ class AITradingSystem:
             
         except Exception as e:
             logger.error(f"Error updating portfolio status: {e}")
+            # 주말이나 장외시간일 경우 기본값 사용
+            logger.info("Using default values for weekend/after-hours")
+            if self.cash_balance is None:
+                self.cash_balance = 0
+            if self.total_value is None:
+                self.total_value = 0
     
     async def run_trading_cycle(self):
         """메인 트레이딩 사이클"""

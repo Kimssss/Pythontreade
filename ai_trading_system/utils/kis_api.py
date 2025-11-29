@@ -11,6 +11,8 @@ import json
 import time
 import pickle
 import os
+import hashlib
+import base64
 from datetime import datetime, timedelta
 from pathlib import Path
 import threading
@@ -207,6 +209,25 @@ class KisAPIEnhanced:
             return True
         return datetime.now() >= self.token_expire_time
     
+    def _get_hashkey(self, data):
+        """해시키 생성 (매수/매도 주문 시 필요)"""
+        url = f"{self.base_url}/uapi/hashkey"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret
+        }
+        
+        try:
+            response = requests.post(url, headers=headers, data=json.dumps(data), timeout=10)
+            if response.status_code == 200:
+                result = response.json()
+                return result.get('HASH', '')
+        except Exception as e:
+            print(f"⚠️ 해시키 생성 실패: {e}")
+        return ""
+    
     def _make_api_request_with_retry(self, method, url, headers=None, params=None, data=None, 
                                    endpoint_name="unknown", max_retries=3):
         """
@@ -376,6 +397,345 @@ class KisAPIEnhanced:
         
         response = self._make_api_request_with_retry(
             'GET', url, headers=headers, params=params, endpoint_name="orderbook"
+        )
+        if response:
+            return response.json()
+        return None
+    
+    def get_holding_stocks(self):
+        """보유 종목 조회"""
+        balance = self.get_balance()
+        if not balance or balance.get('rt_cd') != '0':
+            return []
+        
+        holdings = []
+        output1 = balance.get('output1', [])
+        
+        for item in output1:
+            # 보유 수량이 0보다 큰 종목만 포함
+            quantity = int(item.get('hldg_qty', 0))
+            if quantity > 0:
+                holdings.append({
+                    'stock_code': item.get('pdno', ''),
+                    'stock_name': item.get('prdt_name', ''),
+                    'quantity': quantity,
+                    'avg_price': float(item.get('pchs_avg_pric', 0)),
+                    'current_price': float(item.get('prpr', 0)),
+                    'eval_amt': float(item.get('evlu_amt', 0)),
+                    'profit_loss': float(item.get('evlu_pfls_amt', 0)),
+                    'profit_rate': float(item.get('evlu_pfls_rt', 0))
+                })
+        
+        return holdings
+    
+    def get_available_cash(self):
+        """매수 가능 현금 조회"""
+        balance = self.get_balance()
+        if not balance or balance.get('rt_cd') != '0':
+            return 0
+        
+        output2 = balance.get('output2', [{}])
+        if output2:
+            # 주문 가능 현금
+            return float(output2[0].get('ord_psbl_cash', 0))
+        return 0
+    
+    def buy_stock(self, stock_code: str, quantity: int, price: int = 0, order_type: str = "01"):
+        """주식 매수 주문
+        
+        Args:
+            stock_code: 종목 코드
+            quantity: 주문 수량
+            price: 주문 가격 (0이면 시장가)
+            order_type: 주문 구분 ("01": 지정가, "03": 시장가)
+        """
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/trading/order-cash"
+        
+        # 해시키 생성을 위한 데이터
+        data = {
+            "CANO": self.account_no.split('-')[0],
+            "ACNT_PRDT_CD": self.account_no.split('-')[1],
+            "PDNO": stock_code,
+            "ORD_DVSN": order_type,
+            "ORD_QTY": str(quantity),
+            "ORD_UNPR": str(price) if order_type == "01" else "0",
+            "CTAC_TLNO": "",
+            "SLL_TYPE": "01",
+            "ALGO_NO": ""
+        }
+        
+        # 해시키 생성 (매수/매도 시 필요)
+        hashkey = self._get_hashkey(data)
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "VTTC0802U" if not self.is_real else "TTTC0802U",
+            "custtype": "P",
+            "hashkey": hashkey
+        }
+        
+        response = self._make_api_request_with_retry(
+            'POST', url, headers=headers, data=json.dumps(data), endpoint_name="order"
+        )
+        if response:
+            return response.json()
+        return None
+    
+    def sell_stock(self, stock_code: str, quantity: int, price: int = 0, order_type: str = "01"):
+        """주식 매도 주문
+        
+        Args:
+            stock_code: 종목 코드
+            quantity: 주문 수량
+            price: 주문 가격 (0이면 시장가)
+            order_type: 주문 구분 ("01": 지정가, "03": 시장가)
+        """
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/trading/order-cash"
+        
+        # 해시키 생성을 위한 데이터
+        data = {
+            "CANO": self.account_no.split('-')[0],
+            "ACNT_PRDT_CD": self.account_no.split('-')[1],
+            "PDNO": stock_code,
+            "ORD_DVSN": order_type,
+            "ORD_QTY": str(quantity),
+            "ORD_UNPR": str(price) if order_type == "01" else "0",
+            "CTAC_TLNO": "",
+            "SLL_TYPE": "01",
+            "ALGO_NO": ""
+        }
+        
+        # 해시키 생성 (매수/매도 시 필요)
+        hashkey = self._get_hashkey(data)
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "VTTC0801U" if not self.is_real else "TTTC0801U",
+            "custtype": "P",
+            "hashkey": hashkey
+        }
+        
+        response = self._make_api_request_with_retry(
+            'POST', url, headers=headers, data=json.dumps(data), endpoint_name="order"
+        )
+        if response:
+            return response.json()
+        return None
+    
+    def get_daily_price(self, stock_code: str, count: int = 30):
+        """일봉 가격 정보 조회"""
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHKST03010100"
+        }
+        
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+            "FID_INPUT_DATE_1": "",
+            "FID_INPUT_DATE_2": "",
+            "FID_PERIOD_DIV_CODE": "D",
+            "FID_ORG_ADJ_PRC": "1"
+        }
+        
+        response = self._make_api_request_with_retry(
+            'GET', url, headers=headers, params=params, endpoint_name="daily_price"
+        )
+        if response:
+            result = response.json()
+            if result.get('rt_cd') == '0' and 'output2' in result:
+                # count 개수만큼만 반환
+                result['output'] = result['output2'][:count]
+            return result
+        return None
+    
+    def get_top_volume_stocks(self, market: str = "ALL", count: int = 20):
+        """거래량 상위 종목 조회"""
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/volume-rank"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHPST01710000"
+        }
+        
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_COND_SCR_DIV_CODE": "20171",
+            "FID_INPUT_ISCD": "0000",
+            "FID_DIV_CLS_CODE": "0",
+            "FID_BLNG_CLS_CODE": "0",
+            "FID_TRGT_CLS_CODE": "111111111",
+            "FID_TRGT_EXLS_CLS_CODE": "000000",
+            "FID_INPUT_PRICE_1": "",
+            "FID_INPUT_PRICE_2": "",
+            "FID_VOL_CNT": "",
+            "FID_INPUT_DATE_1": ""
+        }
+        
+        response = self._make_api_request_with_retry(
+            'GET', url, headers=headers, params=params, endpoint_name="volume_rank"
+        )
+        if response:
+            result = response.json()
+            if result.get('rt_cd') == '0' and 'output' in result:
+                # count 개수만큼만 반환
+                result['output'] = result['output'][:count]
+            return result
+        return None
+    
+    def get_order_history(self, start_date: str = None, end_date: str = None):
+        """주문 체결 조회
+        
+        Args:
+            start_date: 시작일자 (YYYYMMDD)
+            end_date: 종료일자 (YYYYMMDD)
+        """
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/trading/inquire-daily-ccld"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "VTTC8001R" if not self.is_real else "TTTC8001R",
+            "custtype": "P"
+        }
+        
+        if not start_date:
+            start_date = datetime.now().strftime('%Y%m%d')
+        if not end_date:
+            end_date = start_date
+        
+        params = {
+            "CANO": self.account_no.split('-')[0],
+            "ACNT_PRDT_CD": self.account_no.split('-')[1],
+            "INQR_STRT_DT": start_date,
+            "INQR_END_DT": end_date,
+            "SLL_BUY_DVSN_CD": "00",
+            "INQR_DVSN": "01",
+            "PDNO": "",
+            "CCLD_DVSN": "00",
+            "ORD_GNO_BRNO": "",
+            "ODNO": "",
+            "INQR_DVSN_3": "00",
+            "INQR_DVSN_1": "",
+            "CTX_AREA_FK100": "",
+            "CTX_AREA_NK100": ""
+        }
+        
+        response = self._make_api_request_with_retry(
+            'GET', url, headers=headers, params=params, endpoint_name="order_history"
+        )
+        if response:
+            return response.json()
+        return None
+    
+    def cancel_order(self, order_no: str, order_qty: str, order_price: str = "0", 
+                    order_type: str = "00", qty_all_yn: str = "Y"):
+        """주문 취소
+        
+        Args:
+            order_no: 주문번호
+            order_qty: 주문수량
+            order_price: 주문가격
+            order_type: 주문구분 (00:분류표 참조)
+            qty_all_yn: 전량취소여부 (Y/N)
+        """
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/trading/order-rvsecncl"
+        
+        # 해시키 생성을 위한 데이터
+        data = {
+            "CANO": self.account_no.split('-')[0],
+            "ACNT_PRDT_CD": self.account_no.split('-')[1],
+            "KRX_FWDG_ORD_ORGNO": "",
+            "ORGN_ODNO": order_no,
+            "ORD_DVSN": order_type,
+            "RVSE_CNCL_DVSN_CD": "02",  # 02:취소
+            "ORD_QTY": order_qty,
+            "ORD_UNPR": order_price,
+            "QTY_ALL_ORD_YN": qty_all_yn,
+            "ALGO_NO": ""
+        }
+        
+        # 해시키 생성
+        hashkey = self._get_hashkey(data)
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "VTTC0803U" if not self.is_real else "TTTC0803U",
+            "custtype": "P",
+            "hashkey": hashkey
+        }
+        
+        response = self._make_api_request_with_retry(
+            'POST', url, headers=headers, data=json.dumps(data), endpoint_name="cancel_order"
+        )
+        if response:
+            return response.json()
+        return None
+    
+    def get_market_index(self, index_code: str = "0001"):
+        """주요 지수 조회
+        
+        Args:
+            index_code: 지수코드 (0001:KOSPI, 1001:KOSDAQ, 2001:KOSPI200)
+        """
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-index-price"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHKUP03500100",
+            "custtype": "P"
+        }
+        
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "U",
+            "FID_INPUT_ISCD": index_code
+        }
+        
+        response = self._make_api_request_with_retry(
+            'GET', url, headers=headers, params=params, endpoint_name="market_index"
         )
         if response:
             return response.json()
