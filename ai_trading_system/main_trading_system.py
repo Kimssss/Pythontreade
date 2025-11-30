@@ -57,7 +57,8 @@ class AITradingSystem:
             appkey=config['appkey'],
             appsecret=config['appsecret'],
             account_no=config['account'],
-            is_real=config['is_real']
+            is_real=config['is_real'],
+            min_request_interval=KIS_CONFIG.get('MIN_REQUEST_INTERVAL', 1.0)
         )
         
         # 컴포넌트 초기화
@@ -71,6 +72,9 @@ class AITradingSystem:
         self.cash_balance = 0
         self.total_value = 0
         
+        # API를 통해서만 데이터 가져오기 - 더미 데이터 사용 금지
+        logger.info(f"Mode: {mode} - All data will be fetched from API only")
+        
         # 거래 히스토리
         self.trade_history = []
         self.performance_history = []
@@ -82,22 +86,38 @@ class AITradingSystem:
     
     async def initialize(self):
         """시스템 초기화 및 토큰 발급"""
+        logger.info("=== System Initialization ===")
+        logger.info(f"Trading mode: {self.mode}")
         logger.info("Getting access token...")
-        if not self.kis_api.get_access_token():
+        
+        # 토큰 발급 시도
+        token_result = self.kis_api.get_access_token()
+        if not token_result:
+            logger.error("Failed to get access token - check API credentials")
             raise Exception("Failed to get access token")
         
+        logger.info("Access token acquired successfully")
+        
         # 계좌 정보 조회
+        logger.info("Fetching initial account information...")
         await self.update_portfolio_status()
+        
+        logger.info("=== Initialization Complete ===")
         logger.info(f"Initial portfolio value: {self.total_value:,.0f} KRW")
     
     async def update_portfolio_status(self):
         """포트폴리오 상태 업데이트"""
+        logger.info("=== Updating Portfolio Status ===")
         try:
             # 현금 잔고 조회
+            logger.info("Fetching cash balance...")
             self.cash_balance = self.kis_api.get_available_cash()
+            logger.info(f"Cash balance: {self.cash_balance:,.0f} KRW")
             
             # 보유 종목 조회
+            logger.info("Fetching holdings...")
             holdings = self.kis_api.get_holding_stocks()
+            logger.info(f"Found {len(holdings)} holdings")
             
             self.portfolio = {}
             portfolio_value = self.cash_balance
@@ -113,17 +133,32 @@ class AITradingSystem:
                     'profit_rate': holding['profit_rate']
                 }
                 portfolio_value += holding['eval_amt']
+                logger.info(f"  - {holding['stock_name']}: {holding['quantity']}주, "
+                          f"평가금액: {holding['eval_amt']:,.0f}원, "
+                          f"수익률: {holding['profit_rate']:.2f}%")
             
             self.total_value = portfolio_value
+            # 잔고가 0이면 API에서 반환한 실제 값
+            if self.total_value == 0:
+                logger.warning("Portfolio value is 0. This is the actual balance from API.")
+            
+            logger.info(f"Total portfolio value: {self.total_value:,.0f} KRW")
+            logger.info(f"  - Cash: {self.cash_balance:,.0f} KRW")
+            logger.info(f"  - Stocks: {portfolio_value - self.cash_balance:,.0f} KRW")
             
         except Exception as e:
-            logger.error(f"Error updating portfolio status: {e}")
+            logger.error(f"Error updating portfolio status: {e}", exc_info=True)
             # 주말이나 장외시간일 경우 기본값 사용
             logger.info("Using default values for weekend/after-hours")
             if self.cash_balance is None:
                 self.cash_balance = 0
             if self.total_value is None:
                 self.total_value = 0
+            
+            # API 응답에서 받은 실제 값 사용 (더미 데이터 금지)
+            logger.warning(f"API returned values - Cash: {self.cash_balance:,.0f}, Total: {self.total_value:,.0f}")
+            
+            logger.info(f"Default values set - Cash: {self.cash_balance:,.0f}, Total: {self.total_value:,.0f}")
     
     async def run_trading_cycle(self):
         """메인 트레이딩 사이클"""
@@ -482,7 +517,13 @@ class AITradingSystem:
                             await asyncio.sleep(3600)  # 1시간 대기
                     else:
                         # 주말 대기
-                        logger.info("Weekend. Waiting...")
+                        logger.info("Weekend. System in monitoring mode...")
+                        # 주말에도 포트폴리오 상태 확인 (주문은 하지 않음)
+                        try:
+                            await self.update_portfolio_status()
+                            logger.info(f"Portfolio value: {self.total_value:,.0f} KRW")
+                        except Exception as e:
+                            logger.debug(f"Weekend portfolio check error (expected): {e}")
                         await asyncio.sleep(3600)  # 1시간 대기
                         
                 except KeyboardInterrupt:

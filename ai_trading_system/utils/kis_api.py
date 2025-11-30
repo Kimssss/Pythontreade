@@ -17,6 +17,23 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import threading
 from collections import defaultdict
+import logging
+
+# API 실패 로거 설정
+api_logger = logging.getLogger('kis_api')
+api_logger.setLevel(logging.DEBUG)
+
+# 파일 핸들러 설정
+log_dir = Path('logs')
+log_dir.mkdir(exist_ok=True)
+
+file_handler = logging.FileHandler(log_dir / f'api_failures_{datetime.now().strftime("%Y%m%d")}.log')
+file_handler.setLevel(logging.DEBUG)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+
+api_logger.addHandler(file_handler)
 
 
 class KisAPIEnhanced:
@@ -228,6 +245,18 @@ class KisAPIEnhanced:
             print(f"⚠️ 해시키 생성 실패: {e}")
         return ""
     
+    def _log_api_request(self, request_log):
+        """API 요청 로그 저장"""
+        try:
+            # 실패한 요청만 파일로 저장
+            if not request_log.get('success', False):
+                api_logger.error(f"API Request Failed: {json.dumps(request_log, indent=2, ensure_ascii=False)}")
+            else:
+                # 성공한 요청은 디버그 레벨로
+                api_logger.debug(f"API Request Success: {request_log['endpoint']} - {request_log['method']}")
+        except Exception as e:
+            print(f"로그 기록 실패: {e}")
+    
     def _make_api_request_with_retry(self, method, url, headers=None, params=None, data=None, 
                                    endpoint_name="unknown", max_retries=3):
         """
@@ -246,6 +275,22 @@ class KisAPIEnhanced:
             응답 객체 또는 None
         """
         
+        # API 요청 로그 기록
+        request_log = {
+            'timestamp': datetime.now().isoformat(),
+            'method': method,
+            'endpoint': endpoint_name,
+            'url': url,
+            'headers': {k: v if k not in ['authorization', 'appsecret'] else '***' for k, v in (headers or {}).items()},
+            'params': params,
+            'data': data if not data or 'pwd' not in str(data).lower() else 'REDACTED',
+            'retries': 0,
+            'success': False,
+            'error': None,
+            'response_code': None,
+            'response_msg': None
+        }
+        
         for retry in range(max_retries):
             try:
                 # Rate limiting 적용
@@ -259,17 +304,30 @@ class KisAPIEnhanced:
                 
                 # 성공 응답
                 if response.status_code == 200:
+                    request_log['success'] = True
+                    request_log['response_code'] = 200
+                    self._log_api_request(request_log)
                     return response
                 
                 # 500 에러 처리
                 elif response.status_code == 500:
+                    request_log['response_code'] = 500
+                    request_log['retries'] = retry + 1
+                    try:
+                        error_data = response.json()
+                        request_log['response_msg'] = error_data.get('msg1', '')
+                        request_log['error'] = f"500: {error_data.get('msg_cd', '')} - {error_data.get('msg1', '')}"
+                    except:
+                        request_log['error'] = f"500: {response.text[:100]}"
+                    
                     if retry < max_retries - 1:
                         wait_time = 2 ** retry  # 지수 백오프
-                        print(f"⚠️ 500 에러 발생, {wait_time}초 후 재시도 ({retry + 1}/{max_retries})")
+                        print(f"⚠️ 500 에러 발생 ({request_log.get('response_msg', '')}), {wait_time}초 후 재시도 ({retry + 1}/{max_retries})")
                         time.sleep(wait_time)
                         continue
                     else:
                         print(f"❌ 500 에러 - 최대 재시도 횟수 초과")
+                        self._log_api_request(request_log)
                         return None
                 
                 # 429 Too Many Requests
@@ -281,35 +339,49 @@ class KisAPIEnhanced:
                 
                 # 인증 에러 처리 (401, 403)
                 elif response.status_code in [401, 403]:
+                    request_log['response_code'] = response.status_code
+                    request_log['error'] = f"{response.status_code}: Authorization error"
                     print(f"⚠️ 인증 에러 ({response.status_code}) - 토큰 갱신 시도")
                     if self.get_access_token() and headers and 'authorization' in headers:
                         headers['authorization'] = f"Bearer {self.access_token}"
                         continue
                     else:
                         print("❌ 토큰 갱신 실패")
+                        self._log_api_request(request_log)
                         return None
                 
                 # 기타 HTTP 에러
                 else:
+                    request_log['response_code'] = response.status_code
+                    request_log['error'] = f"{response.status_code}: {response.text[:100]}"
                     print(f"❌ HTTP 에러 {response.status_code}: {response.text[:100]}")
+                    self._log_api_request(request_log)
                     return None
                     
             except requests.exceptions.Timeout:
+                request_log['error'] = f"Timeout error"
+                request_log['retries'] = retry + 1
                 print(f"⚠️ 타임아웃 (재시도 {retry + 1}/{max_retries})")
                 if retry < max_retries - 1:
                     time.sleep(1)
                     continue
             except requests.exceptions.RequestException as e:
+                request_log['error'] = f"Network error: {str(e)}"
+                request_log['retries'] = retry + 1
                 print(f"⚠️ 네트워크 오류: {e}")
                 if retry < max_retries - 1:
                     time.sleep(1)
                     continue
             except Exception as e:
+                request_log['error'] = f"Unexpected error: {str(e)}"
+                request_log['retries'] = retry + 1
                 print(f"⚠️ 기타 오류: {e}")
                 if retry < max_retries - 1:
                     time.sleep(1)
                     continue
         
+        # 모든 재시도 실패 시 로그
+        self._log_api_request(request_log)
         return None
     
     def get_balance(self):
@@ -404,18 +476,26 @@ class KisAPIEnhanced:
     
     def get_holding_stocks(self):
         """보유 종목 조회"""
+        api_logger.info("get_holding_stocks() called")
+        
         balance = self.get_balance()
-        if not balance or balance.get('rt_cd') != '0':
+        if not balance:
+            api_logger.warning("get_balance() returned None")
+            return []
+            
+        if balance.get('rt_cd') != '0':
+            api_logger.error(f"get_balance() failed: rt_cd={balance.get('rt_cd')}, msg={balance.get('msg1', '')}")
             return []
         
         holdings = []
         output1 = balance.get('output1', [])
+        api_logger.debug(f"output1 count: {len(output1)} items")
         
         for item in output1:
             # 보유 수량이 0보다 큰 종목만 포함
             quantity = int(item.get('hldg_qty', 0))
             if quantity > 0:
-                holdings.append({
+                holding = {
                     'stock_code': item.get('pdno', ''),
                     'stock_name': item.get('prdt_name', ''),
                     'quantity': quantity,
@@ -424,20 +504,42 @@ class KisAPIEnhanced:
                     'eval_amt': float(item.get('evlu_amt', 0)),
                     'profit_loss': float(item.get('evlu_pfls_amt', 0)),
                     'profit_rate': float(item.get('evlu_pfls_rt', 0))
-                })
+                }
+                holdings.append(holding)
+                api_logger.info(f"Holding found: {holding['stock_name']} ({holding['stock_code']}) - {quantity}주, 평가금액: {holding['eval_amt']:,.0f}원")
         
+        api_logger.info(f"Total holdings: {len(holdings)} stocks")
         return holdings
     
     def get_available_cash(self):
         """매수 가능 현금 조회"""
+        api_logger.info("get_available_cash() called")
+        
         balance = self.get_balance()
-        if not balance or balance.get('rt_cd') != '0':
+        if not balance:
+            api_logger.warning("get_balance() returned None")
+            return 0
+            
+        if balance.get('rt_cd') != '0':
+            api_logger.error(f"get_balance() failed: rt_cd={balance.get('rt_cd')}, msg={balance.get('msg1', '')}")
             return 0
         
-        output2 = balance.get('output2', [{}])
-        if output2:
-            # 주문 가능 현금
-            return float(output2[0].get('ord_psbl_cash', 0))
+        # output2 데이터 확인
+        output2 = balance.get('output2', [])
+        api_logger.debug(f"output2 data: {output2}")
+        
+        if output2 and len(output2) > 0:
+            cash_data = output2[0]
+            # 다양한 필드 확인
+            ord_psbl_cash = float(cash_data.get('ord_psbl_cash', 0))  # 주문가능현금
+            dnca_tot_amt = float(cash_data.get('dnca_tot_amt', 0))    # 예수금총금액
+            
+            api_logger.info(f"Cash available: ord_psbl_cash={ord_psbl_cash:,.0f}, dnca_tot_amt={dnca_tot_amt:,.0f}")
+            
+            # 주문가능현금이 0이면 예수금총금액 사용
+            return ord_psbl_cash if ord_psbl_cash > 0 else dnca_tot_amt
+        
+        api_logger.warning("No cash data found in output2")
         return 0
     
     def buy_stock(self, stock_code: str, quantity: int, price: int = 0, order_type: str = "01"):

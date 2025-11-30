@@ -1,0 +1,16 @@
+2025-11-30 14:33:08,174 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:33:08,284 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:33:08,284 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:33:08,284 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:33:08,284 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:33:09,282 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:33:09,283 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:33:09,283 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:33:09,284 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:33:10,289 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:33:10,290 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:33:10,290 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:33:10,290 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:33:11,283 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:33:11,284 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:33:11,284 - kis_api - INFO - Total holdings: 0 stocks

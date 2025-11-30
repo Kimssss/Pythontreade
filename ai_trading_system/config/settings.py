@@ -20,7 +20,10 @@ KIS_CONFIG = {
         'appsecret': os.environ.get('KIS_REAL_APPSECRET', ''),
         'account': os.environ.get('KIS_REAL_ACCOUNT', ''),
         'is_real': True
-    }
+    },
+    'MIN_REQUEST_INTERVAL': 1.0,  # API 호출 최소 간격 (초) - 주말/장외시간 rate limit 대응
+    'MAX_RETRIES': 3,
+    'TIMEOUT': 30,
 }
 
 # 거래 설정

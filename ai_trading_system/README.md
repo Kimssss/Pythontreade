@@ -133,7 +133,12 @@ python run_ai_trading.py --mode real
 
 ## 주의사항
 
-⚠️ **실전 투자 시 주의**
+### 🚨 API 사용 원칙
+1. **모든 데이터는 API를 통해서만 가져옵니다**
+2. **더미 데이터 사용 절대 금지**
+3. **API가 0을 반환하면 실제로 0인 것입니다**
+
+### ⚠️ 실전 투자 시 주의
 - 반드시 모의투자로 충분히 테스트 후 사용
 - 초기에는 소액으로 시작
 - 시스템 오류 시 즉시 중단
@@ -150,7 +155,10 @@ python run_ai_trading.py --mode real
 
 ## API 문서
 
-한국투자증권 OpenAPI 구현에 대한 자세한 내용은 [KIS_API_DOCUMENTATION.md](./KIS_API_DOCUMENTATION.md)를 참조하세요.
+### 필수 읽기 문서
+- **[🚨 IMPORTANT_API_RULES.md](./IMPORTANT_API_RULES.md)** - API 사용 규칙 (더미 데이터 금지)
+- **[KIS_API_DOCUMENTATION.md](./KIS_API_DOCUMENTATION.md)** - 한국투자증권 OpenAPI 구현 상세
+- **[API_WEEKEND_NOTES.md](./API_WEEKEND_NOTES.md)** - 주말/장외시간 API 사용 가이드
 
 ### 주요 API 기능
 - **주식 주문**: 매수/매도/취소 주문
