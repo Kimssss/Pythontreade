@@ -73,3 +73,165 @@
 2025-11-30 14:43:51,490 - kis_api - DEBUG - API Request Success: daily_price - GET
 2025-11-30 14:43:52,510 - kis_api - DEBUG - API Request Success: daily_price - GET
 2025-11-30 14:43:53,501 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:29,912 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:44:30,015 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:44:30,015 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:44:30,015 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:44:30,015 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:44:31,030 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:44:31,031 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:44:31,032 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:44:31,033 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:44:32,022 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:44:32,023 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:44:32,023 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:44:32,024 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:44:33,043 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:44:33,044 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:44:33,044 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:44:33,144 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-11-30 14:44:34,322 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:35,323 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:36,325 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:37,327 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:38,333 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:39,338 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:40,342 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:41,362 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:42,366 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:44:43,363 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:45:44,577 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:45:44,674 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:45:44,674 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:45:44,674 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:45:44,674 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:45:45,690 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:45:45,690 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:45:45,690 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:45:45,691 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:45:46,679 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:45:46,679 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:45:46,680 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:45:46,680 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:45:47,742 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:45:47,743 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:45:47,743 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:45:47,839 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-11-30 14:48:38,518 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:48:38,632 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:48:38,632 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:48:38,632 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:48:38,632 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:48:39,620 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:48:39,620 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:48:39,620 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:48:39,621 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:48:40,632 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:48:40,633 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:48:40,633 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:48:40,633 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:48:41,627 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:48:41,627 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:48:41,627 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:48:41,790 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-11-30 14:50:09,775 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:50:09,893 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:50:09,893 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:50:09,893 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:50:09,893 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:50:10,886 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:50:10,887 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:50:10,887 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:50:10,888 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:50:11,888 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:50:11,889 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:50:11,889 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:50:11,889 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:50:12,890 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:50:12,891 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:50:12,891 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:50:15,983 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-11-30 14:50:19,056 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:21,837 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:24,621 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:27,135 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:29,399 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:31,667 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:33,754 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:35,832 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:37,912 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:39,984 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:42,064 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:50:44,141 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:51:29,620 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:51:29,718 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:51:29,718 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:51:29,718 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:51:29,719 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:51:30,731 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:51:30,732 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:51:30,732 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:51:30,732 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:51:31,722 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:51:31,722 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:51:31,722 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:51:31,722 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:51:32,722 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:51:32,723 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:51:32,723 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:51:35,816 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-11-30 14:51:40,903 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:51:52,016 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:51:52,130 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:51:52,131 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:51:52,131 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:51:52,131 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:51:53,131 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:51:53,131 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:51:53,131 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:51:53,132 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:51:54,121 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:51:54,121 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:51:54,121 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:51:54,121 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:51:55,127 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:51:55,128 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:51:55,128 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:51:58,214 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-11-30 14:52:03,307 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:52:56,325 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:52:56,441 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:52:56,441 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:52:56,441 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:52:56,441 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:52:57,482 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:52:57,482 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:52:57,482 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:52:57,483 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:52:58,476 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:52:58,476 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:52:58,477 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:52:58,477 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:52:59,459 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:52:59,460 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:52:59,460 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:53:02,552 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-11-30 14:53:07,644 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-11-30 14:58:35,691 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:58:35,798 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:58:35,798 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:58:35,798 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:58:35,798 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:58:36,789 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:58:36,790 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:58:36,790 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:58:36,790 - kis_api - INFO - get_available_cash() called
+2025-11-30 14:58:37,807 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:58:37,808 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-11-30 14:58:37,808 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748
+2025-11-30 14:58:37,808 - kis_api - INFO - get_holding_stocks() called
+2025-11-30 14:58:38,799 - kis_api - DEBUG - API Request Success: balance - GET
+2025-11-30 14:58:38,800 - kis_api - DEBUG - output1 count: 0 items
+2025-11-30 14:58:38,800 - kis_api - INFO - Total holdings: 0 stocks
+2025-11-30 14:58:41,891 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-11-30 14:58:46,976 - kis_api - DEBUG - API Request Success: daily_price - GET

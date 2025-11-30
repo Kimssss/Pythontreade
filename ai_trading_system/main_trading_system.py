@@ -524,24 +524,52 @@ class AITradingSystem:
                             logger.info(f"\n[AFTER HOURS] Market closed at {now.strftime('%H:%M')}")
                             logger.info("Next market open: Tomorrow 09:00")
                             
-                            # 장외시간 학습 (18:00 ~ 21:00)
-                            if 18 <= now.hour < 21:
-                                logger.info("\n[After-hours Training] Perfect time for AI training!")
-                                if not hasattr(self, 'last_training_time'):
-                                    self.last_training_time = datetime.now() - timedelta(hours=4)
+                            # 장외시간 학습 (15:30 ~ 09:00)
+                            # 주식시장 종료 후부터 다음날 시작 전까지 계속 학습
+                            logger.info("\n[After-hours Training] Market closed - Training time!")
+                            logger.info(f"Current time: {now.strftime('%H:%M')}")
+                            
+                            stocks_trained = 0
+                            max_stocks_per_hour = 10  # 평일은 더 많이
+                            
+                            while stocks_trained < max_stocks_per_hour:
+                                logger.info(f"\n[Training {stocks_trained + 1}/{max_stocks_per_hour}]")
                                 
-                                if (datetime.now() - self.last_training_time).total_seconds() > 10800:
-                                    try:
-                                        logger.info("🤖 Starting AI model training session...")
+                                try:
+                                    # 시간대별 학습 전략
+                                    if 18 <= now.hour < 21:
+                                        # 저녁 황금시간: 전체 학습 시도
+                                        logger.info("🌃 Prime time (18-21): Attempting full training...")
                                         training_result = await self.trainer.run_training_session()
                                         if training_result:
-                                            logger.info("✅ Training completed!")
-                                            logger.info(f"   - Duration: {training_result['duration']:.0f}s")
-                                            logger.info(f"   - DQN Loss: {training_result['dqn_results'].get('final_loss', 0):.4f}")
-                                            logger.info(f"   - Backtest Return: {training_result['backtest_results'].get('total_return', 0):.2%}")
-                                            self.last_training_time = datetime.now()
-                                    except Exception as e:
-                                        logger.error(f"Training error: {e}")
+                                            stocks_trained = max_stocks_per_hour  # 전체 학습 성공 시 종료
+                                            logger.info("✅ Full training session completed!")
+                                        else:
+                                            # 실패 시 단일 종목으로
+                                            training_result = await self.trainer.run_single_stock_training()
+                                            if training_result:
+                                                stocks_trained += 1
+                                    else:
+                                        # 그 외 시간: 단일 종목 학습
+                                        logger.info("🌙 Off-peak hours: Single stock training...")
+                                        training_result = await self.trainer.run_single_stock_training()
+                                        if training_result:
+                                            stocks_trained += 1
+                                            logger.info("✅ Stock training completed!")
+                                            logger.info(f"   Stock: {training_result['stock']}")
+                                            logger.info(f"   Win rate: {training_result['win_rate']:.1%}")
+                                        else:
+                                            logger.warning("⚠️ No more stocks or API limit")
+                                            break
+                                    
+                                    # 다음 학습 전 휴식
+                                    await asyncio.sleep(30)  # 30초 대기
+                                    
+                                except Exception as e:
+                                    logger.error(f"Training error: {e}")
+                                    break
+                            
+                            logger.info(f"\n📋 Total trained this cycle: {stocks_trained} stocks")
                             
                             logger.info("Waiting 1 hour...")
                             await asyncio.sleep(3600)  # 1시간 대기
@@ -570,19 +598,36 @@ class AITradingSystem:
                         except Exception as e:
                             logger.warning(f"Weekend portfolio check error: {e}")
                         
-                        # AI 학습 실행 (매 3시간마다)
-                        if not hasattr(self, 'last_training_time'):
-                            self.last_training_time = datetime.now() - timedelta(hours=4)
+                        # 주말엔 계속 학습 (한 종목 끝나면 다음 종목)
+                        logger.info("\n[Weekend Training Mode] Continuous learning enabled")
+                        logger.info("Will train multiple stocks sequentially...")
                         
-                        if (datetime.now() - self.last_training_time).seconds > 10800:  # 3시간
-                            logger.info("\n[Weekend Training] Starting AI model training...")
+                        stocks_trained = 0
+                        max_stocks_per_hour = 5  # 시간당 최대 5종목
+                        
+                        while stocks_trained < max_stocks_per_hour:
+                            logger.info(f"\n[Training {stocks_trained + 1}/{max_stocks_per_hour}]")
+                            
                             try:
-                                training_result = await self.trainer.run_training_session()
+                                training_result = await self.trainer.run_single_stock_training()
                                 if training_result:
-                                    logger.info("Training completed successfully!")
-                                    self.last_training_time = datetime.now()
+                                    stocks_trained += 1
+                                    logger.info("✅ Training completed!")
+                                    logger.info(f"   Stock: {training_result['stock']}")
+                                    logger.info(f"   Win rate: {training_result['win_rate']:.1%}")
+                                    
+                                    # 다음 종목 학습 전 짧은 휴식
+                                    logger.info("\nResting for 1 minute before next stock...")
+                                    await asyncio.sleep(60)  # 1분 대기
+                                else:
+                                    logger.warning("⚠️ No more stocks available or API limit reached")
+                                    break
                             except Exception as e:
                                 logger.error(f"Training error: {e}")
+                                break
+                        
+                        logger.info(f"\n📋 Total stocks trained this hour: {stocks_trained}")
+                        self.last_training_time = datetime.now()
                         
                         # 다음 체크 시간 안내
                         next_check = now + timedelta(hours=1)
