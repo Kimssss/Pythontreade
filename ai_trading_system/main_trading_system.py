@@ -20,6 +20,7 @@ try:
     from .utils.kis_api import KisAPIEnhanced
     from .utils.risk_manager import RiskManager
     from .utils.technical_indicators import TechnicalIndicators
+    from .training.weekend_trainer import WeekendTrainer
     from .config.settings import (
         KIS_CONFIG, TRADING_CONFIG, DATA_CONFIG, 
         LOGGING_CONFIG, SCREENING_CONFIG
@@ -30,6 +31,7 @@ except ImportError:
     from utils.kis_api import KisAPIEnhanced
     from utils.risk_manager import RiskManager
     from utils.technical_indicators import TechnicalIndicators
+    from training.weekend_trainer import WeekendTrainer
     from config.settings import (
         KIS_CONFIG, TRADING_CONFIG, DATA_CONFIG, 
         LOGGING_CONFIG, SCREENING_CONFIG
@@ -66,6 +68,7 @@ class AITradingSystem:
         self.screener = StockScreener(self.kis_api)
         self.risk_manager = RiskManager()
         self.indicators = TechnicalIndicators()
+        self.trainer = WeekendTrainer(self.ensemble, self.kis_api)
         
         # 포트폴리오 상태
         self.portfolio = {}
@@ -503,27 +506,90 @@ class AITradingSystem:
                     if now.weekday() < 5:  # 평일
                         if 9 <= now.hour < 15 or (now.hour == 15 and now.minute < 30):
                             # 트레이딩 사이클 실행
+                            logger.info(f"\n{'='*60}")
+                            logger.info(f"TRADING ACTIVE - {now.strftime('%Y-%m-%d %H:%M:%S')}")
                             await self.run_trading_cycle()
                             
                             # 다음 사이클까지 대기 (5분)
+                            logger.info("\n[Next Cycle] Waiting 5 minutes for next trading cycle...")
+                            logger.info(f"Next run at: {(now + timedelta(minutes=5)).strftime('%H:%M:%S')}")
                             await asyncio.sleep(300)
                         else:
                             # 장 마감 후 일일 정산
                             if now.hour == 15 and now.minute == 30:
+                                logger.info("\n[MARKET CLOSE] Running daily settlement...")
                                 await self.daily_settlement()
                             
                             # 장외 시간 대기
-                            logger.info("Market closed. Waiting...")
+                            logger.info(f"\n[AFTER HOURS] Market closed at {now.strftime('%H:%M')}")
+                            logger.info("Next market open: Tomorrow 09:00")
+                            
+                            # 장외시간 학습 (18:00 ~ 21:00)
+                            if 18 <= now.hour < 21:
+                                logger.info("\n[After-hours Training] Perfect time for AI training!")
+                                if not hasattr(self, 'last_training_time'):
+                                    self.last_training_time = datetime.now() - timedelta(hours=4)
+                                
+                                if (datetime.now() - self.last_training_time).total_seconds() > 10800:
+                                    try:
+                                        logger.info("🤖 Starting AI model training session...")
+                                        training_result = await self.trainer.run_training_session()
+                                        if training_result:
+                                            logger.info("✅ Training completed!")
+                                            logger.info(f"   - Duration: {training_result['duration']:.0f}s")
+                                            logger.info(f"   - DQN Loss: {training_result['dqn_results'].get('final_loss', 0):.4f}")
+                                            logger.info(f"   - Backtest Return: {training_result['backtest_results'].get('total_return', 0):.2%}")
+                                            self.last_training_time = datetime.now()
+                                    except Exception as e:
+                                        logger.error(f"Training error: {e}")
+                            
+                            logger.info("Waiting 1 hour...")
                             await asyncio.sleep(3600)  # 1시간 대기
                     else:
                         # 주말 대기
-                        logger.info("Weekend. System in monitoring mode...")
-                        # 주말에도 포트폴리오 상태 확인 (주문은 하지 않음)
+                        logger.info("=" * 60)
+                        logger.info("WEEKEND MODE - Market is closed")
+                        logger.info(f"Current time: {now.strftime('%Y-%m-%d %H:%M:%S')}")
+                        logger.info("Next market open: Monday 09:00")
+                        
+                        # 주말 활동: 포트폴리오 확인 및 학습
+                        logger.info("\n[Weekend Activity] Checking portfolio status...")
                         try:
                             await self.update_portfolio_status()
-                            logger.info(f"Portfolio value: {self.total_value:,.0f} KRW")
+                            logger.info(f"\n[Portfolio Summary]")
+                            logger.info(f"Total Value: {self.total_value:,.0f} KRW")
+                            logger.info(f"Cash: {self.cash_balance:,.0f} KRW")
+                            logger.info(f"Holdings: {len(self.portfolio)} stocks")
+                            
+                            # 보유 종목 있으면 표시
+                            if self.portfolio:
+                                logger.info("\n[Current Holdings]")
+                                for code, info in self.portfolio.items():
+                                    logger.info(f"- {info['name']}: {info['quantity']}주, "
+                                              f"현재가: {info['current_price']:,.0f}원")
                         except Exception as e:
-                            logger.debug(f"Weekend portfolio check error (expected): {e}")
+                            logger.warning(f"Weekend portfolio check error: {e}")
+                        
+                        # AI 학습 실행 (매 3시간마다)
+                        if not hasattr(self, 'last_training_time'):
+                            self.last_training_time = datetime.now() - timedelta(hours=4)
+                        
+                        if (datetime.now() - self.last_training_time).seconds > 10800:  # 3시간
+                            logger.info("\n[Weekend Training] Starting AI model training...")
+                            try:
+                                training_result = await self.trainer.run_training_session()
+                                if training_result:
+                                    logger.info("Training completed successfully!")
+                                    self.last_training_time = datetime.now()
+                            except Exception as e:
+                                logger.error(f"Training error: {e}")
+                        
+                        # 다음 체크 시간 안내
+                        next_check = now + timedelta(hours=1)
+                        logger.info(f"\n[Next Check] {next_check.strftime('%H:%M:%S')}")
+                        logger.info("Waiting for 1 hour...")
+                        logger.info("=" * 60)
+                        
                         await asyncio.sleep(3600)  # 1시간 대기
                         
                 except KeyboardInterrupt:
