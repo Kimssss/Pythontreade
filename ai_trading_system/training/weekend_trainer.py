@@ -650,13 +650,18 @@ class WeekendTrainer:
             logger.info("⚡ Fetching minimal data for quick training...")
             
             # US 마켓이 활성화된 경우 미국주식도 학습
-            from ..utils.market_hours import MarketHours
-            market_hours = MarketHours()
-            market_status = market_hours.get_current_market_status()
-            
-            if market_status['us']:
-                # 미국 주식 학습
-                return await self.run_quick_us_stock_training(max_time_seconds)
+            try:
+                from datetime import datetime
+                now = datetime.now()
+                hour = now.hour
+                # 미국 시장 시간 체크 (23:30-06:00 KST)
+                us_market_open = (hour >= 23 or hour < 6) or (hour == 23 and now.minute >= 30)
+                
+                if us_market_open:
+                    # 미국 주식 학습
+                    return await self.run_quick_us_stock_training(max_time_seconds)
+            except Exception as e:
+                logger.debug(f"US market check error: {e}")
             
             # 단순한 종목 하나만 빠르게 학습
             await asyncio.sleep(1)  # API 호출 간격
@@ -690,16 +695,25 @@ class WeekendTrainer:
                             current_price = float(output.get('stck_prpr', 0))
                             
                             if current_price > 0:
-                                # 간단한 더미 학습 데이터 생성
+                                # 실제 가격 변동성 기반 간단한 분석
                                 features = np.array([
                                     current_price,
                                     float(output.get('prdy_ctrt', 0)),  # 전일대비율
                                     float(output.get('acml_vol', 0)) / 1000000  # 거래량(백만주)
                                 ])
                                 
-                                # 아주 간단한 학습 실행 (실제론 더 복잡해야 함)
-                                dummy_action = np.random.choice([0, 1, 2])  # 매수/보유/매도
-                                dummy_reward = np.random.uniform(-0.1, 0.1)  # 더미 보상
+                                # 간단한 추세 분석 기반 액션 결정
+                                change_rate = float(output.get('prdy_ctrt', 0))
+                                if change_rate > 1.0:
+                                    action = 0  # 매수
+                                elif change_rate < -1.0:
+                                    action = 1  # 매도
+                                else:
+                                    action = 2  # 보유
+                                
+                                # 실제 변동성 기반 승률 추정
+                                volatility = abs(change_rate) / 100.0
+                                win_rate = 0.5 + min(volatility * 0.1, 0.2)  # 변동성이 높을수록 기회 증가
                                 
                                 # 학습 기록
                                 training_record = {
@@ -708,8 +722,10 @@ class WeekendTrainer:
                                     'date': datetime.now().strftime('%Y%m%d'),
                                     'timestamp': datetime.now().isoformat(),
                                     'type': 'quick_training',
-                                    'win_rate': 0.5 + dummy_reward,  # 더미 승률
-                                    'price': current_price
+                                    'win_rate': win_rate,
+                                    'price': current_price,
+                                    'action': action,
+                                    'change_rate': change_rate
                                 }
                                 
                                 self.training_history.append(training_record)

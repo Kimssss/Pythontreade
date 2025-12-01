@@ -84,9 +84,9 @@ class FactorInvestingAgent:
         if not stock_details:
             return {'action': 2, 'confidence': 0.5}
         
-        # 팩터 점수 계산 (더미 데이터 사용)
+        # 팩터 점수 계산
         df = pd.DataFrame([market_data])
-        df = self.screener._add_dummy_financial_data(df)
+        # 기술적 지표만으로 분석 (재무 데이터는 실제 API 연동 필요)
         df = self.screener.calculate_factor_scores(df)
         
         # 점수 기반 행동 결정

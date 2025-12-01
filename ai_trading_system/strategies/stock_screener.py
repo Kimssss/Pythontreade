@@ -135,9 +135,9 @@ class StockScreener:
         if 'volume' in df.columns:
             df = df[df['volume'] >= self.screening_config['min_volume']]
         
-        # 3. 재무 데이터 추가 (실제 구현시 별도 API 필요)
-        # 여기서는 시뮬레이션을 위한 더미 데이터 추가
-        df = self._add_dummy_financial_data(df)
+        # 3. 재무 데이터 추가
+        # TODO: 실제 재무 데이터 API 연동 필요
+        # 현재는 기술적 지표만 사용하여 분석
         
         # 4. 팩터 점수 계산
         df = self.calculate_factor_scores(df)
@@ -169,34 +169,6 @@ class StockScreener:
         logger.info(f"Screened {len(selected_stocks)} stocks")
         return selected_stocks
     
-    def _add_dummy_financial_data(self, df: pd.DataFrame) -> pd.DataFrame:
-        """더미 재무 데이터 추가 (실제 구현시 실제 데이터 사용)"""
-        np.random.seed(42)
-        n = len(df)
-        
-        # 가치 지표
-        df['PER'] = np.random.uniform(5, 30, n)
-        df['PBR'] = np.random.uniform(0.5, 3, n)
-        df['PCR'] = np.random.uniform(2, 20, n)
-        df['PSR'] = np.random.uniform(0.3, 5, n)
-        
-        # 품질 지표
-        df['ROE'] = np.random.uniform(5, 25, n)
-        df['ROA'] = np.random.uniform(2, 15, n)
-        df['DebtRatio'] = np.random.uniform(20, 80, n)
-        df['InterestCoverage'] = np.random.uniform(1, 10, n)
-        
-        # 모멘텀 지표
-        df['Returns_1M'] = np.random.uniform(-10, 20, n)
-        df['Returns_3M'] = np.random.uniform(-15, 30, n)
-        df['Returns_6M'] = np.random.uniform(-20, 50, n)
-        
-        # 성장 지표
-        df['EPS_Growth'] = np.random.uniform(-10, 30, n)
-        df['Revenue_Growth'] = np.random.uniform(-5, 25, n)
-        df['FCF_Growth'] = np.random.uniform(-15, 35, n)
-        
-        return df
     
     def _adjust_scores_by_market(self, df: pd.DataFrame, market_condition: str) -> pd.DataFrame:
         """시장 상황별 점수 조정"""

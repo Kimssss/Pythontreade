@@ -281,22 +281,19 @@ class AITradingSystem:
             
             logger.info(f"Screened {len(us_candidates)} US stocks")
             
-            # 해외 주식 잔고 조회 (데모 모드 처리)
-            if self.mode == 'demo':
-                # 데모 모드에서는 가상 잔고 사용
-                overseas_balance = {'foreign_currency_amount': 100000}  # $100,000 가상 잔고
-                logger.info(f"US cash balance (DEMO): ${overseas_balance.get('foreign_currency_amount', 0):,.2f}")
+            # 해외 주식 잔고 조회
+            overseas_balance = self.kis_api.overseas.get_overseas_balance()
+            if overseas_balance:
+                logger.info(f"US cash balance: ${overseas_balance.get('foreign_currency_amount', 0):,.2f}")
             else:
-                overseas_balance = self.kis_api.overseas.get_overseas_balance()
-                if overseas_balance:
-                    logger.info(f"US cash balance: ${overseas_balance.get('foreign_currency_amount', 0):,.2f}")
+                logger.warning("Failed to get overseas balance")
+                overseas_balance = {'foreign_currency_amount': 0}
             
             # 신호 생성 및 거래
             for stock in us_candidates[:5]:  # 상위 5개
                 try:
-                    # 매수 신호인 경우 (데모 모드에서는 조건 완화)
-                    score_threshold = 0.6 if self.mode == 'demo' else 0.7
-                    if stock['score'] > score_threshold:
+                    # 매수 신호인 경우
+                    if stock['score'] > 0.7:  # 70% 이상 점수
                         # 적정 수량 계산 (포트폴리오의 10% 이내)
                         available_cash = overseas_balance.get('foreign_currency_amount', 0) if overseas_balance else 0
                         position_size = min(available_cash * 0.1, 10000)  # 최대 $10,000
@@ -304,14 +301,31 @@ class AITradingSystem:
                         
                         if quantity > 0:
                             logger.info(f"Buying US stock: {stock['code']} x {quantity} @ ${stock['price']}")
+                            
+                            # API로 실제 주문 실행 (데모 모드도 실제 API 사용)
                             result = self.kis_api.overseas.buy_overseas_stock(
                                 exchange='NASD' if stock['exchange'] == 'NASDAQ' else 'NYSE',
                                 symbol=stock['code'],
                                 quantity=quantity,
                                 order_type='00'  # 시장가
                             )
+                            
                             if result and result.get('rt_cd') == '0':
                                 logger.info(f"US stock buy order successful: {stock['code']}")
+                                
+                                # 거래 기록
+                                trade = {
+                                    'timestamp': datetime.now(),
+                                    'stock_code': stock['code'],
+                                    'stock_name': stock['name'],
+                                    'market': 'US',
+                                    'action': 'BUY',
+                                    'quantity': quantity,
+                                    'price': stock['price'],
+                                    'currency': 'USD',
+                                    'order_no': result.get('output', {}).get('orno', 'N/A')
+                                }
+                                self.trade_history.append(trade)
                 
                 except Exception as e:
                     logger.error(f"Error trading US stock {stock.get('code', 'UNKNOWN')}: {e}")
