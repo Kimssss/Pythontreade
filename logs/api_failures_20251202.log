@@ -1604,3 +1604,104 @@
 2025-12-02 05:24:49,254 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
 2025-12-02 05:24:52,388 - kis_api - DEBUG - API Request Success: overseas_price - GET
 2025-12-02 05:24:52,557 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:36:33,566 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 05:36:33,566 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 05:36:33,566 - kis_api - INFO - get_available_cash() called
+2025-12-02 05:36:33,748 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 05:36:33,749 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '9682060', 'prvs_rcdl_excc_amt': '9682060', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '317900', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '40', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '318600', 'tot_evlu_amt': '10000660', 'nass_amt': '10000660', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '317900', 'evlu_amt_smtl_amt': '318600', 'evlu_pfls_smtl_amt': '700', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10002860', 'asst_icdc_amt': '-2200', 'asst_icdc_erng_rt': '-0.02199371'}]
+2025-12-02 05:36:33,749 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=9,682,060
+2025-12-02 05:36:33,749 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,682,060
+2025-12-02 05:36:33,749 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 05:36:36,740 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 05:36:36,740 - kis_api - DEBUG - output1 count: 1 items
+2025-12-02 05:36:36,741 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 2주, 평가금액: 318,600원
+2025-12-02 05:36:36,741 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-02 05:36:36,839 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:36:39,983 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:36:40,151 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:36:43,273 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:36:43,426 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:36:46,567 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:36:46,662 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:36:49,574 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:36:49,676 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:36:52,803 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:36:52,936 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:36:56,021 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:36:56,138 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:36:56,145 - kis_api - ERROR - 해외 잔고 조회 실패: 'KisAPIEnhanced' object has no attribute 'session'
+2025-12-02 05:36:57,247 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:36:57,884 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-02 05:37:09,029 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:37:09,636 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-02 05:37:20,785 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:37:21,407 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-02 05:37:38,558 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:37:39,173 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-02 05:37:50,348 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:37:50,965 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-02 05:42:51,291 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 05:42:51,292 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 05:42:51,292 - kis_api - INFO - get_available_cash() called
+2025-12-02 05:42:51,437 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 05:42:51,437 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '9682060', 'prvs_rcdl_excc_amt': '9682060', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '317900', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '40', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '318600', 'tot_evlu_amt': '10000660', 'nass_amt': '10000660', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '317900', 'evlu_amt_smtl_amt': '318600', 'evlu_pfls_smtl_amt': '700', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10002860', 'asst_icdc_amt': '-2200', 'asst_icdc_erng_rt': '-0.02199371'}]
+2025-12-02 05:42:51,437 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=9,682,060
+2025-12-02 05:42:51,437 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,682,060
+2025-12-02 05:42:51,437 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 05:42:54,476 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 05:42:54,476 - kis_api - DEBUG - output1 count: 1 items
+2025-12-02 05:42:54,476 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 2주, 평가금액: 318,600원
+2025-12-02 05:42:54,476 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-02 05:42:57,611 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:43:00,767 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:43:03,912 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:43:07,036 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:43:07,181 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:43:10,312 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:43:13,449 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:43:16,550 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:43:19,651 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:43:22,784 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:43:22,892 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:43:25,989 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:43:26,125 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:43:26,130 - kis_api - ERROR - 해외 잔고 조회 실패: 'KisAPIEnhanced' object has no attribute 'session'
+2025-12-02 05:43:29,297 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:43:34,392 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-02 05:43:47,537 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:43:52,648 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-02 05:44:05,805 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:44:10,920 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-02 05:46:02,582 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 05:46:02,582 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 05:46:02,582 - kis_api - INFO - get_available_cash() called
+2025-12-02 05:46:02,801 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 05:46:02,801 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '9682060', 'prvs_rcdl_excc_amt': '9682060', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '317900', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '40', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '318600', 'tot_evlu_amt': '10000660', 'nass_amt': '10000660', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '317900', 'evlu_amt_smtl_amt': '318600', 'evlu_pfls_smtl_amt': '700', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10002860', 'asst_icdc_amt': '-2200', 'asst_icdc_erng_rt': '-0.02199371'}]
+2025-12-02 05:46:02,801 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=9,682,060
+2025-12-02 05:46:02,802 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,682,060
+2025-12-02 05:46:02,802 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 05:46:05,781 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 05:46:05,782 - kis_api - DEBUG - output1 count: 1 items
+2025-12-02 05:46:05,782 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 2주, 평가금액: 318,600원
+2025-12-02 05:46:05,782 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-02 05:46:05,913 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:46:06,005 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:46:06,159 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:46:09,266 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:46:09,408 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:46:12,536 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:46:12,667 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:46:15,543 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:46:18,699 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:46:21,840 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:46:21,944 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:46:25,076 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 05:46:25,205 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 05:46:25,207 - kis_api - ERROR - 해외 잔고 조회 실패: 'KisAPIEnhanced' object has no attribute 'session'
+2025-12-02 05:46:28,324 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:46:33,445 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-02 05:46:46,654 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 05:46:51,757 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-02 05:49:15,241 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 05:49:15,242 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 05:49:15,242 - kis_api - INFO - Overseas stock API initialized

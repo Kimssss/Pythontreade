@@ -143,7 +143,7 @@ class GlobalStockScreener:
                     try:
                         # API 호출 간격 조정 (500 에러 방지)
                         if api_call_count > 0:
-                            await asyncio.sleep(3)  # 3초 대기
+                            await asyncio.sleep(5)  # 5초 대기로 증가
                         
                         # 현재가 조회
                         price_info = self.kis_api.overseas.get_overseas_price(exchange_code, symbol)
