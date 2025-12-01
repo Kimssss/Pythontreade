@@ -282,7 +282,7 @@ class AITradingSystem:
             logger.info(f"Screened {len(us_candidates)} US stocks")
             
             # 해외 주식 잔고 조회
-            overseas_balance = self.kis_api.overseas.get_overseas_balance('NASD')
+            overseas_balance = self.kis_api.overseas.get_overseas_balance()
             if overseas_balance:
                 logger.info(f"US cash balance: ${overseas_balance.get('foreign_currency_amount', 0):,.2f}")
             
@@ -627,10 +627,50 @@ class AITradingSystem:
                             
                         await self.run_trading_cycle()
                         
-                        # 다음 사이클까지 대기 (5분)
+                        # 다음 사이클까지 대기 (5분) + 학습
                         logger.info("\n[Next Cycle] Waiting 5 minutes for next trading cycle...")
                         logger.info(f"Next run at: {(now + timedelta(minutes=5)).strftime('%H:%M:%S')}")
-                        await asyncio.sleep(300)
+                        
+                        # 5분 대기 시간 동안 학습 실행
+                        logger.info("\n🧠 [Training During Wait] Starting background learning...")
+                        
+                        # 학습을 위한 시간 분할 (총 300초 = 5분)
+                        training_start_time = datetime.now()
+                        total_wait_time = 300  # 5분
+                        
+                        while (datetime.now() - training_start_time).total_seconds() < total_wait_time:
+                            remaining_time = total_wait_time - (datetime.now() - training_start_time).total_seconds()
+                            
+                            if remaining_time > 60:  # 1분 이상 남았으면 학습 시도
+                                logger.info(f"⏰ Remaining wait time: {remaining_time:.0f}s - Starting quick training...")
+                                
+                                try:
+                                    # 빠른 학습 모드 사용 (최대 60초)
+                                    training_result = await self.trainer.run_quick_training(max_time_seconds=min(60, remaining_time - 10))
+                                    
+                                    if training_result:
+                                        logger.info("✅ Quick training completed!")
+                                        logger.info(f"   Stock: {training_result['stock_name']}")
+                                        logger.info(f"   Win rate: {training_result['win_rate']:.1%}")
+                                    else:
+                                        logger.info("⚠️ Quick training failed, trying fallback...")
+                                        # 실패 시 기존 방식으로 시도
+                                        training_result = await self.trainer.run_single_stock_training()
+                                        if training_result:
+                                            logger.info("✅ Fallback training completed!")
+                                        
+                                except Exception as e:
+                                    logger.error(f"Training error during wait: {e}")
+                                
+                                # 학습 후 짧은 휴식
+                                await asyncio.sleep(10)
+                            else:
+                                # 남은 시간이 1분 미만이면 그냥 대기
+                                logger.info(f"⏰ Remaining: {remaining_time:.0f}s - Finishing wait period...")
+                                await asyncio.sleep(remaining_time)
+                                break
+                        
+                        logger.info("✅ Wait period completed with background learning")
                     else:
                             # 장 마감 후 일일 정산
                             if now.hour == 15 and now.minute == 30:

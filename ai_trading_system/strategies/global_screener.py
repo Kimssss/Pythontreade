@@ -121,24 +121,34 @@ class GlobalStockScreener:
         return candidates[:10]  # 상위 10개
     
     async def _screen_overseas_stocks(self, markets: List[str]) -> List[Dict]:
-        """해외 주식 스크리닝"""
+        """해외 주식 스크리닝 - API 호출 최소화"""
         candidates = []
         
-        # 인기 종목 리스트 (실제로는 API에서 가져와야 함)
+        # 인기 종목 리스트 (API 호출 없이 기본 종목만)
         popular_stocks = {
-            'NASDAQ': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'TSLA', 'META'],
-            'NYSE': ['JPM', 'JNJ', 'WMT', 'PG', 'UNH', 'HD', 'BAC']
+            'NASDAQ': ['AAPL', 'MSFT', 'GOOGL'],  # 3개로 축소
+            'NYSE': ['JPM', 'JNJ', 'WMT']        # 3개로 축소
         }
         
         try:
+            import asyncio
             for market in markets:
                 exchange_code = 'NASD' if market == 'NASDAQ' else 'NYSE'
                 stocks = popular_stocks.get(market, [])
                 
+                # API 호출 간격을 위한 카운터
+                api_call_count = 0
+                
                 for symbol in stocks:
                     try:
+                        # API 호출 간격 조정 (500 에러 방지)
+                        if api_call_count > 0:
+                            await asyncio.sleep(3)  # 3초 대기
+                        
                         # 현재가 조회
                         price_info = self.kis_api.overseas.get_overseas_price(exchange_code, symbol)
+                        api_call_count += 1
+                        
                         if not price_info:
                             continue
                         

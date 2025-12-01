@@ -361,3 +361,66 @@ class KisAPIOverseas:
         else:
             # 계좌번호가 하이픈 없이 연결된 경우
             return [self.api.account_no[:8], self.api.account_no[8:]]
+    
+    def get_overseas_holdings(self) -> Optional[Dict]:
+        """해외주식 보유종목 조회"""
+        if not self.api.ensure_valid_token():
+            return None
+            
+        url = f"{self.api.base_url}/uapi/overseas-stock/v1/trading/inquire-balance"
+        
+        headers = {
+            "authorization": f"Bearer {self.api.access_token}",
+            "appkey": self.api.appkey,
+            "appsecret": self.api.appsecret,
+            "tr_id": "TTTS3012R",
+            "custtype": "P",
+            "Content-Type": "application/json; charset=utf-8"
+        }
+        
+        params = {
+            "CANO": self.api.account_no.replace('-', '')[:8],
+            "ACNT_PRDT_CD": self.api.account_no.split('-')[1],
+            "OVRS_EXCG_CD": "NASD",  # 기본값으로 나스닥
+            "TR_CRCY_CD": "USD",
+            "CTX_AREA_FK200": "",
+            "CTX_AREA_NK200": ""
+        }
+        
+        try:
+            response = self.api.session.get(url, headers=headers, params=params, timeout=10)
+            return response.json()
+        except Exception as e:
+            api_logger.error(f"해외 보유종목 조회 실패: {e}")
+            return None
+    
+    def get_overseas_balance(self) -> Optional[Dict]:
+        """해외 계좌 잔고 조회"""
+        if not self.api.ensure_valid_token():
+            return None
+            
+        url = f"{self.api.base_url}/uapi/overseas-stock/v1/trading/inquire-psamount"
+        
+        headers = {
+            "authorization": f"Bearer {self.api.access_token}",
+            "appkey": self.api.appkey,
+            "appsecret": self.api.appsecret,
+            "tr_id": "TTTS3007R",
+            "custtype": "P",
+            "Content-Type": "application/json; charset=utf-8"
+        }
+        
+        params = {
+            "CANO": self.api.account_no.replace('-', '')[:8],
+            "ACNT_PRDT_CD": self.api.account_no.split('-')[1],
+            "OVRS_EXCG_CD": "NASD",
+            "OVRS_ORD_UNPR": "",
+            "ITEM_CD": ""
+        }
+        
+        try:
+            response = self.api.session.get(url, headers=headers, params=params, timeout=10)
+            return response.json()
+        except Exception as e:
+            api_logger.error(f"해외 잔고 조회 실패: {e}")
+            return None
