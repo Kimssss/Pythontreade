@@ -18,6 +18,7 @@ from pathlib import Path
 import threading
 from collections import defaultdict
 import logging
+from typing import Dict, List, Optional
 
 # API 실패 로거 설정
 api_logger = logging.getLogger('kis_api')
@@ -79,6 +80,9 @@ class KisAPIEnhanced:
         
         # 캐시된 토큰 로드 시도
         self._load_cached_token()
+        
+        # 해외주식 API 확장
+        self.overseas = None  # 나중에 초기화
     
     def _load_cached_token(self):
         """캐시된 토큰 로드"""
@@ -884,6 +888,12 @@ class KisAPIEnhanced:
         if response:
             return response.json()
         return None
+    
+    def initialize_overseas_api(self):
+        """해외주식 API 초기화"""
+        from .kis_api_overseas import KisAPIOverseas
+        self.overseas = KisAPIOverseas(self)
+        api_logger.info("Overseas stock API initialized")
 
 
 def test_enhanced_api():

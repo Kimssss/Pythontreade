@@ -70,6 +70,16 @@ class AITradingSystem:
         self.indicators = TechnicalIndicators()
         self.trainer = WeekendTrainer(self.ensemble, self.kis_api)
         
+        # 해외주식 API 초기화
+        self.kis_api.initialize_overseas_api()
+        
+        # 글로벌 스크리너 초기화
+        from .strategies.global_screener import GlobalStockScreener
+        self.global_screener = GlobalStockScreener(self.kis_api)
+        
+        # 거래 모드 설정 (국내만, 해외만, 또는 둘 다)
+        self.trading_mode = os.environ.get('GLOBAL_TRADING_MODE', 'domestic')  # domestic, overseas, both
+        
         # 포트폴리오 상태
         self.portfolio = {}
         self.cash_balance = 0
@@ -163,48 +173,146 @@ class AITradingSystem:
             
             logger.info(f"Default values set - Cash: {self.cash_balance:,.0f}, Total: {self.total_value:,.0f}")
     
+    def get_active_markets(self) -> Dict[str, bool]:
+        """현재 거래 가능한 시장 확인"""
+        now = datetime.now()
+        hour = now.hour
+        minute = now.minute
+        weekday = now.weekday()
+        
+        markets = {
+            'korean': False,
+            'us': False
+        }
+        
+        # 평일만 거래
+        if weekday >= 5:  # 토요일(5), 일요일(6)
+            return markets
+        
+        # 한국 시장: 09:00 ~ 15:30
+        if 9 <= hour < 15 or (hour == 15 and minute <= 30):
+            markets['korean'] = True
+            
+        # 미국 시장: 23:30 ~ 06:00 (서머타임: 22:30 ~ 05:00)
+        # 현재 서머타임 여부는 간단히 구현
+        is_dst = 4 <= now.month <= 10  # 대략적인 서머타임 기간
+        
+        if is_dst:
+            if hour >= 22 or hour < 5:
+                markets['us'] = True
+            elif hour == 22 and minute >= 30:
+                markets['us'] = True
+        else:
+            if hour >= 23 or hour < 6:
+                markets['us'] = True
+            elif hour == 23 and minute >= 30:
+                markets['us'] = True
+            
+        return markets
+
     async def run_trading_cycle(self):
-        """메인 트레이딩 사이클"""
+        """메인 트레이딩 사이클 - 시간대별 자동 거래"""
         logger.info("=== Starting Trading Cycle ===")
         
         try:
+            # 현재 거래 가능한 시장 확인
+            active_markets = self.get_active_markets()
+            logger.info(f"Active markets: {active_markets}")
+            
+            # 활성 시장이 없으면 스킵
+            active_list = [k for k, v in active_markets.items() if v]
+            if not active_list:
+                logger.info("No active markets at this time")
+                return
+            
             # 1. 시장 상태 분석
             market_condition = await self.analyze_market_condition()
             logger.info(f"Market condition: {market_condition}")
             
-            # 2. 종목 스크리닝
-            candidates = await self.screener.screen_stocks(market_condition)
-            logger.info(f"Screened {len(candidates)} candidate stocks")
+            # 2. 활성 시장에 따른 종목 스크리닝
+            if active_markets['korean']:
+                await self._trade_korean_stocks(market_condition)
+                
+            if active_markets['us']:
+                await self._trade_us_stocks(market_condition)
             
-            # 3. 포트폴리오 업데이트
-            await self.update_portfolio_status()
-            
-            # 4. 각 종목별 신호 생성 및 거래 결정
-            signals = []
-            for stock in candidates[:10]:  # 상위 10개 종목만 분석
-                signal = await self.analyze_stock_and_generate_signal(stock)
-                if signal and signal['confidence'] >= TRADING_CONFIG['min_confidence']:
-                    signals.append(signal)
-            
-            logger.info(f"Generated {len(signals)} trading signals")
-            
-            # 5. 리스크 필터링
-            filtered_signals = self.filter_signals_by_risk(signals)
-            logger.info(f"After risk filtering: {len(filtered_signals)} signals")
-            
-            # 6. 주문 실행
-            executed_trades = await self.execute_trades(filtered_signals)
-            logger.info(f"Executed {len(executed_trades)} trades")
-            
-            # 7. 포트폴리오 리밸런싱 체크
-            if self.should_rebalance():
-                await self.rebalance_portfolio()
-            
-            # 8. 성과 기록
+            # 3. 성과 기록
             self.record_performance()
             
         except Exception as e:
             logger.error(f"Error in trading cycle: {e}", exc_info=True)
+    
+    async def _trade_korean_stocks(self, market_condition: str):
+        """한국 주식 거래"""
+        logger.info("=== Trading Korean Stocks ===")
+        
+        # 종목 스크리닝
+        candidates = await self.screener.screen_stocks(market_condition)
+        logger.info(f"Screened {len(candidates)} Korean stocks")
+        
+        # 포트폴리오 업데이트
+        await self.update_portfolio_status()
+        
+        # 각 종목별 신호 생성 및 거래 결정
+        signals = []
+        for stock in candidates[:10]:  # 상위 10개 종목만 분석
+            signal = await self.analyze_stock_and_generate_signal(stock)
+            if signal and signal['confidence'] >= TRADING_CONFIG['min_confidence']:
+                signals.append(signal)
+        
+        logger.info(f"Generated {len(signals)} Korean trading signals")
+        
+        # 리스크 필터링
+        filtered_signals = self.filter_signals_by_risk(signals)
+        logger.info(f"After risk filtering: {len(filtered_signals)} signals")
+        
+        # 주문 실행
+        executed_trades = await self.execute_trades(filtered_signals)
+        logger.info(f"Executed {len(executed_trades)} Korean trades")
+    
+    async def _trade_us_stocks(self, market_condition: str):
+        """미국 주식 거래"""
+        logger.info("=== Trading US Stocks ===")
+        
+        try:
+            # 글로벌 스크리너 사용
+            results = await self.global_screener.screen_global_stocks(['NASDAQ', 'NYSE'])
+            us_candidates = results.get('overseas', [])
+            
+            logger.info(f"Screened {len(us_candidates)} US stocks")
+            
+            # 해외 주식 잔고 조회
+            overseas_balance = self.kis_api.overseas.get_overseas_balance('NASD')
+            if overseas_balance:
+                logger.info(f"US cash balance: ${overseas_balance.get('foreign_currency_amount', 0):,.2f}")
+            
+            # 신호 생성 및 거래
+            for stock in us_candidates[:5]:  # 상위 5개
+                try:
+                    # 매수 신호인 경우
+                    if stock['score'] > 0.7:  # 70% 이상 점수
+                        # 적정 수량 계산 (포트폴리오의 10% 이내)
+                        available_cash = overseas_balance.get('foreign_currency_amount', 0) if overseas_balance else 0
+                        position_size = min(available_cash * 0.1, 10000)  # 최대 $10,000
+                        quantity = int(position_size / stock['price'])
+                        
+                        if quantity > 0:
+                            logger.info(f"Buying US stock: {stock['code']} x {quantity} @ ${stock['price']}")
+                            result = self.kis_api.overseas.buy_overseas_stock(
+                                exchange='NASD' if stock['exchange'] == 'NASDAQ' else 'NYSE',
+                                symbol=stock['code'],
+                                quantity=quantity,
+                                order_type='00'  # 시장가
+                            )
+                            if result and result.get('rt_cd') == '0':
+                                logger.info(f"US stock buy order successful: {stock['code']}")
+                
+                except Exception as e:
+                    logger.error(f"Error trading US stock {stock.get('code', 'UNKNOWN')}: {e}")
+                    
+        except Exception as e:
+            logger.error(f"Error in US stock trading: {e}")
+    
     
     async def analyze_market_condition(self) -> str:
         """시장 상태 분석"""
@@ -501,28 +609,63 @@ class AITradingSystem:
             
             while self.is_running:
                 try:
-                    # 장 시간 체크 (9:00 ~ 15:30)
                     now = datetime.now()
-                    if now.weekday() < 5:  # 평일
-                        if 9 <= now.hour < 15 or (now.hour == 15 and now.minute < 30):
-                            # 트레이딩 사이클 실행
-                            logger.info(f"\n{'='*60}")
-                            logger.info(f"TRADING ACTIVE - {now.strftime('%Y-%m-%d %H:%M:%S')}")
-                            await self.run_trading_cycle()
+                    active_markets = self.get_active_markets()
+                    active_list = [k for k, v in active_markets.items() if v]
+                    
+                    if now.weekday() < 5 and active_list:  # 평일이고 활성 시장이 있는 경우
+                        # 트레이딩 사이클 실행
+                        logger.info(f"\n{'='*60}")
+                        logger.info(f"TRADING ACTIVE - {now.strftime('%Y-%m-%d %H:%M:%S')}")
+                        logger.info(f"Active Markets: {', '.join(active_list).upper()}")
+                        
+                        # 각 시장의 거래 시간 표시
+                        if active_markets['korean']:
+                            logger.info("🇰🇷 Korean Market: 09:00-15:30 KST (ACTIVE)")
+                        if active_markets['us']:
+                            logger.info("🇺🇸 US Market: 23:30-06:00 KST (ACTIVE)")
                             
-                            # 다음 사이클까지 대기 (5분)
-                            logger.info("\n[Next Cycle] Waiting 5 minutes for next trading cycle...")
-                            logger.info(f"Next run at: {(now + timedelta(minutes=5)).strftime('%H:%M:%S')}")
-                            await asyncio.sleep(300)
-                        else:
+                        await self.run_trading_cycle()
+                        
+                        # 다음 사이클까지 대기 (5분)
+                        logger.info("\n[Next Cycle] Waiting 5 minutes for next trading cycle...")
+                        logger.info(f"Next run at: {(now + timedelta(minutes=5)).strftime('%H:%M:%S')}")
+                        await asyncio.sleep(300)
+                    else:
                             # 장 마감 후 일일 정산
                             if now.hour == 15 and now.minute == 30:
                                 logger.info("\n[MARKET CLOSE] Running daily settlement...")
                                 await self.daily_settlement()
                             
                             # 장외 시간 대기
-                            logger.info(f"\n[AFTER HOURS] Market closed at {now.strftime('%H:%M')}")
-                            logger.info("Next market open: Tomorrow 09:00")
+                            logger.info(f"\n[AFTER HOURS] No active markets at {now.strftime('%H:%M')}")
+                            
+                            # 다음 오픈 시간 계산
+                            next_open_times = []
+                            current_hour = now.hour
+                            
+                            # 한국 시장
+                            if current_hour < 9:
+                                next_open_times.append("🇰🇷 Korean: Today 09:00")
+                            elif current_hour >= 15:
+                                next_open_times.append("🇰🇷 Korean: Tomorrow 09:00")
+                                
+                            # 미국 시장 (서머타임 기준)
+                            if 4 <= now.month <= 10:  # 서머타임
+                                if current_hour < 22:
+                                    next_open_times.append("🇺🇸 US: Today 22:30")
+                                else:
+                                    next_open_times.append("🇺🇸 US: Active Now")
+                            else:  # 표준시간
+                                if current_hour < 23:
+                                    next_open_times.append("🇺🇸 US: Today 23:30")
+                                else:
+                                    next_open_times.append("🇺🇸 US: Active Now")
+                                    
+                            if next_open_times:
+                                logger.info("Next market opens:")
+                                for time in next_open_times:
+                                    logger.info(f"  {time}")
                             
                             # 장외시간 학습 (15:30 ~ 09:00)
                             # 주식시장 종료 후부터 다음날 시작 전까지 계속 학습
@@ -582,7 +725,9 @@ class AITradingSystem:
                             
                             logger.info("Waiting 1 hour...")
                             await asyncio.sleep(3600)  # 1시간 대기
-                    else:
+                    
+                    # 주말 처리
+                    if now.weekday() >= 5:
                         # 주말 대기
                         logger.info("=" * 60)
                         logger.info("WEEKEND MODE - Market is closed")

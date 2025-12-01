@@ -15,12 +15,20 @@ sys.path.insert(0, str(current_dir))
 sys.path.insert(0, str(current_dir / 'ai_trading_system'))
 
 # .env 파일 로드
-env_path = current_dir / 'ai_trading_system' / '.env'
+env_path = current_dir / '.env'
 if env_path.exists():
     load_dotenv(env_path)
+else:
+    # 기본 환경변수가 없으면 로드 시도
+    load_dotenv()
 
 # 이제 import
-from ai_trading_system.main_trading_system import main
+try:
+    from ai_trading_system.main_trading_system import main, AITradingSystem
+except ImportError as e:
+    print(f"Import error: {e}")
+    print("Make sure you're in the correct directory and dependencies are installed")
+    sys.exit(1)
 
 
 def setup_environment(mode: str):
@@ -101,7 +109,8 @@ def main_cli():
         sys.exit(1)
     
     # 환경 설정
-    setup_environment(args.mode)
+    if args.mode:
+        setup_environment(args.mode)
     
     # 설정 체크 모드
     if args.check:

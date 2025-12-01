@@ -1,0 +1,778 @@
+2025-12-02 00:36:14,326 - kis_api - INFO - get_available_cash() called
+2025-12-02 00:36:14,576 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:36:14,577 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '9682060', 'prvs_rcdl_excc_amt': '9682060', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '317900', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '40', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '318600', 'tot_evlu_amt': '10000660', 'nass_amt': '10000660', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '317900', 'evlu_amt_smtl_amt': '318600', 'evlu_pfls_smtl_amt': '700', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10002860', 'asst_icdc_amt': '-2200', 'asst_icdc_erng_rt': '-0.02199371'}]
+2025-12-02 00:36:14,577 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=9,682,060
+2025-12-02 00:36:14,577 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,682,060
+2025-12-02 00:36:14,577 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 00:36:15,004 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:36:15,005 - kis_api - DEBUG - output1 count: 1 items
+2025-12-02 00:36:15,005 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 2주, 평가금액: 318,600원
+2025-12-02 00:36:15,005 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-02 00:36:15,148 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 00:36:15,149 - kis_api - WARNING - Market is closed - order will be queued or rejected
+2025-12-02 00:36:15,149 - kis_api - INFO - Demo mode: Proceeding with order despite market closure
+2025-12-02 00:36:16,547 - kis_api - DEBUG - API Request Success: order - POST
+2025-12-02 00:37:40,609 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:37:40,708 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:38:33,871 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:38:33,966 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:38:34,027 - kis_api - INFO - 해외주식 매수 주문: NASD AAPL x 1
+2025-12-02 00:38:37,281 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:38:34.028082",
+  "method": "POST",
+  "endpoint": "overseas_order",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-stock/v1/trading/order",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSTP8BTWgg4loa76mISQPzb2tHvjxtrBUDID",
+    "appsecret": "***",
+    "tr_id": "VTTT1002U",
+    "custtype": "P",
+    "hashkey": "9e23268cbda057369c963f2d037a4e2990e38e1e5d4c7bd9c12534c608b89518"
+  },
+  "params": null,
+  "data": {
+    "CANO": "50157423",
+    "ACNT_PRDT_CD": "01",
+    "OVRS_EXCG_CD": "NASD",
+    "PDNO": "AAPL",
+    "ORD_QTY": "1",
+    "OVRS_ORD_UNPR": "0",
+    "ORD_SVR_DVSN_CD": "0",
+    "ORD_DVSN": "00"
+  },
+  "retries": 3,
+  "success": false,
+  "error": "500:  - ",
+  "response_code": 500,
+  "response_msg": ""
+}
+2025-12-02 00:39:49,137 - kis_api - INFO - get_available_cash() called
+2025-12-02 00:39:49,378 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:39:49,379 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '9682060', 'prvs_rcdl_excc_amt': '9682060', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '317900', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '40', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '318600', 'tot_evlu_amt': '10000660', 'nass_amt': '10000660', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '317900', 'evlu_amt_smtl_amt': '318600', 'evlu_pfls_smtl_amt': '700', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10002860', 'asst_icdc_amt': '-2200', 'asst_icdc_erng_rt': '-0.02199371'}]
+2025-12-02 00:39:49,379 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=9,682,060
+2025-12-02 00:39:49,379 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,682,060
+2025-12-02 00:39:49,379 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 00:39:49,837 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:39:49,838 - kis_api - DEBUG - output1 count: 1 items
+2025-12-02 00:39:49,838 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 2주, 평가금액: 318,600원
+2025-12-02 00:39:49,839 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-02 00:39:49,842 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:39:50,019 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:42:32,432 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:42:32,433 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:42:32,433 - kis_api - INFO - get_available_cash() called
+2025-12-02 00:42:35,742 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:42:32.433719",
+  "method": "GET",
+  "endpoint": "balance",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/trading/inquire-balance",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "VTTC8434R"
+  },
+  "params": {
+    "CANO": "50144239",
+    "ACNT_PRDT_CD": "01",
+    "AFHR_FLPR_YN": "N",
+    "OFL_YN": "",
+    "INQR_DVSN": "02",
+    "UNPR_DVSN": "01",
+    "FUND_STTL_ICLD_YN": "N",
+    "FNCG_AMT_AUTO_RDPT_YN": "N",
+    "PRCS_DVSN": "01",
+    "CTX_AREA_FK100": "",
+    "CTX_AREA_NK100": ""
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:42:35,742 - kis_api - WARNING - get_balance() returned None
+2025-12-02 00:42:35,742 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 00:42:39,997 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:42:35.742546",
+  "method": "GET",
+  "endpoint": "balance",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/trading/inquire-balance",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "VTTC8434R"
+  },
+  "params": {
+    "CANO": "50144239",
+    "ACNT_PRDT_CD": "01",
+    "AFHR_FLPR_YN": "N",
+    "OFL_YN": "",
+    "INQR_DVSN": "02",
+    "UNPR_DVSN": "01",
+    "FUND_STTL_ICLD_YN": "N",
+    "FNCG_AMT_AUTO_RDPT_YN": "N",
+    "PRCS_DVSN": "01",
+    "CTX_AREA_FK100": "",
+    "CTX_AREA_NK100": ""
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:42:39,997 - kis_api - WARNING - get_balance() returned None
+2025-12-02 00:42:43,217 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:42:39.997499",
+  "method": "GET",
+  "endpoint": "volume_rank",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/quotations/volume-rank",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "FHPST01710000"
+  },
+  "params": {
+    "FID_COND_MRKT_DIV_CODE": "J",
+    "FID_COND_SCR_DIV_CODE": "20171",
+    "FID_INPUT_ISCD": "0000",
+    "FID_DIV_CLS_CODE": "0",
+    "FID_BLNG_CLS_CODE": "0",
+    "FID_TRGT_CLS_CODE": "111111111",
+    "FID_TRGT_EXLS_CLS_CODE": "000000",
+    "FID_INPUT_PRICE_1": "",
+    "FID_INPUT_PRICE_2": "",
+    "FID_VOL_CNT": "",
+    "FID_INPUT_DATE_1": ""
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:43:43,025 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:43:43,025 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:43:43,026 - kis_api - INFO - get_available_cash() called
+2025-12-02 00:43:43,210 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:43:43,211 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '9682060', 'prvs_rcdl_excc_amt': '9682060', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '317900', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '40', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '318600', 'tot_evlu_amt': '10000660', 'nass_amt': '10000660', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '317900', 'evlu_amt_smtl_amt': '318600', 'evlu_pfls_smtl_amt': '700', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10002860', 'asst_icdc_amt': '-2200', 'asst_icdc_erng_rt': '-0.02199371'}]
+2025-12-02 00:43:43,211 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=9,682,060
+2025-12-02 00:43:43,211 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,682,060
+2025-12-02 00:43:43,211 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 00:43:44,250 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:43:44,250 - kis_api - DEBUG - output1 count: 1 items
+2025-12-02 00:43:44,250 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 2주, 평가금액: 318,600원
+2025-12-02 00:43:44,250 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-02 00:43:44,382 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 00:43:45,582 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:45,752 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:46,604 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:46,703 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:47,629 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:47,727 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:48,616 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:48,762 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:49,604 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:49,750 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:50,619 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:50,783 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:51,632 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:51,770 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:52,607 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:52,755 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:53,625 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:53,801 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:54,610 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:54,767 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:55,662 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:55,786 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:56,616 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:56,760 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:57,695 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:57,823 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:58,659 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:43:58,798 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:43:58,930 - kis_api - DEBUG - API Request Success: overseas_balance - GET
+2025-12-02 00:46:36,736 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:46:36,737 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:46:36,737 - kis_api - INFO - get_available_cash() called
+2025-12-02 00:46:40,063 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:46:36.737527",
+  "method": "GET",
+  "endpoint": "balance",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/trading/inquire-balance",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "VTTC8434R"
+  },
+  "params": {
+    "CANO": "50144239",
+    "ACNT_PRDT_CD": "01",
+    "AFHR_FLPR_YN": "N",
+    "OFL_YN": "",
+    "INQR_DVSN": "02",
+    "UNPR_DVSN": "01",
+    "FUND_STTL_ICLD_YN": "N",
+    "FNCG_AMT_AUTO_RDPT_YN": "N",
+    "PRCS_DVSN": "01",
+    "CTX_AREA_FK100": "",
+    "CTX_AREA_NK100": ""
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:46:40,063 - kis_api - WARNING - get_balance() returned None
+2025-12-02 00:46:40,063 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 00:46:44,310 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:46:40.063575",
+  "method": "GET",
+  "endpoint": "balance",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/trading/inquire-balance",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "VTTC8434R"
+  },
+  "params": {
+    "CANO": "50144239",
+    "ACNT_PRDT_CD": "01",
+    "AFHR_FLPR_YN": "N",
+    "OFL_YN": "",
+    "INQR_DVSN": "02",
+    "UNPR_DVSN": "01",
+    "FUND_STTL_ICLD_YN": "N",
+    "FNCG_AMT_AUTO_RDPT_YN": "N",
+    "PRCS_DVSN": "01",
+    "CTX_AREA_FK100": "",
+    "CTX_AREA_NK100": ""
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:46:44,311 - kis_api - WARNING - get_balance() returned None
+2025-12-02 00:46:47,569 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:46:44.312887",
+  "method": "GET",
+  "endpoint": "volume_rank",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/quotations/volume-rank",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "FHPST01710000"
+  },
+  "params": {
+    "FID_COND_MRKT_DIV_CODE": "J",
+    "FID_COND_SCR_DIV_CODE": "20171",
+    "FID_INPUT_ISCD": "0000",
+    "FID_DIV_CLS_CODE": "0",
+    "FID_BLNG_CLS_CODE": "0",
+    "FID_TRGT_CLS_CODE": "111111111",
+    "FID_TRGT_EXLS_CLS_CODE": "000000",
+    "FID_INPUT_PRICE_1": "",
+    "FID_INPUT_PRICE_2": "",
+    "FID_VOL_CNT": "",
+    "FID_INPUT_DATE_1": ""
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:46:50,823 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:46:47.570427",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "AAPL"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:46:55,008 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:46:50.824064",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "MSFT"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:46:59,198 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:46:55.009087",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "GOOGL"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:03,356 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:46:59.198237",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "AMZN"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:07,548 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:03.357643",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "NVDA"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:11,696 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:07.548473",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "TSLA"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:15,933 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:11.698030",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "META"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:20,148 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:15.933673",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NYS",
+    "SYMB": "JPM"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:24,312 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:20.148711",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NYS",
+    "SYMB": "JNJ"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:28,464 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:24.313387",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NYS",
+    "SYMB": "WMT"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:32,630 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:28.465098",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NYS",
+    "SYMB": "PG"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:36,858 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:32.631866",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NYS",
+    "SYMB": "UNH"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:41,064 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:36.858553",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NYS",
+    "SYMB": "HD"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:45,203 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:41.065157",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NYS",
+    "SYMB": "BAC"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:47:48,487 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:47:45.203896",
+  "method": "GET",
+  "endpoint": "overseas_balance",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-stock/v1/trading/inquire-balance",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "VTTS3012R"
+  },
+  "params": {
+    "CANO": "50144239",
+    "ACNT_PRDT_CD": "01",
+    "OVRS_EXCG_CD": "NASD",
+    "TR_CRCY_CD": "USD",
+    "CTX_AREA_FK200": "",
+    "CTX_AREA_NK200": ""
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00123 - 기간이 만료된 token 입니다.",
+  "response_code": 500,
+  "response_msg": "기간이 만료된 token 입니다."
+}
+2025-12-02 00:48:51,472 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:48:51,472 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:48:51,472 - kis_api - INFO - get_available_cash() called
+2025-12-02 00:48:51,609 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:48:51,609 - kis_api - INFO - Overseas stock API initialized
+2025-12-02 00:48:51,609 - kis_api - INFO - get_available_cash() called
+2025-12-02 00:48:51,734 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:48:51,734 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '9682060', 'prvs_rcdl_excc_amt': '9682060', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '317900', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '40', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '318600', 'tot_evlu_amt': '10000660', 'nass_amt': '10000660', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '317900', 'evlu_amt_smtl_amt': '318600', 'evlu_pfls_smtl_amt': '700', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10002860', 'asst_icdc_amt': '-2200', 'asst_icdc_erng_rt': '-0.02199371'}]
+2025-12-02 00:48:51,734 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=9,682,060
+2025-12-02 00:48:51,734 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,682,060
+2025-12-02 00:48:51,734 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 00:48:51,804 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:48:51,804 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '9682060', 'prvs_rcdl_excc_amt': '9682060', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '317900', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '40', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '318600', 'tot_evlu_amt': '10000660', 'nass_amt': '10000660', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '317900', 'evlu_amt_smtl_amt': '318600', 'evlu_pfls_smtl_amt': '700', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10002860', 'asst_icdc_amt': '-2200', 'asst_icdc_erng_rt': '-0.02199371'}]
+2025-12-02 00:48:51,804 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=9,682,060
+2025-12-02 00:48:51,804 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,682,060
+2025-12-02 00:48:51,804 - kis_api - INFO - get_holding_stocks() called
+2025-12-02 00:48:52,641 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:48:52,641 - kis_api - DEBUG - output1 count: 1 items
+2025-12-02 00:48:52,641 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 2주, 평가금액: 318,600원
+2025-12-02 00:48:52,641 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-02 00:48:52,741 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 00:48:52,782 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-02 00:48:52,782 - kis_api - DEBUG - output1 count: 1 items
+2025-12-02 00:48:52,782 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 2주, 평가금액: 318,600원
+2025-12-02 00:48:52,782 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-02 00:48:52,880 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-02 00:48:52,970 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:48:53,939 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:48:54,121 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:48:54,942 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:48:55,077 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:48:55,950 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:48:56,059 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:48:56,257 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:48:52.971288",
+  "method": "GET",
+  "endpoint": "overseas_daily_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/dailyprice",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSTP8BTWgg4loa76mISQPzb2tHvjxtrBUDID",
+    "appsecret": "***",
+    "tr_id": "HHDFS76240000"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "AAPL",
+    "GUBN": "0",
+    "BYMD": "20251202",
+    "MODP": "0"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00201 - 초당 거래건수를 초과하였습니다.",
+  "response_code": 500,
+  "response_msg": "초당 거래건수를 초과하였습니다."
+}
+2025-12-02 00:48:56,956 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:48:57,135 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:48:57,945 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:48:58,061 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:48:58,973 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:48:59,085 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:48:59,661 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-02T00:48:56.258086",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSTP8BTWgg4loa76mISQPzb2tHvjxtrBUDID",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "MSFT"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500: EGW00201 - 초당 거래건수를 초과하였습니다.",
+  "response_code": 500,
+  "response_msg": "초당 거래건수를 초과하였습니다."
+}
+2025-12-02 00:48:59,976 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:49:00,114 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:49:00,972 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:49:01,122 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:49:01,971 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:49:02,095 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:49:03,023 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:49:03,156 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:49:04,001 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:49:04,152 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:49:04,980 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:49:05,142 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:49:05,963 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:49:06,141 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:49:07,011 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-02 00:49:07,140 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-02 00:49:08,384 - kis_api - DEBUG - API Request Success: overseas_balance - GET

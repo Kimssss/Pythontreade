@@ -927,3 +927,256 @@
 2025-12-01 22:19:55,786 - kis_api - DEBUG - API Request Success: daily_price - GET
 2025-12-01 22:20:00,918 - kis_api - DEBUG - API Request Success: volume_rank - GET
 2025-12-01 22:20:06,013 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:49:32,541 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-01T22:49:29.319969",
+  "method": "GET",
+  "endpoint": "overseas_price",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-price/v1/quotations/price",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "",
+    "appsecret": "***",
+    "tr_id": "HHDFS00000300"
+  },
+  "params": {
+    "AUTH": "",
+    "EXCD": "NAS",
+    "SYMB": "AAPL"
+  },
+  "data": null,
+  "retries": 3,
+  "success": false,
+  "error": "500:  - ",
+  "response_code": 500,
+  "response_msg": ""
+}
+2025-12-01 22:56:22,375 - kis_api - INFO - get_available_cash() called
+2025-12-01 22:56:22,571 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 22:56:22,571 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-12-01 22:56:22,572 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748, nxdy_excc_amt=9,842,748
+2025-12-01 22:56:22,572 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,842,748
+2025-12-01 22:56:22,572 - kis_api - INFO - get_holding_stocks() called
+2025-12-01 22:56:23,551 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 22:56:23,552 - kis_api - DEBUG - output1 count: 0 items
+2025-12-01 22:56:23,553 - kis_api - INFO - Total holdings: 0 stocks
+2025-12-01 22:56:26,668 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:56:31,786 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:56:36,976 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:56:42,146 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:56:47,293 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:56:52,415 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:56:57,556 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:57:02,682 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:57:07,849 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:57:13,035 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:57:18,170 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:57:23,289 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:57:28,435 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:57:33,565 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:57:38,693 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:57:43,802 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:57:48,937 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:57:54,053 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:57:59,191 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:58:04,320 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 22:58:09,450 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 22:58:14,585 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:11:40,422 - kis_api - INFO - Overseas stock API initialized
+2025-12-01 23:11:40,423 - kis_api - INFO - Overseas stock API initialized
+2025-12-01 23:11:40,424 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:11:40,558 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:11:40,558 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-12-01 23:11:40,559 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748, nxdy_excc_amt=9,842,748
+2025-12-01 23:11:40,559 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,842,748
+2025-12-01 23:11:40,559 - kis_api - INFO - get_holding_stocks() called
+2025-12-01 23:11:41,575 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:11:41,575 - kis_api - DEBUG - output1 count: 0 items
+2025-12-01 23:11:41,575 - kis_api - INFO - Total holdings: 0 stocks
+2025-12-01 23:11:44,677 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:11:49,779 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:11:54,909 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:12:00,018 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:12:05,168 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:12:10,297 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:12:15,421 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:12:20,533 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:12:25,651 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:12:30,810 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:12:35,943 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:12:41,083 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:12:46,216 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:12:51,324 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:12:56,450 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:13:01,571 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:13:06,722 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:13:11,848 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:13:16,983 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:13:22,098 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:13:27,222 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:13:32,318 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-01 23:18:51,670 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:19:01,921 - kis_api - WARNING - get_balance() returned None
+2025-12-01 23:19:01,922 - kis_api - INFO - get_holding_stocks() called
+2025-12-01 23:19:12,175 - kis_api - WARNING - get_balance() returned None
+2025-12-01 23:21:23,242 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:23:29,273 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:23:29,531 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:23:29,532 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-12-01 23:23:29,532 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748, nxdy_excc_amt=9,842,748
+2025-12-01 23:23:29,532 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,842,748
+2025-12-01 23:23:29,634 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:23:30,844 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-01 23:23:30,851 - kis_api - INFO - Overseas stock API initialized
+2025-12-01 23:23:30,960 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-01 23:25:11,724 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:25:11,897 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:25:11,898 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-12-01 23:25:11,898 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748, nxdy_excc_amt=9,842,748
+2025-12-01 23:25:11,898 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,842,748
+2025-12-01 23:25:11,898 - kis_api - INFO - get_holding_stocks() called
+2025-12-01 23:25:12,449 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:25:12,450 - kis_api - DEBUG - output1 count: 0 items
+2025-12-01 23:25:12,450 - kis_api - INFO - Total holdings: 0 stocks
+2025-12-01 23:25:12,606 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-01 23:25:12,607 - kis_api - WARNING - Market is closed - order will be queued or rejected
+2025-12-01 23:25:12,607 - kis_api - INFO - Demo mode: Proceeding with order despite market closure
+2025-12-01 23:25:13,930 - kis_api - DEBUG - API Request Success: order - POST
+2025-12-01 23:25:13,931 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:25:14,107 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:25:14,108 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-12-01 23:25:14,108 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748, nxdy_excc_amt=9,842,748
+2025-12-01 23:25:14,108 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,842,748
+2025-12-01 23:26:57,057 - kis_api - INFO - Overseas stock API initialized
+2025-12-01 23:26:57,185 - kis_api - DEBUG - API Request Success: overseas_balance - GET
+2025-12-01 23:26:57,319 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-01 23:26:57,386 - kis_api - INFO - 해외주식 매수 주문: NASD AAPL x 1
+2025-12-01 23:27:00,640 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-01T23:26:57.386246",
+  "method": "POST",
+  "endpoint": "overseas_order",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-stock/v1/trading/order",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "VTTT1002U",
+    "custtype": "P",
+    "hashkey": "983b6b404c46b6b81737472cf8a945c7f665cd7b3ba2442df152006bec9078ae"
+  },
+  "params": null,
+  "data": {
+    "CANO": "50144239",
+    "ACNT_PRDT_CD": "01",
+    "OVRS_EXCG_CD": "NASD",
+    "PDNO": "AAPL",
+    "ORD_QTY": "1",
+    "OVRS_ORD_UNPR": "0",
+    "ORD_SVR_DVSN_CD": "0",
+    "ORD_DVSN": "00"
+  },
+  "retries": 3,
+  "success": false,
+  "error": "500:  - ",
+  "response_code": 500,
+  "response_msg": ""
+}
+2025-12-01 23:27:00,795 - kis_api - DEBUG - API Request Success: overseas_balance - GET
+2025-12-01 23:30:33,764 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:30:33,931 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:30:33,931 - kis_api - ERROR - get_balance() failed: rt_cd=2, msg=ERROR : INPUT INVALID_CHECK_ACNO
+2025-12-01 23:30:33,931 - kis_api - INFO - get_holding_stocks() called
+2025-12-01 23:30:34,396 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:30:34,397 - kis_api - ERROR - get_balance() failed: rt_cd=2, msg=ERROR : INPUT INVALID_CHECK_ACNO
+2025-12-01 23:30:34,506 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:32:11,280 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:32:11,381 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:32:11,382 - kis_api - INFO - get_holding_stocks() called
+2025-12-01 23:32:12,897 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:32:12,897 - kis_api - ERROR - get_balance() failed: rt_cd=2, msg=ERROR : INPUT INVALID_CHECK_ACNO
+2025-12-01 23:33:53,890 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:33:54,011 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:33:54,011 - kis_api - ERROR - get_balance() failed: rt_cd=2, msg=ERROR : INPUT INVALID_CHECK_ACNO
+2025-12-01 23:33:54,151 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-01 23:33:54,152 - kis_api - WARNING - Market is closed - order will be queued or rejected
+2025-12-01 23:33:54,152 - kis_api - INFO - Demo mode: Proceeding with order despite market closure
+2025-12-01 23:33:57,615 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-01T23:33:54.220745",
+  "method": "POST",
+  "endpoint": "order",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/trading/order-cash",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "VTTC0802U",
+    "custtype": "P",
+    "hashkey": "19e9499c6600a1c42bddfc19ccc2db99552bceb49eb33a42b117b9b410f8632e"
+  },
+  "params": null,
+  "data": "{\"CANO\": \"50157423\", \"ACNT_PRDT_CD\": \"01\", \"PDNO\": \"252670\", \"ORD_DVSN\": \"03\", \"ORD_QTY\": \"1\", \"ORD_UNPR\": \"0\", \"CTAC_TLNO\": \"\", \"SLL_TYPE\": \"01\", \"ALGO_NO\": \"\"}",
+  "retries": 3,
+  "success": false,
+  "error": "500: IGW00002 - 인증 시점의 계좌번호와 요청 계좌번호가 일치하지 않습니다.",
+  "response_code": 500,
+  "response_msg": "인증 시점의 계좌번호와 요청 계좌번호가 일치하지 않습니다."
+}
+2025-12-01 23:33:57,616 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:33:57,744 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:33:57,746 - kis_api - ERROR - get_balance() failed: rt_cd=2, msg=ERROR : INPUT INVALID_CHECK_ACNO
+2025-12-01 23:36:00,939 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:36:01,165 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:36:01,167 - kis_api - ERROR - get_balance() failed: rt_cd=2, msg=ERROR : INPUT INVALID_CHECK_ACNO
+2025-12-01 23:36:01,167 - kis_api - WARNING - Market is closed - order will be queued or rejected
+2025-12-01 23:36:01,167 - kis_api - INFO - Demo mode: Proceeding with order despite market closure
+2025-12-01 23:36:04,561 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-01T23:36:01.241962",
+  "method": "POST",
+  "endpoint": "order",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/trading/order-cash",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSpRavS44ke8s1UZ8sn8VuOiXIXEE2QcMj2I",
+    "appsecret": "***",
+    "tr_id": "VTTC0802U",
+    "custtype": "P",
+    "hashkey": "19e9499c6600a1c42bddfc19ccc2db99552bceb49eb33a42b117b9b410f8632e"
+  },
+  "params": null,
+  "data": "{\"CANO\": \"50157423\", \"ACNT_PRDT_CD\": \"01\", \"PDNO\": \"252670\", \"ORD_DVSN\": \"03\", \"ORD_QTY\": \"1\", \"ORD_UNPR\": \"0\", \"CTAC_TLNO\": \"\", \"SLL_TYPE\": \"01\", \"ALGO_NO\": \"\"}",
+  "retries": 3,
+  "success": false,
+  "error": "500: IGW00002 - 인증 시점의 계좌번호와 요청 계좌번호가 일치하지 않습니다.",
+  "response_code": 500,
+  "response_msg": "인증 시점의 계좌번호와 요청 계좌번호가 일치하지 않습니다."
+}
+2025-12-01 23:51:48,026 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:51:48,188 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:51:48,189 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-12-01 23:51:48,189 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748, nxdy_excc_amt=9,842,748
+2025-12-01 23:51:48,189 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,842,748
+2025-12-01 23:51:48,189 - kis_api - INFO - get_holding_stocks() called
+2025-12-01 23:51:48,661 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:51:48,661 - kis_api - DEBUG - output1 count: 0 items
+2025-12-01 23:51:48,662 - kis_api - INFO - Total holdings: 0 stocks
+2025-12-01 23:51:49,887 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-01 23:51:49,888 - kis_api - WARNING - Market is closed - order will be queued or rejected
+2025-12-01 23:51:49,889 - kis_api - INFO - Demo mode: Proceeding with order despite market closure
+2025-12-01 23:51:50,085 - kis_api - DEBUG - API Request Success: order - POST
+2025-12-01 23:51:50,088 - kis_api - INFO - Overseas stock API initialized
+2025-12-01 23:51:50,234 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-01 23:51:51,502 - kis_api - DEBUG - API Request Success: overseas_balance - GET
+2025-12-01 23:51:51,503 - kis_api - INFO - get_available_cash() called
+2025-12-01 23:51:51,633 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:51:51,634 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9842748', 'nxdy_excc_amt': '9842748', 'prvs_rcdl_excc_amt': '9842748', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '9842748', 'nass_amt': '9842748', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9842748', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-12-01 23:51:51,634 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,842,748, nxdy_excc_amt=9,842,748
+2025-12-01 23:51:51,634 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,842,748
+2025-12-01 23:54:05,178 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:54:50,430 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-01 23:54:50,571 - kis_api - DEBUG - API Request Success: price - GET
+2025-12-01 23:54:50,572 - kis_api - WARNING - Market is closed - order will be queued or rejected
+2025-12-01 23:54:50,573 - kis_api - INFO - Demo mode: Proceeding with order despite market closure
+2025-12-01 23:54:51,872 - kis_api - DEBUG - API Request Success: order - POST
