@@ -85,20 +85,33 @@ def main_cli():
     
     # 모드가 지정되지 않으면 대화형으로 선택
     if not args.check and args.mode is None:
-        print("\n거래 모드를 선택하세요:")
-        print("1. 모의투자 (Demo)")
-        print("2. 실전투자 (Real)")
+        print("\n🚀 AI 자동매매 시스템")
+        print("=" * 40)
+        print("거래 모드를 선택하세요:")
+        print("")
+        print("1️⃣  모의투자 (Demo)")
+        print("   - 가상 머니로 안전한 테스트")
+        print("   - 실제 돈을 잃을 위험 없음")
+        print("   - 시스템 검증 및 학습용")
+        print("")
+        print("2️⃣  실전투자 (Real)")
+        print("   ⚠️  실제 돈으로 거래합니다!")
+        print("   - 실제 수익/손실 발생")
+        print("   - 신중한 선택 필요")
+        print("")
         
         while True:
-            choice = input("\n선택 (1 또는 2): ")
+            choice = input("선택하세요 (1 또는 2): ").strip()
             if choice == '1':
                 args.mode = 'demo'
+                print("✅ 모의투자 모드 선택됨")
                 break
             elif choice == '2':
                 args.mode = 'real'
+                print("⚠️  실전투자 모드 선택됨")
                 break
             else:
-                print("올바른 번호를 입력하세요 (1 또는 2)")
+                print("❌ 1 또는 2를 입력하세요")
     
     print("=" * 60)
     print("AI TRADING SYSTEM")
