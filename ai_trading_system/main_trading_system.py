@@ -530,10 +530,13 @@ class AITradingSystem:
                             logger.info(f"Current time: {now.strftime('%H:%M')}")
                             
                             stocks_trained = 0
-                            max_stocks_per_hour = 10  # 평일은 더 많이
+                            attempts = 0  # 시도 횟수  
+                            max_attempts = 20  # 평일은 더 많이 시도
+                            max_stocks_per_hour = 10  # 성공 목표
                             
-                            while stocks_trained < max_stocks_per_hour:
-                                logger.info(f"\n[Training {stocks_trained + 1}/{max_stocks_per_hour}]")
+                            while attempts < max_attempts and stocks_trained < max_stocks_per_hour:
+                                attempts += 1
+                                logger.info(f"\n[Attempt {attempts}/{max_attempts}] (Success: {stocks_trained}/{max_stocks_per_hour})")
                                 
                                 try:
                                     # 시간대별 학습 전략
@@ -559,17 +562,23 @@ class AITradingSystem:
                                             logger.info(f"   Stock: {training_result['stock']}")
                                             logger.info(f"   Win rate: {training_result['win_rate']:.1%}")
                                         else:
-                                            logger.warning("⚠️ No more stocks or API limit")
-                                            break
-                                    
-                                    # 다음 학습 전 휴식
-                                    await asyncio.sleep(30)  # 30초 대기
+                                            # 학습 실패해도 계속 진행
+                                            logger.warning("⚠️ Training failed, trying next stock...")
+                                        
+                                        # 성공/실패 관계없이 다음 종목으로
+                                        logger.info("\n➡️ Moving to next stock immediately...")
+                                        
+                                        # API 호출 간격을 위한 최소 대기
+                                        await asyncio.sleep(2)
                                     
                                 except Exception as e:
                                     logger.error(f"Training error: {e}")
                                     break
                             
-                            logger.info(f"\n📋 Total trained this cycle: {stocks_trained} stocks")
+                            logger.info(f"\n📋 Training Summary:")
+                            logger.info(f"   - Total attempts: {attempts}")
+                            logger.info(f"   - Successful: {stocks_trained}")
+                            logger.info(f"   - Failed: {attempts - stocks_trained}")
                             
                             logger.info("Waiting 1 hour...")
                             await asyncio.sleep(3600)  # 1시간 대기
@@ -603,30 +612,42 @@ class AITradingSystem:
                         logger.info("Will train multiple stocks sequentially...")
                         
                         stocks_trained = 0
-                        max_stocks_per_hour = 5  # 시간당 최대 5종목
+                        attempts = 0  # 시도 횟수
+                        max_attempts = 10  # 최대 시도 횟수
+                        max_stocks_per_hour = 5  # 성공 목표
                         
-                        while stocks_trained < max_stocks_per_hour:
-                            logger.info(f"\n[Training {stocks_trained + 1}/{max_stocks_per_hour}]")
+                        while attempts < max_attempts and stocks_trained < max_stocks_per_hour:
+                            attempts += 1
+                            logger.info(f"\n[Attempt {attempts}/{max_attempts}] (Success: {stocks_trained}/{max_stocks_per_hour})")
                             
                             try:
                                 training_result = await self.trainer.run_single_stock_training()
-                                if training_result:
+                                if training_result and 'stock' in training_result:
+                                    # 성공적으로 학습 완료
                                     stocks_trained += 1
                                     logger.info("✅ Training completed!")
                                     logger.info(f"   Stock: {training_result['stock']}")
                                     logger.info(f"   Win rate: {training_result['win_rate']:.1%}")
-                                    
-                                    # 다음 종목 학습 전 짧은 휴식
-                                    logger.info("\nResting for 1 minute before next stock...")
-                                    await asyncio.sleep(60)  # 1분 대기
-                                else:
-                                    logger.warning("⚠️ No more stocks available or API limit reached")
+                                elif training_result and training_result.get('error') == 'no_stocks_available':
+                                    # 더 이상 시도할 종목이 없음
+                                    logger.warning("⚠️ No more stocks available to train - ending session")
                                     break
+                                else:
+                                    # 학습 실패해도 계속 진행
+                                    logger.warning("⚠️ Training failed, trying next stock...")
+                                
+                                # 항상 다음 종목으로 이동 (실패해도 카운트는 증가시키지 않음)
+                                logger.info("\n➡️ Moving to next stock immediately...")
+                                # API 호출 간격을 위한 최소 대기
+                                await asyncio.sleep(2)
                             except Exception as e:
                                 logger.error(f"Training error: {e}")
                                 break
                         
-                        logger.info(f"\n📋 Total stocks trained this hour: {stocks_trained}")
+                        logger.info(f"\n📋 Training Summary:")
+                        logger.info(f"   - Total attempts: {attempts}")
+                        logger.info(f"   - Successful: {stocks_trained}")
+                        logger.info(f"   - Failed: {attempts - stocks_trained}")
                         self.last_training_time = datetime.now()
                         
                         # 다음 체크 시간 안내

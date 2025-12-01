@@ -1,0 +1,113 @@
+/Users/sangwookim/PycharmProjects/PythonProject1/.venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+거래 모드를 선택하세요:
+1. 모의투자 (Demo)
+2. 실전투자 (Real)
+
+선택 (1 또는 2): ============================================================
+AI TRADING SYSTEM
+============================================================
+✓ All core dependencies installed
+Environment set up for demo mode
+
+Starting AI Trading System in demo mode...
+Press Ctrl+C to stop
+
+2025-11-30 15:34:49,901 - ai_trading - INFO - Initializing AI Trading System in demo mode
+✅ 캐시된 토큰 로드 성공 (만료: 2025-11-30 23:51:22.339890)
+2025-11-30 15:34:50,324 - ai_trading.dqn - INFO - DQN Agent initialized on cpu
+2025-11-30 15:34:50,324 - ai_trading.ensemble - INFO - Multi-Agent Ensemble initialized
+2025-11-30 15:34:50,324 - ai_trading.training - INFO - 📚 Loaded training history: 0 stocks trained today
+2025-11-30 15:34:50,324 - ai_trading - INFO - Mode: demo - All data will be fetched from API only
+2025-11-30 15:34:50,324 - ai_trading - INFO - AI Trading System initialized successfully
+2025-11-30 15:34:50,324 - ai_trading - INFO - Starting AI Trading System...
+2025-11-30 15:34:50,324 - ai_trading - INFO - === System Initialization ===
+2025-11-30 15:34:50,324 - ai_trading - INFO - Trading mode: demo
+2025-11-30 15:34:50,324 - ai_trading - INFO - Getting access token...
+🔄 기존 토큰 재사용 (만료: 2025-11-30 23:51:22.339890)
+2025-11-30 15:34:50,324 - ai_trading - INFO - Access token acquired successfully
+2025-11-30 15:34:50,324 - ai_trading - INFO - Fetching initial account information...
+2025-11-30 15:34:50,324 - ai_trading - INFO - === Updating Portfolio Status ===
+2025-11-30 15:34:50,324 - ai_trading - INFO - Fetching cash balance...
+2025-11-30 15:34:50,449 - ai_trading - INFO - Cash balance: 9,842,748 KRW
+2025-11-30 15:34:50,449 - ai_trading - INFO - Fetching holdings...
+⏰ Rate limit 대기: 0.88초
+2025-11-30 15:34:51,445 - ai_trading - INFO - Found 0 holdings
+2025-11-30 15:34:51,445 - ai_trading - INFO - Total portfolio value: 9,842,748 KRW
+2025-11-30 15:34:51,445 - ai_trading - INFO -   - Cash: 9,842,748 KRW
+2025-11-30 15:34:51,445 - ai_trading - INFO -   - Stocks: 0 KRW
+2025-11-30 15:34:51,445 - ai_trading - INFO - === Initialization Complete ===
+2025-11-30 15:34:51,445 - ai_trading - INFO - Initial portfolio value: 9,842,748 KRW
+2025-11-30 15:34:51,445 - ai_trading - INFO - ============================================================
+2025-11-30 15:34:51,445 - ai_trading - INFO - WEEKEND MODE - Market is closed
+2025-11-30 15:34:51,445 - ai_trading - INFO - Current time: 2025-11-30 15:34:51
+2025-11-30 15:34:51,445 - ai_trading - INFO - Next market open: Monday 09:00
+2025-11-30 15:34:51,445 - ai_trading - INFO - 
+[Weekend Activity] Checking portfolio status...
+2025-11-30 15:34:51,445 - ai_trading - INFO - === Updating Portfolio Status ===
+2025-11-30 15:34:51,445 - ai_trading - INFO - Fetching cash balance...
+⏰ Rate limit 대기: 0.88초
+2025-11-30 15:34:52,442 - ai_trading - INFO - Cash balance: 9,842,748 KRW
+2025-11-30 15:34:52,442 - ai_trading - INFO - Fetching holdings...
+⏰ Rate limit 대기: 0.89초
+2025-11-30 15:34:53,460 - ai_trading - INFO - Found 0 holdings
+2025-11-30 15:34:53,460 - ai_trading - INFO - Total portfolio value: 9,842,748 KRW
+2025-11-30 15:34:53,460 - ai_trading - INFO -   - Cash: 9,842,748 KRW
+2025-11-30 15:34:53,460 - ai_trading - INFO -   - Stocks: 0 KRW
+2025-11-30 15:34:53,460 - ai_trading - INFO - 
+[Portfolio Summary]
+2025-11-30 15:34:53,461 - ai_trading - INFO - Total Value: 9,842,748 KRW
+2025-11-30 15:34:53,461 - ai_trading - INFO - Cash: 9,842,748 KRW
+2025-11-30 15:34:53,461 - ai_trading - INFO - Holdings: 0 stocks
+2025-11-30 15:34:53,461 - ai_trading - INFO - 
+[Weekend Training Mode] Continuous learning enabled
+2025-11-30 15:34:53,461 - ai_trading - INFO - Will train multiple stocks sequentially...
+2025-11-30 15:34:53,461 - ai_trading - INFO - 
+[Training 1/5]
+2025-11-30 15:34:53,461 - ai_trading.training - INFO - 
+============================================================
+2025-11-30 15:34:53,461 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-11-30 15:34:53,461 - ai_trading.training - INFO - ============================================================
+2025-11-30 15:34:56,462 - ai_trading.training - INFO - Fetching top volume stocks...
+2025-11-30 15:34:56,547 - ai_trading.training - INFO - 
+📊 Training on: KODEX 200선물인버스2X (252670)
+2025-11-30 15:34:56,547 - ai_trading.training - INFO - 📋 Today's progress: 1 trained, 0 failed
+2025-11-30 15:35:01,548 - ai_trading.training - INFO - Collecting historical price data...
+2025-11-30 15:35:01,634 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-11-30 15:35:01,634 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-11-30 15:35:01,634 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-11-30 15:35:01,635 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-11-30 15:35:01,635 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-11-30 15:35:01,636 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-11-30 15:35:01,636 - ai_trading.training - INFO -   - Trades: 0
+2025-11-30 15:35:01,636 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-11-30 15:35:01,637 - ai_trading.training - INFO - 💾 Saved training history: 1 stocks trained today
+2025-11-30 15:35:01,637 - ai_trading - INFO - ✅ Training completed!
+2025-11-30 15:35:01,637 - ai_trading - INFO -    Stock: KODEX 200선물인버스2X (252670)
+2025-11-30 15:35:01,637 - ai_trading - INFO -    Win rate: 0.0%
+2025-11-30 15:35:01,637 - ai_trading - INFO - 
+➡️ Moving to next stock immediately...
+2025-11-30 15:35:03,638 - ai_trading - INFO - 
+[Training 2/5]
+2025-11-30 15:35:03,639 - ai_trading.training - INFO - 
+============================================================
+2025-11-30 15:35:03,639 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-11-30 15:35:03,639 - ai_trading.training - INFO - ============================================================
+2025-11-30 15:35:06,640 - ai_trading.training - INFO - Fetching top volume stocks...
+2025-11-30 15:35:06,724 - ai_trading.training - INFO - 
+📊 Training on: 삼성스팩12호 (0096B0)
+2025-11-30 15:35:06,724 - ai_trading.training - INFO - 📋 Today's progress: 2 trained, 0 failed
+2025-11-30 15:35:11,725 - ai_trading.training - INFO - Collecting historical price data...
+2025-11-30 15:35:11,812 - ai_trading.training - ERROR - Insufficient data for training
+2025-11-30 15:35:11,812 - ai_trading.training - INFO - ❌ Added 0096B0 to failed list. Total failed: 1
+2025-11-30 15:35:11,812 - ai_trading - WARNING - ⚠️ No more stocks available to train
+2025-11-30 15:35:11,812 - ai_trading - INFO - 
+📋 Total stocks trained this hour: 1
+2025-11-30 15:35:11,812 - ai_trading - INFO - 
+[Next Check] 16:34:51
+2025-11-30 15:35:11,812 - ai_trading - INFO - Waiting for 1 hour...
+2025-11-30 15:35:11,812 - ai_trading - INFO - ============================================================

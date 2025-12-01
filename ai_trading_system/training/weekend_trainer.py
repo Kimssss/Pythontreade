@@ -22,9 +22,13 @@ class WeekendTrainer:
         self.ensemble = ensemble_system
         self.kis_api = kis_api
         self.training_history = []
-        self.cache_dir = Path('training_cache')
+        # 프로젝트 루트의 training_cache 사용
+        self.cache_dir = Path(__file__).parent.parent.parent / 'training_cache'
         self.cache_dir.mkdir(exist_ok=True)
         self.trained_stocks = []  # 이미 학습한 종목 기록
+        self.failed_today = set()  # 오늘 실패한 종목
+        self.training_history_file = self.cache_dir / 'training_history.json'
+        self._load_training_history()  # 이전 학습 기록 로드
         
     async def run_training_session(self):
         """학습 세션 실행"""
@@ -426,11 +430,11 @@ class WeekendTrainer:
         logger.info("="*60)
         
         try:
-            # 거래량 상위 종목 가져오기 (20개)
+            # 거래량 상위 종목 가져오기 (100개로 늘림)
             await asyncio.sleep(3)  # 충분한 대기
             
             logger.info("Fetching top volume stocks...")
-            volume_stocks = self.kis_api.get_top_volume_stocks(count=20)
+            volume_stocks = self.kis_api.get_top_volume_stocks(count=100)
             
             if not volume_stocks or volume_stocks.get('rt_cd') != '0':
                 logger.error("Failed to get volume stocks")
@@ -441,51 +445,111 @@ class WeekendTrainer:
                 logger.error("No stocks in response")
                 return None
             
+            logger.info(f"📊 Total stocks fetched: {len(stocks)}")
+            logger.info(f"📚 Already trained: {len(self.trained_stocks)} - {', '.join(self.trained_stocks[:5])}")
+            logger.info(f"❌ Already failed: {len(self.failed_today)} - {', '.join(list(self.failed_today)[:5])}")
+            
             # 이미 학습한 종목 제외하고 선택
             available_stocks = [
                 s for s in stocks 
                 if s.get('mksc_shrn_iscd', '') not in self.trained_stocks
             ]
+            logger.info(f"📋 After excluding trained: {len(available_stocks)} stocks remain")
             
             if not available_stocks:
-                logger.info("🔄 All top stocks trained. Resetting list...")
+                logger.info("🔄 All top stocks trained today. Resetting for new round...")
                 self.trained_stocks = []  # 리셋
                 available_stocks = stocks
             
-            stock = available_stocks[0]
+            # 실패한 종목도 추적 (임시로 trained_stocks에 추가)
+            if not hasattr(self, 'failed_today'):
+                self.failed_today = set()
+            
+            # 오늘 실패한 종목도 제외
+            available_stocks = [
+                s for s in available_stocks
+                if s.get('mksc_shrn_iscd', '') not in self.failed_today
+            ]
+            
+            if not available_stocks:
+                logger.warning("❌ All available stocks have been tried today")
+                return {'error': 'no_stocks_available'}  # None이 아닌 에러 딕셔너리 반환
+            
+            # 시가총액 순위대로 선택 (첫 번째 미학습 종목)
+            stock = available_stocks[0]  # 이미 시가총액 순으로 정렬되어 있음
             stock_code = stock.get('mksc_shrn_iscd', '')
             stock_name = stock.get('hts_kor_isnm', '')
             
             # 학습 목록에 추가
             self.trained_stocks.append(stock_code)
             
+            # 학습 기록 추가
+            self.training_history.append({
+                'date': datetime.now().strftime('%Y%m%d'),
+                'time': datetime.now().strftime('%H:%M:%S'),
+                'stock_code': stock_code,
+                'stock_name': stock_name,
+                'timestamp': datetime.now().isoformat()
+            })
+            
             logger.info(f"\n📊 Training on: {stock_name} ({stock_code})")
+            logger.info(f"📋 Today's progress: {len(self.trained_stocks)} trained, {len(self.failed_today)} failed")
             
             # 5초 대기 (주말 특별 대기)
             await asyncio.sleep(5)
             
-            # 데이터 수집
-            logger.info("Collecting 30-day price data...")
-            daily_data = self.kis_api.get_daily_price(stock_code, count=30)
+            # 데이터 수집 (추가 학습을 위해 더 긴 기간 데이터 수집)
+            logger.info("Collecting historical price data...")
+            
+            # 놓친 기간 확인 및 데이터 수집
+            last_training_date = self._get_last_training_date(stock_code)
+            days_to_collect = 60  # 기본 60일
+            
+            if last_training_date:
+                days_since_last = (datetime.now() - last_training_date).days
+                if days_since_last > 1:
+                    logger.info(f"⚠️ Found gap: {days_since_last} days since last training")
+                    days_to_collect = min(200, days_since_last + 30)  # 최대 200일까지
+            
+            daily_data = self.kis_api.get_daily_price(stock_code, count=days_to_collect)
             
             if not daily_data or daily_data.get('rt_cd') != '0':
                 logger.error(f"Failed to get price data: {daily_data.get('msg1', '')}")
+                # API 실패한 종목도 실패 목록에 추가
+                if stock_code in self.trained_stocks:
+                    self.trained_stocks.remove(stock_code)
+                self.failed_today.add(stock_code)
+                logger.info(f"❌ Added {stock_code} to failed list (API error). Total failed: {len(self.failed_today)}")
                 return None
             
             df = self._parse_daily_data(daily_data)
             if df is None or len(df) < 20:
                 logger.error("Insufficient data for training")
+                # 실패한 종목은 학습 목록에서 제거
+                if stock_code in self.trained_stocks:
+                    self.trained_stocks.remove(stock_code)
+                # 실패한 종목 목록에 추가
+                self.failed_today.add(stock_code)
+                logger.info(f"❌ Added {stock_code} to failed list. Total failed: {len(self.failed_today)}")
                 return None
             
             logger.info(f"✅ Data collected: {len(df)} days")
             
-            # 간단한 DQN 학습
-            logger.info("\n🧠 Quick DQN training...")
+            # 놓친 기간만큼 추가 학습
+            episodes = 10  # 기본 10 에피소드
+            if last_training_date:
+                days_missed = (datetime.now() - last_training_date).days
+                if days_missed > 7:
+                    episodes = min(50, 10 + days_missed)  # 놓친 날짜만큼 추가 학습
+                    logger.info(f"📈 Extended training: {episodes} episodes due to {days_missed} days gap")
+            
+            # DQN 학습
+            logger.info(f"\n🧠 DQN training ({episodes} episodes)...")
             episode_losses = []
-            for i in range(10):  # 10 에피소드만
+            for i in range(episodes):
                 loss = self._train_episode(self.ensemble.dqn_agent, df)
                 episode_losses.append(loss)
-                if i % 5 == 0:
+                if i % 10 == 0 or i == episodes - 1:
                     logger.info(f"  Episode {i+1}: Loss = {loss:.4f}")
             
             avg_loss = sum(episode_losses) / len(episode_losses) if episode_losses else 0
@@ -499,14 +563,78 @@ class WeekendTrainer:
             logger.info(f"  - Trades: {len(trades)}")
             logger.info(f"  - Win rate: {win_rate:.1%}")
             
+            # 학습 기록 저장
+            self._save_training_history()
+            
             return {
                 'mode': 'single_stock',
                 'stock': f"{stock_name} ({stock_code})",
                 'avg_loss': avg_loss,
                 'win_rate': win_rate,
-                'duration': 60  # 약 1분
+                'episodes': episodes,
+                'days_collected': len(df),
+                'duration': 60 + (episodes - 10) * 3  # 에피소드당 3초 추가
             }
             
         except Exception as e:
             logger.error(f"Single stock training error: {e}")
+            return None
+    
+    def _load_training_history(self):
+        """영구 학습 기록 로드"""
+        try:
+            if self.training_history_file.exists():
+                with open(self.training_history_file, 'r') as f:
+                    history_data = json.load(f)
+                    self.trained_stocks = history_data.get('trained_stocks', [])
+                    self.training_history = history_data.get('history', [])
+                    
+                    # 오늘 학습한 종목만 유지 (매일 리셋)
+                    today = datetime.now().strftime('%Y%m%d')
+                    today_stocks = []
+                    for record in self.training_history:
+                        if record.get('date', '') == today:
+                            today_stocks.append(record.get('stock_code'))
+                    self.trained_stocks = list(set(today_stocks))
+                    
+                    logger.info(f"📚 Loaded training history: {len(self.trained_stocks)} stocks trained today")
+        except Exception as e:
+            logger.error(f"Error loading training history: {e}")
+            self.trained_stocks = []
+            self.training_history = []
+    
+    def _save_training_history(self):
+        """영구 학습 기록 저장"""
+        try:
+            # 최근 7일 기록만 유지
+            cutoff_date = (datetime.now() - timedelta(days=7)).strftime('%Y%m%d')
+            self.training_history = [
+                record for record in self.training_history
+                if record.get('date', '') >= cutoff_date
+            ]
+            
+            history_data = {
+                'trained_stocks': self.trained_stocks,
+                'history': self.training_history,
+                'last_updated': datetime.now().isoformat()
+            }
+            
+            with open(self.training_history_file, 'w') as f:
+                json.dump(history_data, f, indent=2)
+                
+            logger.info(f"💾 Saved training history: {len(self.trained_stocks)} stocks trained today")
+        except Exception as e:
+            logger.error(f"Error saving training history: {e}")
+    
+    def _get_last_training_date(self, stock_code):
+        """특정 종목의 마지막 학습 날짜 확인"""
+        try:
+            for record in reversed(self.training_history):
+                if record.get('stock_code') == stock_code:
+                    date_str = record.get('date', '')
+                    if date_str:
+                        return datetime.strptime(date_str, '%Y%m%d')
+            return None
+        except Exception as e:
+            logger.error(f"Error getting last training date: {e}")
             return None

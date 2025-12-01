@@ -1,0 +1,591 @@
+{
+  "trained_stocks": [
+    "252670",
+    "251340",
+    "098460",
+    "462330",
+    "114800",
+    "233740",
+    "125490",
+    "010170",
+    "092200",
+    "Q530036",
+    "000020",
+    "000040",
+    "000050",
+    "000070",
+    "000080",
+    "000087",
+    "0000D0",
+    "0000H0",
+    "0000J0",
+    "0000Y0",
+    "0000Z0",
+    "000100",
+    "000105",
+    "000120",
+    "000140",
+    "000145",
+    "000150",
+    "000155",
+    "000157",
+    "000180",
+    "264850",
+    "008970",
+    "456160",
+    "004840",
+    "365330",
+    "380550",
+    "255220",
+    "204620",
+    "140430",
+    "424870",
+    "129890",
+    "413630",
+    "372910",
+    "040300",
+    "122630",
+    "229200",
+    "090710",
+    "049630",
+    "246710",
+    "101170",
+    "Q500027",
+    "319400",
+    "466100",
+    "356890",
+    "005930",
+    "195990",
+    "030530",
+    "220260",
+    "Q530107"
+  ],
+  "history": [
+    {
+      "date": "20251130",
+      "time": "15:34:56",
+      "stock_code": "252670",
+      "stock_name": "KODEX 200\uc120\ubb3c\uc778\ubc84\uc2a42X",
+      "timestamp": "2025-11-30T15:34:56.547145"
+    },
+    {
+      "date": "20251130",
+      "time": "15:53:36",
+      "stock_code": "0096B0",
+      "stock_name": "\uc0bc\uc131\uc2a4\ud32912\ud638",
+      "timestamp": "2025-11-30T15:53:36.325400"
+    },
+    {
+      "date": "20251130",
+      "time": "15:53:46",
+      "stock_code": "251340",
+      "stock_name": "KODEX \ucf54\uc2a4\ub2e5150\uc120\ubb3c\uc778\ubc84\uc2a4",
+      "timestamp": "2025-11-30T15:53:46.503788"
+    },
+    {
+      "date": "20251130",
+      "time": "15:53:56",
+      "stock_code": "098460",
+      "stock_name": "\uace0\uc601",
+      "timestamp": "2025-11-30T15:53:56.710679"
+    },
+    {
+      "date": "20251130",
+      "time": "15:54:06",
+      "stock_code": "459550",
+      "stock_name": "\uc54c\ud2b8",
+      "timestamp": "2025-11-30T15:54:06.889623"
+    },
+    {
+      "date": "20251130",
+      "time": "15:54:17",
+      "stock_code": "462330",
+      "stock_name": "KODEX 2\ucc28\uc804\uc9c0\uc0b0\uc5c5\ub808\ubc84\ub9ac\uc9c0",
+      "timestamp": "2025-11-30T15:54:17.065761"
+    },
+    {
+      "date": "20251130",
+      "time": "15:54:27",
+      "stock_code": "114800",
+      "stock_name": "KODEX \uc778\ubc84\uc2a4",
+      "timestamp": "2025-11-30T15:54:27.248324"
+    },
+    {
+      "date": "20251130",
+      "time": "15:54:37",
+      "stock_code": "233740",
+      "stock_name": "KODEX \ucf54\uc2a4\ub2e5150\ub808\ubc84\ub9ac\uc9c0",
+      "timestamp": "2025-11-30T15:54:37.415403"
+    },
+    {
+      "date": "20251130",
+      "time": "15:56:41",
+      "stock_code": "125490",
+      "stock_name": "\ud55c\ub77c\uce90\uc2a4\ud2b8",
+      "timestamp": "2025-11-30T15:56:41.495806"
+    },
+    {
+      "date": "20251130",
+      "time": "15:56:51",
+      "stock_code": "010170",
+      "stock_name": "\ub300\ud55c\uad11\ud1b5\uc2e0",
+      "timestamp": "2025-11-30T15:56:51.678506"
+    },
+    {
+      "date": "20251130",
+      "time": "15:57:01",
+      "stock_code": "092200",
+      "stock_name": "\ub514\uc544\uc774\uc528",
+      "timestamp": "2025-11-30T15:57:01.888774"
+    },
+    {
+      "date": "20251130",
+      "time": "15:57:12",
+      "stock_code": "Q530036",
+      "stock_name": "\uc0bc\uc131 \uc778\ubc84\uc2a4 2X WTI\uc6d0\uc720 \uc120\ubb3c ETN",
+      "timestamp": "2025-11-30T15:57:12.097215"
+    },
+    {
+      "date": "20251130",
+      "time": "15:57:22",
+      "stock_code": "122630",
+      "stock_name": "KODEX \ub808\ubc84\ub9ac\uc9c0",
+      "timestamp": "2025-11-30T15:57:22.304085"
+    },
+    {
+      "date": "20251201",
+      "time": "05:28:20",
+      "stock_code": "252670",
+      "stock_name": "KODEX 200\uc120\ubb3c\uc778\ubc84\uc2a42X",
+      "timestamp": "2025-12-01T05:28:20.286597"
+    },
+    {
+      "date": "20251201",
+      "time": "05:28:30",
+      "stock_code": "0096B0",
+      "stock_name": "\uc0bc\uc131\uc2a4\ud32912\ud638",
+      "timestamp": "2025-12-01T05:28:30.679420"
+    },
+    {
+      "date": "20251201",
+      "time": "05:28:40",
+      "stock_code": "251340",
+      "stock_name": "KODEX \ucf54\uc2a4\ub2e5150\uc120\ubb3c\uc778\ubc84\uc2a4",
+      "timestamp": "2025-12-01T05:28:40.895934"
+    },
+    {
+      "date": "20251201",
+      "time": "05:28:51",
+      "stock_code": "098460",
+      "stock_name": "\uace0\uc601",
+      "timestamp": "2025-12-01T05:28:51.087950"
+    },
+    {
+      "date": "20251201",
+      "time": "05:29:01",
+      "stock_code": "459550",
+      "stock_name": "\uc54c\ud2b8",
+      "timestamp": "2025-12-01T05:29:01.294877"
+    },
+    {
+      "date": "20251201",
+      "time": "05:29:11",
+      "stock_code": "462330",
+      "stock_name": "KODEX 2\ucc28\uc804\uc9c0\uc0b0\uc5c5\ub808\ubc84\ub9ac\uc9c0",
+      "timestamp": "2025-12-01T05:29:11.490814"
+    },
+    {
+      "date": "20251201",
+      "time": "05:29:21",
+      "stock_code": "114800",
+      "stock_name": "KODEX \uc778\ubc84\uc2a4",
+      "timestamp": "2025-12-01T05:29:21.691748"
+    },
+    {
+      "date": "20251201",
+      "time": "05:29:31",
+      "stock_code": "233740",
+      "stock_name": "KODEX \ucf54\uc2a4\ub2e5150\ub808\ubc84\ub9ac\uc9c0",
+      "timestamp": "2025-12-01T05:29:31.879387"
+    },
+    {
+      "date": "20251201",
+      "time": "05:29:42",
+      "stock_code": "125490",
+      "stock_name": "\ud55c\ub77c\uce90\uc2a4\ud2b8",
+      "timestamp": "2025-12-01T05:29:42.077593"
+    },
+    {
+      "date": "20251201",
+      "time": "05:29:52",
+      "stock_code": "010170",
+      "stock_name": "\ub300\ud55c\uad11\ud1b5\uc2e0",
+      "timestamp": "2025-12-01T05:29:52.277811"
+    },
+    {
+      "date": "20251201",
+      "time": "05:30:02",
+      "stock_code": "092200",
+      "stock_name": "\ub514\uc544\uc774\uc528",
+      "timestamp": "2025-12-01T05:30:02.481169"
+    },
+    {
+      "date": "20251201",
+      "time": "05:30:12",
+      "stock_code": "Q530036",
+      "stock_name": "\uc0bc\uc131 \uc778\ubc84\uc2a4 2X WTI\uc6d0\uc720 \uc120\ubb3c ETN",
+      "timestamp": "2025-12-01T05:30:12.681996"
+    },
+    {
+      "date": "20251201",
+      "time": "06:30:22",
+      "stock_code": "000020",
+      "stock_name": "\ub3d9\ud654\uc57d\ud488",
+      "timestamp": "2025-12-01T06:30:22.791828"
+    },
+    {
+      "date": "20251201",
+      "time": "06:30:33",
+      "stock_code": "000040",
+      "stock_name": "KR\ubaa8\ud130\uc2a4",
+      "timestamp": "2025-12-01T06:30:33.003787"
+    },
+    {
+      "date": "20251201",
+      "time": "06:30:43",
+      "stock_code": "000050",
+      "stock_name": "\uacbd\ubc29",
+      "timestamp": "2025-12-01T06:30:43.211435"
+    },
+    {
+      "date": "20251201",
+      "time": "06:30:53",
+      "stock_code": "000070",
+      "stock_name": "\uc0bc\uc591\ud640\ub529\uc2a4",
+      "timestamp": "2025-12-01T06:30:53.425615"
+    },
+    {
+      "date": "20251201",
+      "time": "06:31:03",
+      "stock_code": "000080",
+      "stock_name": "\ud558\uc774\ud2b8\uc9c4\ub85c",
+      "timestamp": "2025-12-01T06:31:03.639742"
+    },
+    {
+      "date": "20251201",
+      "time": "06:31:13",
+      "stock_code": "000087",
+      "stock_name": "\ud558\uc774\ud2b8\uc9c4\ub85c2\uc6b0B",
+      "timestamp": "2025-12-01T06:31:13.856232"
+    },
+    {
+      "date": "20251201",
+      "time": "06:31:24",
+      "stock_code": "0000D0",
+      "stock_name": "TIGER \uc5d4\ube44\ub514\uc544\ubbf8\uad6d\ucc44\ucee4\ubc84\ub4dc\ucf5c\ubc38\ub7f0\uc2a4(\ud569\uc131)",
+      "timestamp": "2025-12-01T06:31:24.073891"
+    },
+    {
+      "date": "20251201",
+      "time": "06:31:34",
+      "stock_code": "0000H0",
+      "stock_name": "KODEX \uc778\ub3c4Nifty\ubbf8\ub4dc\ucea1100",
+      "timestamp": "2025-12-01T06:31:34.298137"
+    },
+    {
+      "date": "20251201",
+      "time": "06:31:44",
+      "stock_code": "0000J0",
+      "stock_name": "PLUS \ud55c\ud654\uadf8\ub8f9\uc8fc",
+      "timestamp": "2025-12-01T06:31:44.509103"
+    },
+    {
+      "date": "20251201",
+      "time": "06:31:54",
+      "stock_code": "0000Y0",
+      "stock_name": "HK 26-12 \ud68c\uc0ac\ucc44(AA-\uc774\uc0c1)\uc561\ud2f0\ube0c",
+      "timestamp": "2025-12-01T06:31:54.713812"
+    },
+    {
+      "date": "20251201",
+      "time": "07:32:04",
+      "stock_code": "0000Z0",
+      "stock_name": "RISE \ubc14\uc774\uc624TOP10\uc561\ud2f0\ube0c",
+      "timestamp": "2025-12-01T07:32:04.909092"
+    },
+    {
+      "date": "20251201",
+      "time": "07:32:15",
+      "stock_code": "000100",
+      "stock_name": "\uc720\ud55c\uc591\ud589",
+      "timestamp": "2025-12-01T07:32:15.116978"
+    },
+    {
+      "date": "20251201",
+      "time": "07:32:25",
+      "stock_code": "000105",
+      "stock_name": "\uc720\ud55c\uc591\ud589\uc6b0",
+      "timestamp": "2025-12-01T07:32:25.328022"
+    },
+    {
+      "date": "20251201",
+      "time": "07:32:35",
+      "stock_code": "000120",
+      "stock_name": "CJ\ub300\ud55c\ud1b5\uc6b4",
+      "timestamp": "2025-12-01T07:32:35.548297"
+    },
+    {
+      "date": "20251201",
+      "time": "07:32:45",
+      "stock_code": "000140",
+      "stock_name": "\ud558\uc774\ud2b8\uc9c4\ub85c\ud640\ub529\uc2a4",
+      "timestamp": "2025-12-01T07:32:45.766467"
+    },
+    {
+      "date": "20251201",
+      "time": "07:32:55",
+      "stock_code": "000145",
+      "stock_name": "\ud558\uc774\ud2b8\uc9c4\ub85c\ud640\ub529\uc2a4\uc6b0",
+      "timestamp": "2025-12-01T07:32:55.979032"
+    },
+    {
+      "date": "20251201",
+      "time": "07:33:06",
+      "stock_code": "000150",
+      "stock_name": "\ub450\uc0b0",
+      "timestamp": "2025-12-01T07:33:06.193385"
+    },
+    {
+      "date": "20251201",
+      "time": "07:33:16",
+      "stock_code": "000155",
+      "stock_name": "\ub450\uc0b0\uc6b0",
+      "timestamp": "2025-12-01T07:33:16.394346"
+    },
+    {
+      "date": "20251201",
+      "time": "07:33:26",
+      "stock_code": "000157",
+      "stock_name": "\ub450\uc0b02\uc6b0B",
+      "timestamp": "2025-12-01T07:33:26.606665"
+    },
+    {
+      "date": "20251201",
+      "time": "07:33:36",
+      "stock_code": "000180",
+      "stock_name": "\uc131\ucc3d\uae30\uc5c5\uc9c0\uc8fc",
+      "timestamp": "2025-12-01T07:33:36.820013"
+    },
+    {
+      "date": "20251201",
+      "time": "08:33:46",
+      "stock_code": "264850",
+      "stock_name": "\uc774\ub79c\uc2dc\uc2a4",
+      "timestamp": "2025-12-01T08:33:46.987605"
+    },
+    {
+      "date": "20251201",
+      "time": "08:33:57",
+      "stock_code": "008970",
+      "stock_name": "KBI\ub3d9\uc591\ucca0\uad00",
+      "timestamp": "2025-12-01T08:33:57.196388"
+    },
+    {
+      "date": "20251201",
+      "time": "08:34:07",
+      "stock_code": "456160",
+      "stock_name": "\uc9c0\ud22c\uc9c0\ubc14\uc774\uc624",
+      "timestamp": "2025-12-01T08:34:07.412698"
+    },
+    {
+      "date": "20251201",
+      "time": "08:34:17",
+      "stock_code": "004840",
+      "stock_name": "DRB\ub3d9\uc77c",
+      "timestamp": "2025-12-01T08:34:17.630172"
+    },
+    {
+      "date": "20251201",
+      "time": "08:34:27",
+      "stock_code": "365330",
+      "stock_name": "\uc5d0\uc2a4\uc640\uc774\uc2a4\ud2f8\ud14d",
+      "timestamp": "2025-12-01T08:34:27.845567"
+    },
+    {
+      "date": "20251201",
+      "time": "08:34:38",
+      "stock_code": "380550",
+      "stock_name": "\ub274\ub85c\ud54f",
+      "timestamp": "2025-12-01T08:34:38.059064"
+    },
+    {
+      "date": "20251201",
+      "time": "08:34:48",
+      "stock_code": "255220",
+      "stock_name": "SG",
+      "timestamp": "2025-12-01T08:34:48.263811"
+    },
+    {
+      "date": "20251201",
+      "time": "08:34:58",
+      "stock_code": "204620",
+      "stock_name": "\uae00\ub85c\ubc8c\ud14d\uc2a4\ud504\ub9ac",
+      "timestamp": "2025-12-01T08:34:58.473785"
+    },
+    {
+      "date": "20251201",
+      "time": "08:35:08",
+      "stock_code": "140430",
+      "stock_name": "\uce74\ud2f0\uc2a4",
+      "timestamp": "2025-12-01T08:35:08.693952"
+    },
+    {
+      "date": "20251201",
+      "time": "08:35:18",
+      "stock_code": "424870",
+      "stock_name": "\uc774\ubba8\uc628\uc2dc\uc544",
+      "timestamp": "2025-12-01T08:35:18.915987"
+    },
+    {
+      "date": "20251201",
+      "time": "15:33:13",
+      "stock_code": "0096D0",
+      "stock_name": "\ubbf8\ub798\uc5d0\uc14b\ube44\uc804\uc2a4\ud3299\ud638",
+      "timestamp": "2025-12-01T15:33:13.350781"
+    },
+    {
+      "date": "20251201",
+      "time": "15:33:23",
+      "stock_code": "129890",
+      "stock_name": "\uc571\ucf54",
+      "timestamp": "2025-12-01T15:33:23.566632"
+    },
+    {
+      "date": "20251201",
+      "time": "15:33:33",
+      "stock_code": "413630",
+      "stock_name": "\uc528\ud53c\uc2dc\uc2a4\ud15c",
+      "timestamp": "2025-12-01T15:33:33.795997"
+    },
+    {
+      "date": "20251201",
+      "time": "15:33:44",
+      "stock_code": "372910",
+      "stock_name": "\ud55c\ucef4\ub77c\uc774\ud504\ucf00\uc5b4",
+      "timestamp": "2025-12-01T15:33:44.017500"
+    },
+    {
+      "date": "20251201",
+      "time": "15:33:54",
+      "stock_code": "040300",
+      "stock_name": "YTN",
+      "timestamp": "2025-12-01T15:33:54.235280"
+    },
+    {
+      "date": "20251201",
+      "time": "15:34:04",
+      "stock_code": "122630",
+      "stock_name": "KODEX \ub808\ubc84\ub9ac\uc9c0",
+      "timestamp": "2025-12-01T15:34:04.447578"
+    },
+    {
+      "date": "20251201",
+      "time": "15:34:14",
+      "stock_code": "229200",
+      "stock_name": "KODEX \ucf54\uc2a4\ub2e5150",
+      "timestamp": "2025-12-01T15:34:14.703583"
+    },
+    {
+      "date": "20251201",
+      "time": "15:34:24",
+      "stock_code": "090710",
+      "stock_name": "\ud734\ub9bc\ub85c\ubd07",
+      "timestamp": "2025-12-01T15:34:24.926819"
+    },
+    {
+      "date": "20251201",
+      "time": "15:34:35",
+      "stock_code": "049630",
+      "stock_name": "\uc7ac\uc601\uc194\ub8e8\ud14d",
+      "timestamp": "2025-12-01T15:34:35.139788"
+    },
+    {
+      "date": "20251201",
+      "time": "15:34:45",
+      "stock_code": "246710",
+      "stock_name": "\ud2f0\uc564\uc54c\ubc14\uc774\uc624\ud339",
+      "timestamp": "2025-12-01T15:34:45.347846"
+    },
+    {
+      "date": "20251201",
+      "time": "15:34:55",
+      "stock_code": "101170",
+      "stock_name": "\uc6b0\ub9bc\ud53c\ud2f0\uc5d0\uc2a4",
+      "timestamp": "2025-12-01T15:34:55.553677"
+    },
+    {
+      "date": "20251201",
+      "time": "16:35:05",
+      "stock_code": "Q500027",
+      "stock_name": "\uc2e0\ud55c \uc778\ubc84\uc2a4 2X WTI\uc6d0\uc720 \uc120\ubb3c ETN(H)",
+      "timestamp": "2025-12-01T16:35:05.687715"
+    },
+    {
+      "date": "20251201",
+      "time": "16:35:15",
+      "stock_code": "319400",
+      "stock_name": "\ud604\ub300\ubb34\ubca1\uc2a4",
+      "timestamp": "2025-12-01T16:35:15.909342"
+    },
+    {
+      "date": "20251201",
+      "time": "16:35:26",
+      "stock_code": "466100",
+      "stock_name": "\ud074\ub85c\ubd07",
+      "timestamp": "2025-12-01T16:35:26.119423"
+    },
+    {
+      "date": "20251201",
+      "time": "16:35:36",
+      "stock_code": "356890",
+      "stock_name": "\uc2f8\uc774\ubc84\uc6d0",
+      "timestamp": "2025-12-01T16:35:36.319782"
+    },
+    {
+      "date": "20251201",
+      "time": "16:35:46",
+      "stock_code": "005930",
+      "stock_name": "\uc0bc\uc131\uc804\uc790",
+      "timestamp": "2025-12-01T16:35:46.500215"
+    },
+    {
+      "date": "20251201",
+      "time": "16:35:56",
+      "stock_code": "195990",
+      "stock_name": "\uc5d0\uc774\ube44\ud504\ub85c\ubc14\uc774\uc624",
+      "timestamp": "2025-12-01T16:35:56.732004"
+    },
+    {
+      "date": "20251201",
+      "time": "16:36:06",
+      "stock_code": "030530",
+      "stock_name": "\uc6d0\uc775\ud640\ub529\uc2a4",
+      "timestamp": "2025-12-01T16:36:06.942586"
+    },
+    {
+      "date": "20251201",
+      "time": "16:36:17",
+      "stock_code": "220260",
+      "stock_name": "\ucf10\ud2b8\ub85c\uc2a4",
+      "timestamp": "2025-12-01T16:36:17.169638"
+    },
+    {
+      "date": "20251201",
+      "time": "16:36:27",
+      "stock_code": "Q530107",
+      "stock_name": "\uc0bc\uc131 \uc778\ubc84\uc2a4 2X \ucf54\uc2a4\ub2e5150 \uc120\ubb3c ETN",
+      "timestamp": "2025-12-01T16:36:27.383471"
+    }
+  ],
+  "last_updated": "2025-12-01T16:36:32.480694"
+}

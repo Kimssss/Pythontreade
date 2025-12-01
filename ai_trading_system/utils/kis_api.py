@@ -671,7 +671,7 @@ class KisAPIEnhanced:
             return result
         return None
     
-    def get_top_volume_stocks(self, market: str = "ALL", count: int = 20):
+    def get_top_volume_stocks(self, market: str = "ALL", count: int = 100):
         """거래량 상위 종목 조회"""
         if not self.ensure_valid_token():
             return None
@@ -706,8 +706,8 @@ class KisAPIEnhanced:
         if response:
             result = response.json()
             if result.get('rt_cd') == '0' and 'output' in result:
-                # count 개수만큼만 반환
-                result['output'] = result['output'][:count]
+                # count 개수만큼만 반환 (최대 개수까지)
+                result['output'] = result['output'][:min(count, len(result.get('output', [])))]
             return result
         return None
     
