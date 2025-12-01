@@ -19,14 +19,26 @@ logger = logging.getLogger('ai_trading.risk')
 class RiskManager:
     """리스크 관리 클래스"""
     
-    def __init__(self):
-        self.config = TRADING_CONFIG
-        self.max_position_size = self.config['max_position_size']
-        self.max_sector_exposure = self.config['max_sector_exposure']
-        self.max_drawdown_limit = self.config['max_drawdown_limit']
-        self.var_limit = self.config['var_limit']
-        self.stop_loss_rate = self.config['stop_loss_rate']
-        self.take_profit_rate = self.config['take_profit_rate']
+    def __init__(self, initial_capital=10000000, max_position_size=0.1, 
+                 stop_loss_pct=0.03, take_profit_pct=0.05):
+        try:
+            self.config = TRADING_CONFIG
+            self.max_position_size = self.config['max_position_size']
+            self.max_sector_exposure = self.config['max_sector_exposure']
+            self.max_drawdown_limit = self.config['max_drawdown_limit']
+            self.var_limit = self.config['var_limit']
+            self.stop_loss_rate = self.config['stop_loss_rate']
+            self.take_profit_rate = self.config['take_profit_rate']
+        except:
+            # 기본값 사용
+            self.max_position_size = max_position_size
+            self.max_sector_exposure = 0.3
+            self.max_drawdown_limit = 0.1
+            self.var_limit = 0.02
+            self.stop_loss_rate = stop_loss_pct
+            self.take_profit_rate = take_profit_pct
+        
+        self.initial_capital = initial_capital
         
         # 리스크 메트릭 히스토리
         self.risk_history = []

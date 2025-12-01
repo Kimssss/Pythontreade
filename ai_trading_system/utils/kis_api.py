@@ -67,6 +67,10 @@ class KisAPIEnhanced:
         self.last_request_time = defaultdict(float)
         self.request_lock = threading.Lock()
         
+        # 시장 시간 설정
+        self.market_open_time = 9  # 09:00
+        self.market_close_time = 15.5  # 15:30
+        
         # 토큰 캐시 파일 경로
         self.cache_dir = Path("cache")
         self.cache_dir.mkdir(exist_ok=True)
@@ -100,6 +104,17 @@ class KisAPIEnhanced:
             self._clear_cached_token()
         
         return False
+    
+    def is_market_open(self):
+        """현재 시장이 열려있는지 확인"""
+        now = datetime.now()
+        # 주말 체크
+        if now.weekday() >= 5:  # 토요일(5) or 일요일(6)
+            return False
+        
+        # 시간 체크
+        current_time = now.hour + now.minute / 60.0
+        return self.market_open_time <= current_time <= self.market_close_time
     
     def _save_cached_token(self):
         """토큰 캐시에 저장"""
@@ -533,11 +548,21 @@ class KisAPIEnhanced:
             # 다양한 필드 확인
             ord_psbl_cash = float(cash_data.get('ord_psbl_cash', 0))  # 주문가능현금
             dnca_tot_amt = float(cash_data.get('dnca_tot_amt', 0))    # 예수금총금액
+            nxdy_excc_amt = float(cash_data.get('nxdy_excc_amt', 0))  # 익일정산예정금액
             
-            api_logger.info(f"Cash available: ord_psbl_cash={ord_psbl_cash:,.0f}, dnca_tot_amt={dnca_tot_amt:,.0f}")
+            api_logger.info(f"Cash available: ord_psbl_cash={ord_psbl_cash:,.0f}, dnca_tot_amt={dnca_tot_amt:,.0f}, nxdy_excc_amt={nxdy_excc_amt:,.0f}")
             
-            # 주문가능현금이 0이면 예수금총금액 사용
-            return ord_psbl_cash if ord_psbl_cash > 0 else dnca_tot_amt
+            # 주말이나 장외시간에는 ord_psbl_cash가 0일 수 있음
+            # 우선순위: ord_psbl_cash > nxdy_excc_amt > dnca_tot_amt
+            if ord_psbl_cash > 0:
+                api_logger.info(f"Using ord_psbl_cash: {ord_psbl_cash:,.0f}")
+                return ord_psbl_cash
+            elif nxdy_excc_amt > 0:
+                api_logger.info(f"Using nxdy_excc_amt (weekend/after-hours): {nxdy_excc_amt:,.0f}")
+                return nxdy_excc_amt
+            elif dnca_tot_amt > 0:
+                api_logger.info(f"Using dnca_tot_amt (weekend/after-hours): {dnca_tot_amt:,.0f}")
+                return dnca_tot_amt
         
         api_logger.warning("No cash data found in output2")
         return 0
@@ -553,6 +578,12 @@ class KisAPIEnhanced:
         """
         if not self.ensure_valid_token():
             return None
+        
+        # 주말/장외시간 경고
+        if not self.is_market_open():
+            api_logger.warning("Market is closed - order will be queued or rejected")
+            if not self.is_real:  # 모의투자
+                api_logger.info("Demo mode: Proceeding with order despite market closure")
         
         url = f"{self.base_url}/uapi/domestic-stock/v1/trading/order-cash"
         
@@ -710,6 +741,17 @@ class KisAPIEnhanced:
                 result['output'] = result['output'][:min(count, len(result.get('output', [])))]
             return result
         return None
+    
+    def get_volume_rank(self, market="J"):
+        """거래량 순위 조회 (별칭 메소드)
+        
+        Args:
+            market: 시장 구분 (기본값: "J")
+        
+        Returns:
+            거래량 상위 종목 정보
+        """
+        return self.get_top_volume_stocks(market=market, count=100)
     
     def get_order_history(self, start_date: str = None, end_date: str = None):
         """주문 체결 조회
