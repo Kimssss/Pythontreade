@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-12-02T18:39:25.443167",
+  "duration": 36.279195,
+  "dqn_results": {
+    "error": "'DQNAgent' object has no attribute 'model'"
+  },
+  "factor_results": {
+    "optimized_weights": {
+      "value": 0.35,
+      "quality": 0.3,
+      "momentum": 0.25,
+      "growth": 0.1
+    },
+    "improvement": 0.05
+  },
+  "tech_results": {
+    "optimized_params": {
+      "rsi_period": 14,
+      "macd_fast": 12,
+      "macd_slow": 26,
+      "bb_period": 20
+    }
+  },
+  "backtest_results": {
+    "total_trades": 0,
+    "win_rate": 0,
+    "total_return": 0.0
+  }
+}
