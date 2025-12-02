@@ -6,6 +6,7 @@ import os
 import sys
 import asyncio
 import argparse
+import logging
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -80,6 +81,11 @@ def main_cli():
         action='store_true',
         help='Check system configuration only'
     )
+    parser.add_argument(
+        '--no-ui',
+        action='store_true',
+        help='Run without web UI'
+    )
     
     args = parser.parse_args()
     
@@ -109,6 +115,32 @@ def main_cli():
             elif choice == '2':
                 args.mode = 'real'
                 print("⚠️  실전투자 모드 선택됨")
+                break
+            else:
+                print("❌ 1 또는 2를 입력하세요")
+        
+        # UI 옵션 선택
+        print("\n📊 UI 옵션을 선택하세요:")
+        print("")
+        print("1️⃣  웹 대시보드 포함 (추천)")
+        print("   - 브라우저에서 실시간 모니터링")
+        print("   - 차트와 거래 내역 확인")
+        print("   - http://localhost:8080")
+        print("")
+        print("2️⃣  콘솔만 사용")
+        print("   - 터미널에서만 로그 확인")
+        print("   - 가벼운 실행")
+        print("")
+        
+        while True:
+            ui_choice = input("선택하세요 (1 또는 2): ").strip()
+            if ui_choice == '1':
+                args.no_ui = False
+                print("✅ 웹 대시보드 활성화")
+                break
+            elif ui_choice == '2':
+                args.no_ui = True
+                print("✅ 콘솔 모드 선택됨")
                 break
             else:
                 print("❌ 1 또는 2를 입력하세요")
@@ -144,19 +176,159 @@ def main_cli():
             print("Cancelled.")
             return
     
-    print(f"\nStarting AI Trading System in {args.mode} mode...")
-    print("Press Ctrl+C to stop\n")
+    # UI 포함 여부에 따라 다른 실행
+    if not args.no_ui:
+        # UI 포함 실행
+        print("\nChecking UI dependencies...")
+        try:
+            import flask
+            import flask_socketio
+            import flask_cors
+        except ImportError:
+            print("Installing required UI packages...")
+            os.system("pip install flask flask-socketio flask-cors")
+            print("Please run the script again.")
+            return
+        
+        print("\nStarting AI Trading System with Web UI...")
+        print(f"Mode: {args.mode}")
+        
+        # UI 버전 실행
+        run_with_ui(args.mode)
+    else:
+        # 기존 콘솔 버전 실행
+        print(f"\nStarting AI Trading System in {args.mode} mode...")
+        print("Press Ctrl+C to stop\n")
+        
+        try:
+            # 메인 시스템 실행
+            asyncio.run(main())
+        except KeyboardInterrupt:
+            print("\nSystem stopped by user")
+        except Exception as e:
+            print(f"\nError: {e}")
+            import traceback
+            traceback.print_exc()
+            sys.exit(1)
+
+
+def run_with_ui(mode):
+    """UI와 함께 실행"""
+    import threading
+    import webbrowser
+    import time
+    
+    # UI 모듈 임포트
+    from ai_trading_system.web_dashboard import app, socketio, set_trading_system, emit_update
+    from ai_trading_system.main_trading_system import AITradingSystem
+    
+    # 커스텀 로그 핸들러 추가
+    class UILogHandler(logging.Handler):
+        def emit(self, record):
+            log_entry = self.format(record)
+            try:
+                from ai_trading_system.web_dashboard import message_queue
+                message_queue.put(log_entry)
+            except:
+                pass
+    
+    ui_handler = UILogHandler()
+    ui_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+    logging.getLogger('ai_trading').addHandler(ui_handler)
+    
+    # Flask 서버 실행 함수
+    def run_flask():
+        socketio.run(app, host='0.0.0.0', port=8080, debug=False, use_reloader=False, allow_unsafe_werkzeug=True)
+    
+    # 거래 시스템 실행 함수
+    async def run_trading():
+        # 시스템 초기화
+        trading_system = AITradingSystem(mode=mode)
+        set_trading_system(trading_system)
+        
+        # 원래 메서드들을 래핑하여 UI 업데이트 추가
+        original_update_portfolio = trading_system.update_portfolio_status
+        original_execute_trades = trading_system.execute_trades
+        original_record_performance = trading_system.record_performance
+        
+        async def update_portfolio_with_ui():
+            await original_update_portfolio()
+            emit_update('portfolio_update', {
+                'total_value': trading_system.total_value,
+                'cash_balance': trading_system.cash_balance,
+                'portfolio': trading_system.portfolio
+            })
+        
+        async def execute_trades_with_ui(signals):
+            result = await original_execute_trades(signals)
+            if result:
+                emit_update('trade_executed', {'trades': result})
+            return result
+        
+        def record_performance_with_ui():
+            original_record_performance()
+            if trading_system.performance_history:
+                emit_update('performance_update', {
+                    'performance': trading_system.performance_history[-1]
+                })
+        
+        # 메서드 교체
+        trading_system.update_portfolio_status = update_portfolio_with_ui
+        trading_system.execute_trades = execute_trades_with_ui
+        trading_system.record_performance = record_performance_with_ui
+        
+        # 거래 시스템 실행
+        await trading_system.run()
+    
+    # Flask 서버를 별도 스레드에서 실행
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
+    flask_thread.start()
+    
+    # 잠시 대기 후 브라우저 열기
+    time.sleep(2)
+    
+    # IP 주소 확인
+    import socket
+    
+    def get_local_ip():
+        try:
+            # 외부 서버에 연결을 시도하여 로컬 IP 얻기
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            local_ip = s.getsockname()[0]
+            s.close()
+            return local_ip
+        except:
+            return "127.0.0.1"
+    
+    local_ip = get_local_ip()
+    local_url = "http://127.0.0.1:8080"
+    external_url = f"http://{local_ip}:8080"
+    
+    print(f"\n✅ Web UI available at:")
+    print(f"   🏠 로컬 접속: {local_url}")
+    if local_ip != "127.0.0.1":
+        print(f"   🌐 외부 접속: {external_url}")
+        print(f"   ℹ️  네트워크 상의 다른 기기에서 {external_url}로 접속 가능")
+        print(f"   ⚠️  방화벽 설정을 확인하세요 (Port 8080)")
+    print("Opening local browser...")
     
     try:
-        # 메인 시스템 실행
-        asyncio.run(main())
+        webbrowser.open(local_url)
+    except:
+        print("Could not open browser automatically. Please open manually.")
+    
+    print("\nPress Ctrl+C to stop\n")
+    
+    try:
+        # 거래 시스템 실행
+        asyncio.run(run_trading())
     except KeyboardInterrupt:
-        print("\nSystem stopped by user")
+        print("\n\nSystem stopped by user")
     except Exception as e:
         print(f"\nError: {e}")
         import traceback
         traceback.print_exc()
-        sys.exit(1)
 
 
 if __name__ == "__main__":

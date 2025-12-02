@@ -8198,88 +8198,116 @@
     },
     {
       "date": "20251202",
-      "time": "21:46:45",
-      "stock_code": "252670",
-      "stock_name": "KODEX 200\uc120\ubb3c\uc778\ubc84\uc2a42X",
-      "timestamp": "2025-12-02T21:46:45.867780"
+      "time": "22:39:52",
+      "stock_code": "005930",
+      "stock_name": "\uc0bc\uc131\uc804\uc790",
+      "timestamp": "2025-12-02T22:39:52.246085"
     },
     {
       "date": "20251202",
-      "time": "21:51:10",
-      "stock_code": "252670",
-      "stock_name": "KODEX 200\uc120\ubb3c\uc778\ubc84\uc2a42X",
-      "timestamp": "2025-12-02T21:51:10.470673"
+      "time": "22:40:02",
+      "stock_code": "099440",
+      "stock_name": "\uc2a4\ub9e5",
+      "timestamp": "2025-12-02T22:40:02.525041"
     },
     {
       "date": "20251202",
-      "time": "21:51:20",
+      "time": "22:40:12",
+      "stock_code": "229200",
+      "stock_name": "KODEX \ucf54\uc2a4\ub2e5150",
+      "timestamp": "2025-12-02T22:40:12.783862"
+    },
+    {
+      "date": "20251202",
+      "time": "22:40:23",
+      "stock_code": "204620",
+      "stock_name": "\uae00\ub85c\ubc8c\ud14d\uc2a4\ud504\ub9ac",
+      "timestamp": "2025-12-02T22:40:23.046206"
+    },
+    {
+      "date": "20251202",
+      "time": "22:40:33",
+      "stock_code": "069500",
+      "stock_name": "KODEX 200",
+      "timestamp": "2025-12-02T22:40:33.332934"
+    },
+    {
+      "date": "20251202",
+      "time": "22:40:48",
+      "stock_code": "252670",
+      "stock_name": "KODEX 200\uc120\ubb3c\uc778\ubc84\uc2a42X",
+      "timestamp": "2025-12-02T22:40:48.951336"
+    },
+    {
+      "date": "20251202",
+      "time": "22:40:59",
       "stock_code": "114800",
       "stock_name": "KODEX \uc778\ubc84\uc2a4",
-      "timestamp": "2025-12-02T21:51:20.687025"
+      "timestamp": "2025-12-02T22:40:59.187051"
     },
     {
       "date": "20251202",
-      "time": "21:51:31",
+      "time": "22:41:09",
       "stock_code": "459550",
       "stock_name": "\uc54c\ud2b8",
-      "timestamp": "2025-12-02T21:51:31.211957"
+      "timestamp": "2025-12-02T22:41:09.525531"
     },
     {
       "date": "20251202",
-      "time": "21:51:41",
+      "time": "22:41:19",
       "stock_code": "010170",
       "stock_name": "\ub300\ud55c\uad11\ud1b5\uc2e0",
-      "timestamp": "2025-12-02T21:51:41.405662"
+      "timestamp": "2025-12-02T22:41:19.767028"
     },
     {
       "date": "20251202",
-      "time": "21:51:51",
+      "time": "22:41:30",
       "stock_code": "251340",
       "stock_name": "KODEX \ucf54\uc2a4\ub2e5150\uc120\ubb3c\uc778\ubc84\uc2a4",
-      "timestamp": "2025-12-02T21:51:51.631673"
+      "timestamp": "2025-12-02T22:41:30.097513"
     },
     {
       "date": "20251202",
-      "time": "21:52:01",
+      "time": "22:41:40",
       "stock_code": "462330",
       "stock_name": "KODEX 2\ucc28\uc804\uc9c0\uc0b0\uc5c5\ub808\ubc84\ub9ac\uc9c0",
-      "timestamp": "2025-12-02T21:52:01.942708"
+      "timestamp": "2025-12-02T22:41:40.425496"
     },
     {
       "date": "20251202",
-      "time": "21:52:12",
+      "time": "22:41:50",
       "stock_code": "098460",
       "stock_name": "\uace0\uc601",
-      "timestamp": "2025-12-02T21:52:12.157720"
+      "timestamp": "2025-12-02T22:41:50.689388"
     },
     {
       "date": "20251202",
-      "time": "21:52:22",
+      "time": "22:42:00",
       "stock_code": "140430",
       "stock_name": "\uce74\ud2f0\uc2a4",
-      "timestamp": "2025-12-02T21:52:22.362168"
+      "timestamp": "2025-12-02T22:42:00.956853"
     },
     {
       "date": "20251202",
-      "time": "21:52:32",
+      "time": "22:42:11",
       "stock_code": "233740",
       "stock_name": "KODEX \ucf54\uc2a4\ub2e5150\ub808\ubc84\ub9ac\uc9c0",
-      "timestamp": "2025-12-02T21:52:32.609418"
+      "timestamp": "2025-12-02T22:42:11.243118"
     },
     {
       "date": "20251202",
-      "time": "21:52:42",
+      "time": "22:42:21",
       "stock_code": "424870",
       "stock_name": "\uc774\ubba8\uc628\uc2dc\uc544",
-      "timestamp": "2025-12-02T21:52:42.845678"
+      "timestamp": "2025-12-02T22:42:21.551629"
     },
     {
       "date": "20251202",
-      "time": "21:52:53",
+      "time": "22:42:31",
       "stock_code": "005880",
       "stock_name": "\ub300\ud55c\ud574\uc6b4",
-      "timestamp": "2025-12-02T21:52:53.076405"
+      "timestamp": "2025-12-02T22:42:31.829380"
     }
   ],
-  "last_updated": "2025-12-02T21:52:58.193120"
+  "last_updated": "2025-12-02T22:42:36.948075"
 }
