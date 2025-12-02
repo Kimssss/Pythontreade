@@ -259,6 +259,10 @@ class AITradingSystem:
             signal = await self.analyze_stock_and_generate_signal(stock)
             if signal and signal['confidence'] >= TRADING_CONFIG['min_confidence']:
                 signals.append(signal)
+            # 데모 모드에서 테스트를 위해 신뢰도 낮아도 1개는 포함
+            elif self.mode == 'demo' and TRADING_CONFIG.get('force_trade_test') and len(signals) == 0 and signal:
+                logger.info(f"Demo mode: Including low confidence signal for testing - {stock['name']} (confidence: {signal['confidence']:.2%})")
+                signals.append(signal)
         
         logger.info(f"Generated {len(signals)} Korean trading signals")
         
@@ -269,6 +273,11 @@ class AITradingSystem:
         # 주문 실행
         executed_trades = await self.execute_trades(filtered_signals)
         logger.info(f"Executed {len(executed_trades)} Korean trades")
+        
+        # 데모 모드: 거래가 없으면 테스트 거래 실행
+        if self.mode == 'demo' and len(executed_trades) == 0 and TRADING_CONFIG.get('force_trade_test') and len(candidates) > 0:
+            logger.info("Demo mode: No trades executed, forcing a test trade...")
+            await self._execute_demo_test_trade(candidates[0])
     
     async def _trade_us_stocks(self, market_condition: str):
         """미국 주식 거래"""
@@ -292,8 +301,9 @@ class AITradingSystem:
             # 신호 생성 및 거래
             for stock in us_candidates[:5]:  # 상위 5개
                 try:
-                    # 매수 신호인 경우
-                    if stock['score'] > 0.7:  # 70% 이상 점수
+                    # 매수 신호인 경우 (데모 모드에서는 기준 완화)
+                    score_threshold = 0.5 if self.mode == 'demo' else 0.7
+                    if stock['score'] > score_threshold:  # 점수 기준
                         # 적정 수량 계산 (포트폴리오의 10% 이내)
                         available_cash = overseas_balance.get('foreign_currency_amount', 0) if overseas_balance else 0
                         position_size = min(available_cash * 0.1, 10000)  # 최대 $10,000
@@ -333,6 +343,46 @@ class AITradingSystem:
         except Exception as e:
             logger.error(f"Error in US stock trading: {e}")
     
+    async def _execute_demo_test_trade(self, stock: Dict):
+        """데모 모드 테스트 거래 실행"""
+        try:
+            logger.info(f"\n=== DEMO TEST TRADE ===")
+            logger.info(f"Stock: {stock['name']} ({stock['code']})")
+            logger.info(f"Price: {stock['price']:,.0f} KRW")
+            
+            # 소량 매수 (1주)
+            quantity = 1
+            required_amount = stock['price'] * quantity
+            
+            if self.cash_balance >= required_amount:
+                logger.info(f"Buying {quantity} share at {stock['price']:,.0f} KRW")
+                
+                # 매수 주문
+                result = self.kis_api.buy_stock(
+                    stock['code'], 
+                    quantity,
+                    order_type="03"  # 시장가
+                )
+                
+                if result and result.get('rt_cd') == '0':
+                    logger.info("\u2705 Demo test trade SUCCESSFUL!")
+                    trade = {
+                        'timestamp': datetime.now(),
+                        'stock_code': stock['code'],
+                        'stock_name': stock['name'],
+                        'action': 'BUY',
+                        'quantity': quantity,
+                        'price': stock['price'],
+                        'order_no': result.get('output', {}).get('odno', 'DEMO')
+                    }
+                    self.trade_history.append(trade)
+                else:
+                    logger.error(f"Demo test trade failed: {result}")
+            else:
+                logger.warning(f"Insufficient cash for demo test trade. Need: {required_amount:,.0f}, Have: {self.cash_balance:,.0f}")
+                
+        except Exception as e:
+            logger.error(f"Error in demo test trade: {e}")
     
     async def analyze_market_condition(self) -> str:
         """시장 상태 분석"""
@@ -417,8 +467,14 @@ class AITradingSystem:
         current_leverage = self.risk_manager.adjust_leverage_by_risk(portfolio_returns)
         
         for signal in signals:
-            # 매수 신호만 처리 (매도는 별도 로직)
-            if signal['action'] != 0:  # 0: Buy
+            # 매수 및 매도 신호 처리
+            if signal['action'] == 0:  # 0: Buy
+                pass  # 아래에서 처리
+            elif signal['action'] == 1 and signal['stock_code'] in self.portfolio:  # 1: Sell
+                # 매도 신호도 필터링 없이 포함
+                filtered.append(signal)
+                continue
+            else:
                 continue
             
             # 가상 포지션으로 리스크 체크
@@ -430,11 +486,16 @@ class AITradingSystem:
                 'value': position_value
             }
             
-            # 리스크 한도 체크
-            approved, reason = self.risk_manager.check_risk_limits(
-                {'portfolio': self.portfolio, 'returns': portfolio_returns},
-                mock_position
-            )
+            # 데모 모드에서는 리스크 체크 완화
+            if self.mode == 'demo' and TRADING_CONFIG.get('force_trade_test'):
+                approved = True
+                reason = "Demo mode - Risk check bypassed"
+            else:
+                # 리스크 한도 체크
+                approved, reason = self.risk_manager.check_risk_limits(
+                    {'portfolio': self.portfolio, 'returns': portfolio_returns},
+                    mock_position
+                )
             
             if approved:
                 signal['position_size'] = self.risk_manager.calculate_position_size(
