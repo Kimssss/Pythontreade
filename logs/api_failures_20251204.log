@@ -1,0 +1,79 @@
+2025-12-04 04:26:03,932 - kis_api - INFO - Overseas stock API initialized
+2025-12-04 04:26:03,932 - kis_api - INFO - Overseas stock API initialized
+2025-12-04 04:26:03,932 - kis_api - INFO - get_available_cash() called
+2025-12-04 04:26:04,134 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-04 04:26:04,134 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '10000000', 'nxdy_excc_amt': '10000000', 'prvs_rcdl_excc_amt': '10000000', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '0', 'tot_evlu_amt': '10000000', 'nass_amt': '10000000', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '0', 'evlu_amt_smtl_amt': '0', 'evlu_pfls_smtl_amt': '0', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '10000000', 'asst_icdc_amt': '0', 'asst_icdc_erng_rt': '0.00000000'}]
+2025-12-04 04:26:04,134 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=10,000,000, nxdy_excc_amt=10,000,000
+2025-12-04 04:26:04,134 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 10,000,000
+2025-12-04 04:26:04,134 - kis_api - INFO - get_holding_stocks() called
+2025-12-04 04:26:07,127 - kis_api - DEBUG - API Request Success: balance - GET
+2025-12-04 04:26:07,127 - kis_api - DEBUG - output1 count: 0 items
+2025-12-04 04:26:07,127 - kis_api - INFO - Total holdings: 0 stocks
+2025-12-04 04:26:07,244 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-04 04:26:10,439 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:26:10,608 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-04 04:26:15,739 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:26:15,921 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-04 04:26:21,044 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:26:21,180 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-04 04:26:24,031 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:26:24,185 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-04 04:26:29,318 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:26:29,453 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-04 04:26:34,558 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:26:34,684 - kis_api - DEBUG - API Request Success: overseas_daily_price - GET
+2025-12-04 04:26:34,690 - kis_api - ERROR - 해외 잔고 조회 실패: 'KisAPIEnhanced' object has no attribute 'session'
+2025-12-04 04:26:34,761 - kis_api - INFO - 해외주식 매수 주문: NYSE JPM x 3
+2025-12-04 04:26:40,831 - kis_api - ERROR - API Request Failed: {
+  "timestamp": "2025-12-04T04:26:34.761409",
+  "method": "POST",
+  "endpoint": "overseas_order",
+  "url": "https://openapivts.koreainvestment.com:29443/uapi/overseas-stock/v1/trading/order",
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "authorization": "***",
+    "appkey": "PSTP8BTWgg4loa76mISQPzb2tHvjxtrBUDID",
+    "appsecret": "***",
+    "tr_id": "VTTT1002U",
+    "custtype": "P",
+    "hashkey": "9c08f1c9ac62f1850bb62e8176f2897dc327a0a2b29b372ad97b4cbd6ab7b9d6"
+  },
+  "params": null,
+  "data": {
+    "CANO": "50157423",
+    "ACNT_PRDT_CD": "01",
+    "OVRS_EXCG_CD": "NYSE",
+    "PDNO": "JPM",
+    "ORD_QTY": "3",
+    "OVRS_ORD_UNPR": "0",
+    "ORD_SVR_DVSN_CD": "0",
+    "ORD_DVSN": "00"
+  },
+  "retries": 3,
+  "success": false,
+  "error": "500:  - ",
+  "response_code": 500,
+  "response_msg": ""
+}
+2025-12-04 04:26:42,928 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:26:55,046 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:27:07,199 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:27:19,319 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:27:31,452 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:27:43,583 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:27:55,733 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:28:07,877 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:28:20,004 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:28:32,109 - kis_api - DEBUG - API Request Success: overseas_price - GET
+2025-12-04 04:28:45,252 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-04 04:28:50,369 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-04 04:29:03,530 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-04 04:29:08,629 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-04 04:29:21,794 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-04 04:29:26,935 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-04 04:29:40,065 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-04 04:29:45,180 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-04 04:29:58,320 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-04 04:30:03,431 - kis_api - DEBUG - API Request Success: daily_price - GET
+2025-12-04 04:30:16,569 - kis_api - DEBUG - API Request Success: volume_rank - GET
+2025-12-04 04:30:21,667 - kis_api - DEBUG - API Request Success: daily_price - GET

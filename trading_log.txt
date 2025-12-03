@@ -1,0 +1,379 @@
+/Users/sangwookim/PycharmProjects/PythonProject1/.venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+============================================================
+AI TRADING SYSTEM
+============================================================
+✓ All core dependencies installed
+Environment set up for demo mode
+
+Starting AI Trading System in demo mode...
+Press Ctrl+C to stop
+
+2025-12-04 04:26:03,503 - ai_trading - INFO - Initializing AI Trading System in demo mode
+✅ 캐시된 토큰 로드 성공 (만료: 2025-12-05 00:21:20.299791)
+2025-12-04 04:26:03,930 - ai_trading.dqn - INFO - DQN Agent initialized on cpu
+2025-12-04 04:26:03,930 - ai_trading.ensemble - INFO - Multi-Agent Ensemble initialized
+2025-12-04 04:26:03,931 - ai_trading.training - INFO - 📚 Loaded training history: 0 stocks trained today
+2025-12-04 04:26:03,932 - ai_trading - INFO - Mode: demo - All data will be fetched from API only
+2025-12-04 04:26:03,932 - ai_trading - INFO - AI Trading System initialized successfully
+2025-12-04 04:26:03,932 - ai_trading - INFO - Starting AI Trading System...
+2025-12-04 04:26:03,932 - ai_trading - INFO - === System Initialization ===
+2025-12-04 04:26:03,932 - ai_trading - INFO - Trading mode: demo
+2025-12-04 04:26:03,932 - ai_trading - INFO - Getting access token...
+🔄 기존 토큰 재사용 (만료: 2025-12-05 00:21:20.299791)
+2025-12-04 04:26:03,932 - ai_trading - INFO - Access token acquired successfully
+2025-12-04 04:26:03,932 - ai_trading - INFO - Fetching initial account information...
+2025-12-04 04:26:03,932 - ai_trading - INFO - === Updating Portfolio Status ===
+2025-12-04 04:26:03,932 - ai_trading - INFO - Fetching cash balance...
+2025-12-04 04:26:04,134 - ai_trading - INFO - Cash balance: 10,000,000 KRW
+2025-12-04 04:26:04,134 - ai_trading - INFO - Fetching holdings...
+⏰ Rate limit 대기: 2.80초
+2025-12-04 04:26:07,127 - ai_trading - INFO - Found 0 holdings
+2025-12-04 04:26:07,127 - ai_trading - INFO - Total portfolio value: 10,000,000 KRW
+2025-12-04 04:26:07,127 - ai_trading - INFO -   - Cash: 10,000,000 KRW
+2025-12-04 04:26:07,127 - ai_trading - INFO -   - Stocks: 0 KRW
+2025-12-04 04:26:07,127 - ai_trading - INFO - === Initialization Complete ===
+2025-12-04 04:26:07,127 - ai_trading - INFO - Initial portfolio value: 10,000,000 KRW
+2025-12-04 04:26:07,127 - ai_trading - INFO - 
+============================================================
+2025-12-04 04:26:07,127 - ai_trading - INFO - TRADING ACTIVE - 2025-12-04 04:26:07
+2025-12-04 04:26:07,127 - ai_trading - INFO - Active Markets: US
+2025-12-04 04:26:07,127 - ai_trading - INFO - 🇺🇸 US Market: 23:30-06:00 KST (ACTIVE)
+2025-12-04 04:26:07,127 - ai_trading - INFO - === Starting Trading Cycle ===
+2025-12-04 04:26:07,127 - ai_trading - INFO - Active markets: {'korean': False, 'us': True}
+2025-12-04 04:26:07,244 - ai_trading - INFO - Market condition: normal
+2025-12-04 04:26:07,245 - ai_trading - INFO - === Trading US Stocks ===
+2025-12-04 04:26:07,245 - ai_trading - INFO - Screening overseas stocks: ['NASDAQ', 'NYSE']
+⚠️ 500 에러 발생 (초당 거래건수를 초과하였습니다.), 1초 후 재시도 (1/3)
+⏰ Rate limit 대기: 1.87초
+⏰ Rate limit 대기: 2.74초
+⏰ Rate limit 대기: 0.01초
+2025-12-04 04:26:34,689 - ai_trading - INFO - Screened 1 US stocks
+2025-12-04 04:26:34,690 - ai_trading - INFO - US cash balance: $10,000.00
+2025-12-04 04:26:34,690 - ai_trading - INFO - Buying US stock: JPM x 3 @ $311.36
+⚠️ 500 에러 발생 (), 1초 후 재시도 (1/3)
+⏰ Rate limit 대기: 1.91초
+⚠️ 500 에러 발생 (), 2초 후 재시도 (2/3)
+⏰ Rate limit 대기: 0.90초
+❌ 500 에러 - 최대 재시도 횟수 초과
+2025-12-04 04:26:40,831 - ai_trading - INFO - Performance: Value=10,000,000, Return=0.00%
+2025-12-04 04:26:40,831 - ai_trading - INFO - 
+[Next Cycle] Waiting 5 minutes for next trading cycle...
+2025-12-04 04:26:40,831 - ai_trading - INFO - Next run at: 04:31:07
+2025-12-04 04:26:40,831 - ai_trading - INFO - 
+🧠 [Training During Wait] Starting background learning...
+2025-12-04 04:26:40,831 - ai_trading - INFO - ⏰ Remaining wait time: 300s - Starting quick training...
+2025-12-04 04:26:40,831 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:26:40,831 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:26:40,831 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:26:40,831 - ai_trading.training - INFO - ⚡ Quick learning US stock: Apple (AAPL)
+2025-12-04 04:26:42,942 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:26:42,942 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:26:42,942 - ai_trading.training - INFO -    Stock: Apple ($285.16)
+2025-12-04 04:26:42,942 - ai_trading.training - INFO -    Estimated win rate: 50.0%
+2025-12-04 04:26:42,942 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:26:42,942 - ai_trading - INFO -    Stock: Apple
+2025-12-04 04:26:42,942 - ai_trading - INFO -    Win rate: 50.0%
+2025-12-04 04:26:52,943 - ai_trading - INFO - ⏰ Remaining wait time: 288s - Starting quick training...
+2025-12-04 04:26:52,943 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:26:52,943 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:26:52,943 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:26:52,943 - ai_trading.training - INFO - ⚡ Quick learning US stock: Microsoft (MSFT)
+2025-12-04 04:26:55,064 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:26:55,064 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:26:55,064 - ai_trading.training - INFO -    Stock: Microsoft ($481.77)
+2025-12-04 04:26:55,064 - ai_trading.training - INFO -    Estimated win rate: 50.2%
+2025-12-04 04:26:55,064 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:26:55,064 - ai_trading - INFO -    Stock: Microsoft
+2025-12-04 04:26:55,064 - ai_trading - INFO -    Win rate: 50.2%
+2025-12-04 04:27:05,065 - ai_trading - INFO - ⏰ Remaining wait time: 276s - Starting quick training...
+2025-12-04 04:27:05,066 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:27:05,066 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:27:05,066 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:27:05,066 - ai_trading.training - INFO - ⚡ Quick learning US stock: Google (GOOGL)
+2025-12-04 04:27:07,216 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:27:07,216 - ai_trading.training - INFO - ✅ US stock training completed in 2.2s
+2025-12-04 04:27:07,216 - ai_trading.training - INFO -    Stock: Google ($320.68)
+2025-12-04 04:27:07,216 - ai_trading.training - INFO -    Estimated win rate: 50.2%
+2025-12-04 04:27:07,216 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:27:07,216 - ai_trading - INFO -    Stock: Google
+2025-12-04 04:27:07,216 - ai_trading - INFO -    Win rate: 50.2%
+2025-12-04 04:27:17,217 - ai_trading - INFO - ⏰ Remaining wait time: 264s - Starting quick training...
+2025-12-04 04:27:17,217 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:27:17,218 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:27:17,218 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:27:17,218 - ai_trading.training - INFO - ⚡ Quick learning US stock: Amazon (AMZN)
+2025-12-04 04:27:19,335 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:27:19,335 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:27:19,335 - ai_trading.training - INFO -    Stock: Amazon ($231.89)
+2025-12-04 04:27:19,335 - ai_trading.training - INFO -    Estimated win rate: 50.1%
+2025-12-04 04:27:19,335 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:27:19,335 - ai_trading - INFO -    Stock: Amazon
+2025-12-04 04:27:19,335 - ai_trading - INFO -    Win rate: 50.1%
+2025-12-04 04:27:29,336 - ai_trading - INFO - ⏰ Remaining wait time: 251s - Starting quick training...
+2025-12-04 04:27:29,336 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:27:29,336 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:27:29,336 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:27:29,336 - ai_trading.training - INFO - ⚡ Quick learning US stock: Tesla (TSLA)
+2025-12-04 04:27:31,466 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:27:31,466 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:27:31,466 - ai_trading.training - INFO -    Stock: Tesla ($447.64)
+2025-12-04 04:27:31,466 - ai_trading.training - INFO -    Estimated win rate: 50.4%
+2025-12-04 04:27:31,466 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:27:31,466 - ai_trading - INFO -    Stock: Tesla
+2025-12-04 04:27:31,466 - ai_trading - INFO -    Win rate: 50.4%
+2025-12-04 04:27:41,467 - ai_trading - INFO - ⏰ Remaining wait time: 239s - Starting quick training...
+2025-12-04 04:27:41,467 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:27:41,467 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:27:41,467 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:27:41,467 - ai_trading.training - INFO - ⚡ Quick learning US stock: Meta (META)
+2025-12-04 04:27:43,596 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:27:43,596 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:27:43,596 - ai_trading.training - INFO -    Stock: Meta ($644.44)
+2025-12-04 04:27:43,596 - ai_trading.training - INFO -    Estimated win rate: 50.0%
+2025-12-04 04:27:43,597 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:27:43,597 - ai_trading - INFO -    Stock: Meta
+2025-12-04 04:27:43,597 - ai_trading - INFO -    Win rate: 50.0%
+2025-12-04 04:27:53,598 - ai_trading - INFO - ⏰ Remaining wait time: 227s - Starting quick training...
+2025-12-04 04:27:53,598 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:27:53,598 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:27:53,598 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:27:53,598 - ai_trading.training - INFO - ⚡ Quick learning US stock: NVIDIA (NVDA)
+2025-12-04 04:27:55,741 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:27:55,741 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:27:55,741 - ai_trading.training - INFO -    Stock: NVIDIA ($180.82)
+2025-12-04 04:27:55,741 - ai_trading.training - INFO -    Estimated win rate: 50.0%
+2025-12-04 04:27:55,741 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:27:55,741 - ai_trading - INFO -    Stock: NVIDIA
+2025-12-04 04:27:55,741 - ai_trading - INFO -    Win rate: 50.0%
+2025-12-04 04:28:05,742 - ai_trading - INFO - ⏰ Remaining wait time: 215s - Starting quick training...
+2025-12-04 04:28:05,742 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:28:05,742 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:28:05,742 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:28:05,742 - ai_trading.training - INFO - ⚡ Quick learning US stock: JP Morgan (JPM)
+2025-12-04 04:28:07,885 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:28:07,885 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:28:07,885 - ai_trading.training - INFO -    Stock: JP Morgan ($311.41)
+2025-12-04 04:28:07,885 - ai_trading.training - INFO -    Estimated win rate: 50.1%
+2025-12-04 04:28:07,885 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:28:07,885 - ai_trading - INFO -    Stock: JP Morgan
+2025-12-04 04:28:07,885 - ai_trading - INFO -    Win rate: 50.1%
+2025-12-04 04:28:17,886 - ai_trading - INFO - ⏰ Remaining wait time: 203s - Starting quick training...
+2025-12-04 04:28:17,886 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:28:17,886 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:28:17,886 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:28:17,887 - ai_trading.training - INFO - ⚡ Quick learning US stock: Bank of America (BAC)
+2025-12-04 04:28:20,021 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:28:20,021 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:28:20,021 - ai_trading.training - INFO -    Stock: Bank of America ($54.04)
+2025-12-04 04:28:20,021 - ai_trading.training - INFO -    Estimated win rate: 50.2%
+2025-12-04 04:28:20,021 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:28:20,021 - ai_trading - INFO -    Stock: Bank of America
+2025-12-04 04:28:20,021 - ai_trading - INFO -    Win rate: 50.2%
+2025-12-04 04:28:30,022 - ai_trading - INFO - ⏰ Remaining wait time: 191s - Starting quick training...
+2025-12-04 04:28:30,022 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:28:30,022 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:28:30,022 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:28:30,022 - ai_trading.training - INFO - ⚡ Quick learning US stock: Walmart (WMT)
+2025-12-04 04:28:32,130 - ai_trading.training - INFO - 💾 Saved training history: 0 stocks trained today
+2025-12-04 04:28:32,130 - ai_trading.training - INFO - ✅ US stock training completed in 2.1s
+2025-12-04 04:28:32,130 - ai_trading.training - INFO -    Stock: Walmart ($114.56)
+2025-12-04 04:28:32,130 - ai_trading.training - INFO -    Estimated win rate: 50.2%
+2025-12-04 04:28:32,130 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 04:28:32,130 - ai_trading - INFO -    Stock: Walmart
+2025-12-04 04:28:32,130 - ai_trading - INFO -    Win rate: 50.2%
+2025-12-04 04:28:42,131 - ai_trading - INFO - ⏰ Remaining wait time: 179s - Starting quick training...
+2025-12-04 04:28:42,131 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:28:42,131 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:28:42,131 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:28:42,131 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 04:28:42,131 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 04:28:42,131 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 04:28:42,131 - ai_trading.training - INFO - ============================================================
+2025-12-04 04:28:45,132 - ai_trading.training - INFO - Fetching top volume stocks...
+2025-12-04 04:28:45,253 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 04:28:45,253 - ai_trading.training - INFO - 📚 Already trained: 0 - 
+2025-12-04 04:28:45,253 - ai_trading.training - INFO - ❌ Already failed: 0 - 
+2025-12-04 04:28:45,253 - ai_trading.training - INFO - 📋 After excluding trained: 30 stocks remain
+2025-12-04 04:28:45,253 - ai_trading.training - INFO - 
+📊 Training on: KODEX 200선물인버스2X (252670)
+2025-12-04 04:28:45,253 - ai_trading.training - INFO - 📋 Today's progress: 1 trained, 0 failed
+2025-12-04 04:28:50,254 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 04:28:50,372 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 04:28:50,373 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 04:28:50,373 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 04:28:50,373 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 04:28:50,373 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 04:28:50,374 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 04:28:50,374 - ai_trading.training - INFO -   - Trades: 1
+2025-12-04 04:28:50,374 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 04:28:50,386 - ai_trading.training - INFO - 💾 Saved training history: 1 stocks trained today
+2025-12-04 04:28:50,386 - ai_trading - INFO - ✅ Fallback training completed!
+2025-12-04 04:29:00,387 - ai_trading - INFO - ⏰ Remaining wait time: 160s - Starting quick training...
+2025-12-04 04:29:00,387 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:29:00,387 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:29:00,387 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:29:00,387 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 04:29:00,387 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 04:29:00,387 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 04:29:00,387 - ai_trading.training - INFO - ============================================================
+2025-12-04 04:29:03,388 - ai_trading.training - INFO - Fetching top volume stocks...
+2025-12-04 04:29:03,530 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 04:29:03,530 - ai_trading.training - INFO - 📚 Already trained: 1 - 252670
+2025-12-04 04:29:03,530 - ai_trading.training - INFO - ❌ Already failed: 0 - 
+2025-12-04 04:29:03,530 - ai_trading.training - INFO - 📋 After excluding trained: 29 stocks remain
+2025-12-04 04:29:03,530 - ai_trading.training - INFO - 
+📊 Training on: KODEX 인버스 (114800)
+2025-12-04 04:29:03,531 - ai_trading.training - INFO - 📋 Today's progress: 2 trained, 0 failed
+2025-12-04 04:29:08,532 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 04:29:08,632 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 04:29:08,632 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 04:29:08,632 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 04:29:08,632 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 04:29:08,633 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 04:29:08,634 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 04:29:08,634 - ai_trading.training - INFO -   - Trades: 1
+2025-12-04 04:29:08,634 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 04:29:08,653 - ai_trading.training - INFO - 💾 Saved training history: 2 stocks trained today
+2025-12-04 04:29:08,653 - ai_trading - INFO - ✅ Fallback training completed!
+2025-12-04 04:29:18,654 - ai_trading - INFO - ⏰ Remaining wait time: 142s - Starting quick training...
+2025-12-04 04:29:18,654 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:29:18,654 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:29:18,654 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:29:18,654 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 04:29:18,654 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 04:29:18,654 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 04:29:18,654 - ai_trading.training - INFO - ============================================================
+2025-12-04 04:29:21,655 - ai_trading.training - INFO - Fetching top volume stocks...
+2025-12-04 04:29:21,795 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 04:29:21,795 - ai_trading.training - INFO - 📚 Already trained: 2 - 252670, 114800
+2025-12-04 04:29:21,795 - ai_trading.training - INFO - ❌ Already failed: 0 - 
+2025-12-04 04:29:21,795 - ai_trading.training - INFO - 📋 After excluding trained: 28 stocks remain
+2025-12-04 04:29:21,795 - ai_trading.training - INFO - 
+📊 Training on: 아이비젼웍스 (469750)
+2025-12-04 04:29:21,795 - ai_trading.training - INFO - 📋 Today's progress: 3 trained, 0 failed
+2025-12-04 04:29:26,795 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 04:29:26,937 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 04:29:26,938 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 04:29:26,938 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 04:29:26,938 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 04:29:26,938 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 04:29:26,939 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 04:29:26,939 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 04:29:26,939 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 04:29:26,955 - ai_trading.training - INFO - 💾 Saved training history: 3 stocks trained today
+2025-12-04 04:29:26,955 - ai_trading - INFO - ✅ Fallback training completed!
+2025-12-04 04:29:36,956 - ai_trading - INFO - ⏰ Remaining wait time: 124s - Starting quick training...
+2025-12-04 04:29:36,956 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:29:36,956 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:29:36,956 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:29:36,956 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 04:29:36,956 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 04:29:36,956 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 04:29:36,957 - ai_trading.training - INFO - ============================================================
+2025-12-04 04:29:39,958 - ai_trading.training - INFO - Fetching top volume stocks...
+2025-12-04 04:29:40,065 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 04:29:40,065 - ai_trading.training - INFO - 📚 Already trained: 3 - 252670, 114800, 469750
+2025-12-04 04:29:40,065 - ai_trading.training - INFO - ❌ Already failed: 0 - 
+2025-12-04 04:29:40,065 - ai_trading.training - INFO - 📋 After excluding trained: 27 stocks remain
+2025-12-04 04:29:40,065 - ai_trading.training - INFO - 
+📊 Training on: 스맥 (099440)
+2025-12-04 04:29:40,065 - ai_trading.training - INFO - 📋 Today's progress: 4 trained, 0 failed
+2025-12-04 04:29:45,066 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 04:29:45,182 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 04:29:45,183 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 04:29:45,183 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 04:29:45,183 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 04:29:45,183 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 04:29:45,184 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 04:29:45,184 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 04:29:45,184 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 04:29:45,197 - ai_trading.training - INFO - 💾 Saved training history: 4 stocks trained today
+2025-12-04 04:29:45,197 - ai_trading - INFO - ✅ Fallback training completed!
+2025-12-04 04:29:55,198 - ai_trading - INFO - ⏰ Remaining wait time: 106s - Starting quick training...
+2025-12-04 04:29:55,198 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:29:55,198 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:29:55,198 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:29:55,198 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 04:29:55,199 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 04:29:55,199 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 04:29:55,199 - ai_trading.training - INFO - ============================================================
+2025-12-04 04:29:58,200 - ai_trading.training - INFO - Fetching top volume stocks...
+2025-12-04 04:29:58,321 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 04:29:58,321 - ai_trading.training - INFO - 📚 Already trained: 4 - 252670, 114800, 469750, 099440
+2025-12-04 04:29:58,321 - ai_trading.training - INFO - ❌ Already failed: 0 - 
+2025-12-04 04:29:58,321 - ai_trading.training - INFO - 📋 After excluding trained: 26 stocks remain
+2025-12-04 04:29:58,321 - ai_trading.training - INFO - 
+📊 Training on: KODEX 레버리지 (122630)
+2025-12-04 04:29:58,321 - ai_trading.training - INFO - 📋 Today's progress: 5 trained, 0 failed
+2025-12-04 04:30:03,322 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 04:30:03,433 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 04:30:03,433 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 04:30:03,433 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 04:30:03,433 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 04:30:03,433 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 04:30:03,435 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 04:30:03,435 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 04:30:03,435 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 04:30:03,450 - ai_trading.training - INFO - 💾 Saved training history: 5 stocks trained today
+2025-12-04 04:30:03,450 - ai_trading - INFO - ✅ Fallback training completed!
+2025-12-04 04:30:13,450 - ai_trading - INFO - ⏰ Remaining wait time: 87s - Starting quick training...
+2025-12-04 04:30:13,450 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 04:30:13,451 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:30:13,451 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:30:13,451 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 04:30:13,451 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 04:30:13,451 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 04:30:13,451 - ai_trading.training - INFO - ============================================================
+2025-12-04 04:30:16,451 - ai_trading.training - INFO - Fetching top volume stocks...
+2025-12-04 04:30:16,569 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 04:30:16,569 - ai_trading.training - INFO - 📚 Already trained: 5 - 252670, 114800, 469750, 099440, 122630
+2025-12-04 04:30:16,569 - ai_trading.training - INFO - ❌ Already failed: 0 - 
+2025-12-04 04:30:16,569 - ai_trading.training - INFO - 📋 After excluding trained: 25 stocks remain
+2025-12-04 04:30:16,569 - ai_trading.training - INFO - 
+📊 Training on: KD (044180)
+2025-12-04 04:30:16,569 - ai_trading.training - INFO - 📋 Today's progress: 6 trained, 0 failed
+2025-12-04 04:30:21,570 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 04:30:21,669 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 04:30:21,669 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 04:30:21,669 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 04:30:21,669 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 04:30:21,669 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 04:30:21,670 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 04:30:21,670 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 04:30:21,670 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 04:30:21,682 - ai_trading.training - INFO - 💾 Saved training history: 6 stocks trained today
+2025-12-04 04:30:21,682 - ai_trading - INFO - ✅ Fallback training completed!
+2025-12-04 04:30:31,683 - ai_trading - INFO - ⏰ Remaining wait time: 69s - Starting quick training...
+2025-12-04 04:30:31,683 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 59.148695000000004s)
+2025-12-04 04:30:31,683 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 04:30:31,683 - ai_trading.training - INFO - 🇺🇸 Quick US Stock Training Mode
+2025-12-04 04:30:31,683 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 04:30:31,683 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 04:30:31,683 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 04:30:31,683 - ai_trading.training - INFO - ============================================================
