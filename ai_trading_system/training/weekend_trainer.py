@@ -651,7 +651,6 @@ class WeekendTrainer:
             
             # US 마켓이 활성화된 경우 미국주식도 학습
             try:
-                from datetime import datetime
                 now = datetime.now()
                 hour = now.hour
                 # 미국 시장 시간 체크 (23:30-06:00 KST)

