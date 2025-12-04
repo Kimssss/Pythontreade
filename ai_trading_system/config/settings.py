@@ -21,8 +21,8 @@ KIS_CONFIG = {
         'account': os.environ.get('KIS_REAL_ACCOUNT', ''),
         'is_real': True
     },
-    'MIN_REQUEST_INTERVAL': 3.0,  # API 호출 최소 간격 (초) - 500 에러 방지를 위해 3초로 증가
-    'MAX_RETRIES': 3,
+    'MIN_REQUEST_INTERVAL': 5.0,  # API 호출 최소 간격 (초) - 500 에러 방지를 위해 5초로 증가
+    'MAX_RETRIES': 5,  # 재시도 횟수 증가
     'TIMEOUT': 30,
 }
 

@@ -79,7 +79,9 @@ class KisAPIEnhanced:
         self.token_cache_file = self.cache_dir / f"token_{mode_str}_{appkey[:10]}.pkl"
         
         # 캐시된 토큰 로드 시도
-        self._load_cached_token()
+        cached_loaded = self._load_cached_token()
+        if cached_loaded:
+            print(f"✅ 토큰 캐시 로드 성공")
         
         # 해외주식 API 확장
         self.overseas = None  # 나중에 초기화
@@ -87,21 +89,30 @@ class KisAPIEnhanced:
     def _load_cached_token(self):
         """캐시된 토큰 로드"""
         try:
+            print(f"🔍 토큰 캐시 파일 경로: {self.token_cache_file}")
             if self.token_cache_file.exists():
+                print(f"📁 캐시 파일 발견, 로드 중...")
                 with open(self.token_cache_file, 'rb') as f:
                     cache_data = pickle.load(f)
                 
+                print(f"📝 캐시 데이터: {list(cache_data.keys())}")
                 self.access_token = cache_data.get('access_token')
                 self.token_expire_time = cache_data.get('token_expire_time')
                 
                 # 토큰이 유효한지 확인
                 if self.access_token and self.token_expire_time:
+                    print(f"⏰ 현재 시간: {datetime.now()}")
+                    print(f"⏰ 만료 시간: {self.token_expire_time}")
                     if datetime.now() < self.token_expire_time:
                         print(f"✅ 캐시된 토큰 로드 성공 (만료: {self.token_expire_time})")
                         return True
                     else:
                         print(f"⚠️ 캐시된 토큰이 만료됨 (만료: {self.token_expire_time})")
                         self._clear_cached_token()
+                else:
+                    print(f"❌ 캐시 데이터가 불완전함")
+            else:
+                print(f"❌ 캐시 파일이 존재하지 않음")
                         
         except Exception as e:
             print(f"⚠️ 토큰 캐시 로드 실패: {e}")
@@ -156,7 +167,7 @@ class KisAPIEnhanced:
             
             if elapsed < self.min_request_interval:
                 wait_time = self.min_request_interval - elapsed
-                print(f"⏰ Rate limit 대기: {wait_time:.2f}초")
+                print(f"⏰ API 호출 간격 대기: {wait_time:.2f}초")
                 time.sleep(wait_time)
             
             self.last_request_time[endpoint] = time.time()
@@ -169,9 +180,19 @@ class KisAPIEnhanced:
                 print(f"🔄 기존 토큰 재사용 (만료: {self.token_expire_time})")
                 return True
         
+        # 토큰이 없거나 만료된 경우 캐시에서 다시 로드 시도
+        if self._load_cached_token():
+            print(f"🔄 캐시에서 토큰 재로드 성공 (만료: {self.token_expire_time})")
+            return True
+        
         # 캐시된 토큰이 없거나 만료된 경우에만 새로 발급
         print("🔑 새로운 토큰 발급 요청...")
         url = f"{self.base_url}/oauth2/tokenP"
+        print(f"토큰 발급 URL: {url}")
+        print(f"사용 중인 API 키: {self.appkey[:10]}...")
+        print(f"현재 인스턴스의 토큰: {getattr(self, 'access_token', 'None')}")
+        print(f"토큰 만료시간: {getattr(self, 'token_expire_time', 'None')}")
+        print(f"실전/모의 모드: {'실전' if self.is_real else '모의'}")
         
         headers = {
             "content-type": "application/json"
@@ -269,10 +290,10 @@ class KisAPIEnhanced:
         try:
             # 실패한 요청만 파일로 저장
             if not request_log.get('success', False):
-                api_logger.error(f"API Request Failed: {json.dumps(request_log, indent=2, ensure_ascii=False)}")
+                api_logger.error(f"API 요청 실패: {json.dumps(request_log, indent=2, ensure_ascii=False)}")
             else:
                 # 성공한 요청은 디버그 레벨로
-                api_logger.debug(f"API Request Success: {request_log['endpoint']} - {request_log['method']}")
+                api_logger.debug(f"API 요청 성공: {request_log['endpoint']} - {request_log['method']}")
         except Exception as e:
             print(f"로그 기록 실패: {e}")
     
@@ -305,7 +326,7 @@ class KisAPIEnhanced:
             'data': data if not data or 'pwd' not in str(data).lower() else 'REDACTED',
             'retries': 0,
             'success': False,
-            'error': None,
+            '오류': None,
             'response_code': None,
             'response_msg': None
         }
@@ -335,9 +356,9 @@ class KisAPIEnhanced:
                     try:
                         error_data = response.json()
                         request_log['response_msg'] = error_data.get('msg1', '')
-                        request_log['error'] = f"500: {error_data.get('msg_cd', '')} - {error_data.get('msg1', '')}"
+                        request_log['오류'] = f"500: {error_data.get('msg_cd', '')} - {error_data.get('msg1', '')}"
                     except:
-                        request_log['error'] = f"500: {response.text[:100]}"
+                        request_log['오류'] = f"500: {response.text[:100]}"
                     
                     if retry < max_retries - 1:
                         wait_time = 2 ** retry  # 지수 백오프
@@ -359,7 +380,7 @@ class KisAPIEnhanced:
                 # 인증 에러 처리 (401, 403)
                 elif response.status_code in [401, 403]:
                     request_log['response_code'] = response.status_code
-                    request_log['error'] = f"{response.status_code}: Authorization error"
+                    request_log['오류'] = f"{response.status_code}: Authorization error"
                     print(f"⚠️ 인증 에러 ({response.status_code}) - 토큰 갱신 시도")
                     if self.get_access_token() and headers and 'authorization' in headers:
                         headers['authorization'] = f"Bearer {self.access_token}"
@@ -372,27 +393,27 @@ class KisAPIEnhanced:
                 # 기타 HTTP 에러
                 else:
                     request_log['response_code'] = response.status_code
-                    request_log['error'] = f"{response.status_code}: {response.text[:100]}"
+                    request_log['오류'] = f"{response.status_code}: {response.text[:100]}"
                     print(f"❌ HTTP 에러 {response.status_code}: {response.text[:100]}")
                     self._log_api_request(request_log)
                     return None
                     
             except requests.exceptions.Timeout:
-                request_log['error'] = f"Timeout error"
+                request_log['오류'] = f"Timeout error"
                 request_log['retries'] = retry + 1
                 print(f"⚠️ 타임아웃 (재시도 {retry + 1}/{max_retries})")
                 if retry < max_retries - 1:
                     time.sleep(1)
                     continue
             except requests.exceptions.RequestException as e:
-                request_log['error'] = f"Network error: {str(e)}"
+                request_log['오류'] = f"Network error: {str(e)}"
                 request_log['retries'] = retry + 1
                 print(f"⚠️ 네트워크 오류: {e}")
                 if retry < max_retries - 1:
                     time.sleep(1)
                     continue
             except Exception as e:
-                request_log['error'] = f"Unexpected error: {str(e)}"
+                request_log['오류'] = f"Unexpected error: {str(e)}"
                 request_log['retries'] = retry + 1
                 print(f"⚠️ 기타 오류: {e}")
                 if retry < max_retries - 1:
@@ -495,11 +516,11 @@ class KisAPIEnhanced:
     
     def get_holding_stocks(self):
         """보유 종목 조회"""
-        api_logger.info("get_holding_stocks() called")
+        api_logger.info("보유 주식 조회 시작")
         
         balance = self.get_balance()
         if not balance:
-            api_logger.warning("get_balance() returned None")
+            api_logger.warning("계좌 잔고 조회 결과가 없습니다")
             return []
             
         if balance.get('rt_cd') != '0':
@@ -536,7 +557,7 @@ class KisAPIEnhanced:
         
         balance = self.get_balance()
         if not balance:
-            api_logger.warning("get_balance() returned None")
+            api_logger.warning("계좌 잔고 조회 결과가 없습니다")
             return 0
             
         if balance.get('rt_cd') != '0':
@@ -585,9 +606,9 @@ class KisAPIEnhanced:
         
         # 주말/장외시간 경고
         if not self.is_market_open():
-            api_logger.warning("Market is closed - order will be queued or rejected")
+            api_logger.warning("시장이 닫혀 있음 - order will be queued or rejected")
             if not self.is_real:  # 모의투자
-                api_logger.info("Demo mode: Proceeding with order despite market closure")
+                api_logger.info("데모 모드: Proceeding with order despite market closure")
         
         url = f"{self.base_url}/uapi/domestic-stock/v1/trading/order-cash"
         
@@ -756,6 +777,78 @@ class KisAPIEnhanced:
             거래량 상위 종목 정보
         """
         return self.get_top_volume_stocks(market=market, count=100)
+    
+    def get_market_cap_rank(self, count: int = 30):
+        """시가총액 순위 조회"""
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-investor"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHPST01060000"
+        }
+        
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_COND_SCR_DIV_CODE": "20172",  # 시가총액 순위
+            "FID_INPUT_ISCD": "0000",
+            "FID_DIV_CLS_CODE": "0",
+            "FID_BLNG_CLS_CODE": "0",
+            "FID_TRGT_CLS_CODE": "111111111",
+            "FID_TRGT_EXLS_CLS_CODE": "000000",
+            "FID_INPUT_PRICE_1": "",
+            "FID_INPUT_PRICE_2": "",
+            "FID_VOL_CNT": "",
+            "FID_INPUT_DATE_1": ""
+        }
+        
+        response = self._make_api_request_with_retry(
+            'GET', url, headers=headers, params=params, endpoint_name="market_cap_rank"
+        )
+        if response:
+            return response.json()
+        return None
+    
+    def get_rising_rank(self, count: int = 30):
+        """상승률 순위 조회"""
+        if not self.ensure_valid_token():
+            return None
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+        
+        headers = {
+            "content-type": "application/json; charset=utf-8", 
+            "authorization": f"Bearer {self.access_token}",
+            "appkey": self.appkey,
+            "appsecret": self.appsecret,
+            "tr_id": "FHPST01730000"
+        }
+        
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_COND_SCR_DIV_CODE": "20173",  # 상승률 순위
+            "FID_INPUT_ISCD": "0000", 
+            "FID_DIV_CLS_CODE": "0",
+            "FID_BLNG_CLS_CODE": "0",
+            "FID_TRGT_CLS_CODE": "111111111",
+            "FID_TRGT_EXLS_CLS_CODE": "000000",
+            "FID_INPUT_PRICE_1": "",
+            "FID_INPUT_PRICE_2": "",
+            "FID_VOL_CNT": "",
+            "FID_INPUT_DATE_1": ""
+        }
+        
+        response = self._make_api_request_with_retry(
+            'GET', url, headers=headers, params=params, endpoint_name="rising_rank"
+        )
+        if response:
+            return response.json()
+        return None
     
     def get_order_history(self, start_date: str = None, end_date: str = None):
         """주문 체결 조회

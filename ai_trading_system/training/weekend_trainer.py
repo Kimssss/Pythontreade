@@ -102,7 +102,7 @@ class WeekendTrainer:
                 return cached_data
             
             # 전략 2: 단계적 데이터 수집 (단계별 대기시간 최적화)
-            logger.info("Fetching top volume stocks with rate limit strategy...")
+            logger.info("가져오는 중 top volume stocks with rate limit strategy...")
             
             # 첫 API 호출 전 충분한 대기
             await asyncio.sleep(3.0)
@@ -110,7 +110,7 @@ class WeekendTrainer:
             volume_stocks = self.kis_api.get_top_volume_stocks(count=30)
             
             if not volume_stocks or volume_stocks.get('rt_cd') != '0':
-                logger.warning("Failed to get volume stocks - will retry with exponential backoff")
+                logger.warning("가져오기 실패 volume stocks - will retry with exponential backoff")
                 # Exponential backoff 재시도
                 for retry in range(3):
                     wait_time = 5 * (2 ** retry)  # 5, 10, 20초
@@ -121,7 +121,7 @@ class WeekendTrainer:
                     if volume_stocks and volume_stocks.get('rt_cd') == '0':
                         break
                 else:
-                    logger.error("Failed to get volume stocks after retries")
+                    logger.error("가져오기 실패 volume stocks after retries")
                     return None
             
             # 전략 3: 적응적 수집 (성공률에 따라 대기시간 조절)
@@ -273,7 +273,7 @@ class WeekendTrainer:
             
             # 모델 저장
             model_path = Path('models') / f'dqn_model_{datetime.now().strftime("%Y%m%d_%H%M%S")}.pt'
-            torch.save(dqn_agent.model.state_dict(), model_path)
+            torch.save(dqn_agent.q_network.state_dict(), model_path)
             logger.info(f"DQN model saved to {model_path}")
             
             return {
@@ -284,7 +284,7 @@ class WeekendTrainer:
             
         except Exception as e:
             logger.error(f"DQN training error: {e}")
-            return {'error': str(e)}
+            return {'오류': str(e)}
     
     def _train_episode(self, agent, df):
         """단일 에피소드 학습"""
@@ -313,7 +313,7 @@ class WeekendTrainer:
             }
             
             # 간단한 최적화 (실제로는 더 정교한 방법 사용)
-            logger.info("Analyzing factor performance...")
+            logger.info("분석 중 factor performance...")
             
             return {
                 'optimized_weights': {
@@ -327,7 +327,7 @@ class WeekendTrainer:
             
         except Exception as e:
             logger.error(f"Factor optimization error: {e}")
-            return {'error': str(e)}
+            return {'오류': str(e)}
     
     async def _optimize_technical_params(self, training_data):
         """기술적 지표 파라미터 최적화"""
@@ -346,7 +346,7 @@ class WeekendTrainer:
             
         except Exception as e:
             logger.error(f"Technical optimization error: {e}")
-            return {'error': str(e)}
+            return {'오류': str(e)}
     
     async def _run_backtest(self, training_data):
         """백테스팅 실행"""
@@ -376,7 +376,7 @@ class WeekendTrainer:
             
         except Exception as e:
             logger.error(f"Backtest error: {e}")
-            return {'error': str(e)}
+            return {'오류': str(e)}
     
     def _simulate_trades(self, df):
         """거래 시뮬레이션"""
@@ -434,11 +434,11 @@ class WeekendTrainer:
             # 거래량 상위 종목 가져오기 (100개로 늘림)
             await asyncio.sleep(3)  # 충분한 대기
             
-            logger.info("Fetching top volume stocks...")
+            logger.info("가져오는 중 top volume stocks...")
             volume_stocks = self.kis_api.get_top_volume_stocks(count=100)
             
             if not volume_stocks or volume_stocks.get('rt_cd') != '0':
-                logger.error("Failed to get volume stocks")
+                logger.error("가져오기 실패 volume stocks")
                 return None
             
             stocks = volume_stocks.get('output', [])
@@ -474,7 +474,7 @@ class WeekendTrainer:
             
             if not available_stocks:
                 logger.warning("❌ All available stocks have been tried today")
-                return {'error': 'no_stocks_available'}  # None이 아닌 에러 딕셔너리 반환
+                return {'오류': 'no_stocks_available'}  # None이 아닌 에러 딕셔너리 반환
             
             # 시가총액 순위대로 선택 (첫 번째 미학습 종목)
             stock = available_stocks[0]  # 이미 시가총액 순으로 정렬되어 있음

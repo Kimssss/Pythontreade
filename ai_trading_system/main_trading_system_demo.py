@@ -141,7 +141,7 @@ class AITradingSystemDemo:
     def __init__(self):
         """데모 모드 초기화"""
         self.mode = 'demo'
-        logger.info("Initializing AI Trading System DEMO")
+        logger.info("초기화 중 AI Trading System DEMO")
         
         # Mock API 사용
         self.kis_api = MockKisAPI()
@@ -169,7 +169,7 @@ class AITradingSystemDemo:
     async def initialize(self):
         """시스템 초기화"""
         logger.info("=== DEMO System Initialization ===")
-        logger.info("Demo mode - Using simulated data")
+        logger.info("데모 모드 - Using simulated data")
         await self.update_portfolio_status()
         logger.info(f"Initial portfolio value: {self.total_value:,.0f} KRW")
     

@@ -1,0 +1,770 @@
+/Users/sangwookim/PycharmProjects/PythonProject1/.venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+============================================================
+AI TRADING SYSTEM
+============================================================
+✓ All core dependencies installed
+Environment set up for demo mode
+
+Checking UI dependencies...
+
+Starting AI Trading System with Web UI...
+Mode: demo
+ * Serving Flask app 'ai_trading_system.web_dashboard'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.49.220.82:8080
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [04/Dec/2025 09:09:40] "GET /socket.io/?EIO=4&transport=polling&t=PhciNA1 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:40] "POST /socket.io/?EIO=4&transport=polling&t=PhciNAA&sid=IriD4hJq2WC13RenAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:40] "GET /socket.io/?EIO=4&transport=polling&t=PhciNAC&sid=IriD4hJq2WC13RenAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:40] "GET /socket.io/?EIO=4&transport=polling&t=PhciNAN&sid=IriD4hJq2WC13RenAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/trades HTTP/1.1" 200 -
+
+✅ Web UI available at:
+   🏠 로컬 접속: http://127.0.0.1:8080
+   🌐 외부 접속: http://10.49.220.82:8080
+   ℹ️  네트워크 상의 다른 기기에서 http://10.49.220.82:8080로 접속 가능
+   ⚠️  방화벽 설정을 확인하세요 (Port 8080)
+Opening local browser...
+
+Press Ctrl+C to stop
+
+2025-12-04 09:09:41,736 - ai_trading - INFO - Initializing AI Trading System in demo mode
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /socket.io/?EIO=4&transport=websocket&sid=IriD4hJq2WC13RenAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /socket.io/?EIO=4&transport=polling&t=PhciNYZ HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "POST /socket.io/?EIO=4&transport=polling&t=PhciNYi&sid=lv6HblbcqQoDVWjeAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /socket.io/?EIO=4&transport=polling&t=PhciNYj&sid=lv6HblbcqQoDVWjeAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /socket.io/?EIO=4&transport=polling&t=PhciNYw&sid=lv6HblbcqQoDVWjeAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:41] "GET /api/status HTTP/1.1" 200 -
+✅ 캐시된 토큰 로드 성공 (만료: 2025-12-05 00:21:20.299791)
+Client disconnected
+2025-12-04 09:09:42,225 - ai_trading.dqn - INFO - DQN Agent initialized on cpu
+2025-12-04 09:09:42,225 - ai_trading.ensemble - INFO - Multi-Agent Ensemble initialized
+2025-12-04 09:09:42,227 - ai_trading.training - INFO - 📚 Loaded training history: 80 stocks trained today
+2025-12-04 09:09:42,228 - ai_trading - INFO - Mode: demo - All data will be fetched from API only
+2025-12-04 09:09:42,228 - ai_trading - INFO - AI Trading System initialized successfully
+2025-12-04 09:09:42,228 - ai_trading - INFO - Starting AI Trading System...
+2025-12-04 09:09:42,228 - ai_trading - INFO - === System Initialization ===
+2025-12-04 09:09:42,228 - ai_trading - INFO - Trading mode: demo
+2025-12-04 09:09:42,228 - ai_trading - INFO - Getting access token...
+🔄 기존 토큰 재사용 (만료: 2025-12-05 00:21:20.299791)
+2025-12-04 09:09:42,228 - ai_trading - INFO - Access token acquired successfully
+2025-12-04 09:09:42,228 - ai_trading - INFO - Fetching initial account information...
+2025-12-04 09:09:42,228 - ai_trading - INFO - === Updating Portfolio Status ===
+2025-12-04 09:09:42,228 - ai_trading - INFO - Fetching cash balance...
+2025-12-04 09:09:42,812 - ai_trading - INFO - Cash balance: 10,000,000 KRW
+2025-12-04 09:09:42,813 - ai_trading - INFO - Fetching holdings...
+127.0.0.1 - - [04/Dec/2025 09:09:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:45] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:46] "GET /api/trades HTTP/1.1" 200 -
+⏰ Rate limit 대기: 4.41초
+2025-12-04 09:09:47,533 - ai_trading - INFO - Found 0 holdings
+2025-12-04 09:09:47,533 - ai_trading - INFO - Total portfolio value: 10,000,000 KRW
+2025-12-04 09:09:47,533 - ai_trading - INFO -   - Cash: 10,000,000 KRW
+2025-12-04 09:09:47,533 - ai_trading - INFO -   - Stocks: 0 KRW
+2025-12-04 09:09:47,534 - ai_trading - INFO - === Initialization Complete ===
+2025-12-04 09:09:47,534 - ai_trading - INFO - Initial portfolio value: 10,000,000 KRW
+2025-12-04 09:09:47,534 - ai_trading - INFO - 
+============================================================
+2025-12-04 09:09:47,534 - ai_trading - INFO - TRADING ACTIVE - 2025-12-04 09:09:47
+2025-12-04 09:09:47,534 - ai_trading - INFO - Active Markets: KOREAN
+2025-12-04 09:09:47,534 - ai_trading - INFO - 🇰🇷 Korean Market: 09:00-15:30 KST (ACTIVE)
+2025-12-04 09:09:47,534 - ai_trading - INFO - === Starting Trading Cycle ===
+2025-12-04 09:09:47,534 - ai_trading - INFO - Active markets: {'korean': True, 'us': False}
+127.0.0.1 - - [04/Dec/2025 09:09:47] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:47] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:09:47,843 - ai_trading - INFO - Market condition: bull
+2025-12-04 09:09:47,843 - ai_trading - INFO - === Trading Korean Stocks ===
+127.0.0.1 - - [04/Dec/2025 09:09:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:51] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 4.69초
+2025-12-04 09:09:52,878 - ai_trading.screener - INFO - Screened 0 stocks
+2025-12-04 09:09:52,879 - ai_trading - INFO - Screened 0 Korean stocks
+2025-12-04 09:09:52,879 - ai_trading - INFO - === Updating Portfolio Status ===
+2025-12-04 09:09:52,879 - ai_trading - INFO - Fetching cash balance...
+2025-12-04 09:09:53,164 - ai_trading - INFO - Cash balance: 10,000,000 KRW
+2025-12-04 09:09:53,164 - ai_trading - INFO - Fetching holdings...
+127.0.0.1 - - [04/Dec/2025 09:09:53] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:56] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:57] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 4.71초
+2025-12-04 09:09:58,572 - ai_trading - INFO - Found 0 holdings
+2025-12-04 09:09:58,572 - ai_trading - INFO - Total portfolio value: 10,000,000 KRW
+2025-12-04 09:09:58,572 - ai_trading - INFO -   - Cash: 10,000,000 KRW
+2025-12-04 09:09:58,572 - ai_trading - INFO -   - Stocks: 0 KRW
+2025-12-04 09:09:58,572 - ai_trading - INFO - Generated 0 Korean trading signals
+2025-12-04 09:09:58,573 - ai_trading - INFO - After risk filtering: 0 signals
+2025-12-04 09:09:58,573 - ai_trading - INFO - Executed 0 Korean trades
+2025-12-04 09:09:58,573 - ai_trading - INFO - Performance: Value=10,000,000, Return=0.00%
+WebSocket emit error: Object of type datetime is not JSON serializable
+2025-12-04 09:09:58,573 - ai_trading - INFO - 
+[Next Cycle] Waiting 5 minutes for next trading cycle...
+2025-12-04 09:09:58,573 - ai_trading - INFO - Next run at: 09:14:47
+2025-12-04 09:09:58,573 - ai_trading - INFO - 
+🧠 [Training During Wait] Starting background learning...
+2025-12-04 09:09:58,573 - ai_trading - INFO - ⏰ Remaining wait time: 300s - Starting quick training...
+2025-12-04 09:09:58,573 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:09:58,573 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 09:09:58] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:09:59] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:00,302 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:10:00,302 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:10:00,302 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:10:00,302 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:10:00,302 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:10:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:01] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:03,303 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:10:03] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.27초
+2025-12-04 09:10:05,108 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:10:05,108 - ai_trading.training - INFO - 📚 Already trained: 80 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:10:05,108 - ai_trading.training - INFO - ❌ Already failed: 0 - 
+2025-12-04 09:10:05,109 - ai_trading.training - INFO - 📋 After excluding trained: 11 stocks remain
+2025-12-04 09:10:05,109 - ai_trading.training - INFO - 
+📊 Training on: 에임드바이오 (0009K0)
+2025-12-04 09:10:05,109 - ai_trading.training - INFO - 📋 Today's progress: 81 trained, 0 failed
+127.0.0.1 - - [04/Dec/2025 09:10:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:06] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:07] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:09] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:10,110 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 09:10:10,580 - ai_trading.training - ERROR - Insufficient data for training
+2025-12-04 09:10:10,580 - ai_trading.training - INFO - ❌ Added 0009K0 to failed list. Total failed: 1
+127.0.0.1 - - [04/Dec/2025 09:10:11] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:11] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:13] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:15] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:16] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:17] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:19] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:20,580 - ai_trading - INFO - ⏰ Remaining wait time: 278s - Starting quick training...
+2025-12-04 09:10:20,580 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:10:20,580 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 09:10:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:21] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:21,988 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:10:21,988 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:10:21,988 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:10:21,988 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:10:21,988 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:10:23] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:24,989 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:10:25] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:26] "GET /api/trades HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.59초
+2025-12-04 09:10:26,878 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:10:26,878 - ai_trading.training - INFO - 📚 Already trained: 80 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:10:26,878 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:10:26,878 - ai_trading.training - INFO - 📋 After excluding trained: 11 stocks remain
+2025-12-04 09:10:26,878 - ai_trading.training - INFO - 
+📊 Training on: 한라캐스트 (125490)
+2025-12-04 09:10:26,878 - ai_trading.training - INFO - 📋 Today's progress: 81 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:10:27] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:29] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:31] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:31,879 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 09:10:32,201 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:10:32,201 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:10:32,201 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:10:32,201 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:10:32,201 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:10:32,204 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:10:32,204 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:10:32,204 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:10:32,215 - ai_trading.training - INFO - 💾 Saved training history: 81 stocks trained today
+2025-12-04 09:10:32,215 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:10:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:35] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:36] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:37] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:39] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:41] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:41] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:42,216 - ai_trading - INFO - ⏰ Remaining wait time: 256s - Starting quick training...
+2025-12-04 09:10:42,216 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:10:42,216 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 09:10:43,498 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:10:43,498 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:10:43,498 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:10:43,498 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:10:43,498 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:10:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:45] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:46,499 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:10:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:46] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:47] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.72초
+2025-12-04 09:10:48,547 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:10:48,547 - ai_trading.training - INFO - 📚 Already trained: 81 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:10:48,547 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:10:48,547 - ai_trading.training - INFO - 📋 After excluding trained: 10 stocks remain
+2025-12-04 09:10:48,547 - ai_trading.training - INFO - 
+📊 Training on: 뉴로핏 (380550)
+2025-12-04 09:10:48,547 - ai_trading.training - INFO - 📋 Today's progress: 82 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:10:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:51] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:10:53,548 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 09:10:53,758 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:10:53,758 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:10:53,758 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:10:53,758 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:10:53,758 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:10:53,759 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:10:53,759 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:10:53,759 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:10:53,768 - ai_trading.training - INFO - 💾 Saved training history: 82 stocks trained today
+2025-12-04 09:10:53,768 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:10:53] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:56] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:57] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:10:59] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:01] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:03,769 - ai_trading - INFO - ⏰ Remaining wait time: 235s - Starting quick training...
+2025-12-04 09:11:03,770 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:11:03,770 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 09:11:03] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:05,082 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:11:05,082 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:11:05,082 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:11:05,082 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:11:05,082 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:11:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:06] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:07] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:08,083 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:11:09] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.69초
+2025-12-04 09:11:10,557 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:11:10,557 - ai_trading.training - INFO - 📚 Already trained: 82 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:11:10,557 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:11:10,557 - ai_trading.training - INFO - 📋 After excluding trained: 9 stocks remain
+2025-12-04 09:11:10,558 - ai_trading.training - INFO - 
+📊 Training on: 와이제이링크 (209640)
+2025-12-04 09:11:10,558 - ai_trading.training - INFO - 📋 Today's progress: 83 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:11:11] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:11] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:13] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:15,559 - ai_trading.training - INFO - Collecting historical price data...
+127.0.0.1 - - [04/Dec/2025 09:11:15] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:16,469 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:11:16,469 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:11:16,469 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:11:16,469 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:11:16,469 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:11:16,470 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:11:16,470 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:11:16,470 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:11:16,478 - ai_trading.training - INFO - 💾 Saved training history: 83 stocks trained today
+2025-12-04 09:11:16,478 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:11:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:16] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:17] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:19] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:21] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:23] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:25] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:26,479 - ai_trading - INFO - ⏰ Remaining wait time: 212s - Starting quick training...
+2025-12-04 09:11:26,479 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:11:26,479 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 09:11:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:26] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:27] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:27,860 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:11:27,860 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:11:27,860 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:11:27,860 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:11:27,860 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:11:29] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:30,861 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:11:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:31] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.62초
+2025-12-04 09:11:32,795 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:11:32,795 - ai_trading.training - INFO - 📚 Already trained: 83 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:11:32,795 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:11:32,795 - ai_trading.training - INFO - 📋 After excluding trained: 8 stocks remain
+2025-12-04 09:11:32,795 - ai_trading.training - INFO - 
+📊 Training on: 대한해운 (005880)
+2025-12-04 09:11:32,795 - ai_trading.training - INFO - 📋 Today's progress: 84 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:11:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:35] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:36] "GET /api/trades HTTP/1.1" 200 -
+2025-12-04 09:11:37,796 - ai_trading.training - INFO - Collecting historical price data...
+127.0.0.1 - - [04/Dec/2025 09:11:37] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:38,178 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:11:38,178 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:11:38,178 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:11:38,178 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:11:38,178 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:11:38,179 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:11:38,179 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:11:38,179 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:11:38,187 - ai_trading.training - INFO - 💾 Saved training history: 84 stocks trained today
+2025-12-04 09:11:38,187 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:11:39] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:41] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:41] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:45] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:46] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:47] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:48,188 - ai_trading - INFO - ⏰ Remaining wait time: 190s - Starting quick training...
+2025-12-04 09:11:48,189 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:11:48,189 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 09:11:49,511 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:11:49,511 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:11:49,511 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:11:49,511 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:11:49,511 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:11:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:51] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:52,512 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:11:53] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.68초
+2025-12-04 09:11:54,658 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:11:54,658 - ai_trading.training - INFO - 📚 Already trained: 84 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:11:54,658 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:11:54,658 - ai_trading.training - INFO - 📋 After excluding trained: 7 stocks remain
+2025-12-04 09:11:54,658 - ai_trading.training - INFO - 
+📊 Training on: 옵티코어 (380540)
+2025-12-04 09:11:54,658 - ai_trading.training - INFO - 📋 Today's progress: 85 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:11:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:56] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:11:57] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:59,659 - ai_trading.training - INFO - Collecting historical price data...
+127.0.0.1 - - [04/Dec/2025 09:11:59] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:11:59,958 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:11:59,958 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:11:59,958 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:11:59,958 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:11:59,958 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:11:59,959 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:11:59,959 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:11:59,959 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:11:59,967 - ai_trading.training - INFO - 💾 Saved training history: 85 stocks trained today
+2025-12-04 09:11:59,967 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:12:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:01] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:03] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:06] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:07] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:09] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:09,968 - ai_trading - INFO - ⏰ Remaining wait time: 169s - Starting quick training...
+2025-12-04 09:12:09,968 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:12:09,968 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 09:12:11,506 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:12:11,507 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:12:11,507 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:12:11,507 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:12:11,507 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:12:11] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:11] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:13] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:14,507 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:12:15] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.46초
+2025-12-04 09:12:16,274 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:12:16,274 - ai_trading.training - INFO - 📚 Already trained: 85 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:12:16,274 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:12:16,274 - ai_trading.training - INFO - 📋 After excluding trained: 6 stocks remain
+2025-12-04 09:12:16,274 - ai_trading.training - INFO - 
+📊 Training on: 에넥스 (011090)
+2025-12-04 09:12:16,274 - ai_trading.training - INFO - 📋 Today's progress: 86 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:12:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:16] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:17] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:19] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:21,275 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 09:12:21,599 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:12:21,599 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:12:21,599 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:12:21,599 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:12:21,600 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:12:21,602 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:12:21,602 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:12:21,602 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:12:21,622 - ai_trading.training - INFO - 💾 Saved training history: 86 stocks trained today
+2025-12-04 09:12:21,623 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:12:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:21] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:23] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:25] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:26] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:27] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:29] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:31,624 - ai_trading - INFO - ⏰ Remaining wait time: 147s - Starting quick training...
+2025-12-04 09:12:31,624 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:12:31,624 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 09:12:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:31] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:32,966 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:12:32,966 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:12:32,966 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:12:32,966 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:12:32,966 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:12:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:35] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:35,966 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:12:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:36] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:37] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.66초
+2025-12-04 09:12:38,142 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:12:38,142 - ai_trading.training - INFO - 📚 Already trained: 86 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:12:38,142 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:12:38,142 - ai_trading.training - INFO - 📋 After excluding trained: 5 stocks remain
+2025-12-04 09:12:38,142 - ai_trading.training - INFO - 
+📊 Training on: KODEX 자동차 (091180)
+2025-12-04 09:12:38,142 - ai_trading.training - INFO - 📋 Today's progress: 87 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:12:39] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:41] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:41] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:43,143 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 09:12:43,564 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:12:43,564 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:12:43,564 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:12:43,564 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:12:43,565 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:12:43,565 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:12:43,565 - ai_trading.training - INFO -   - Trades: 1
+2025-12-04 09:12:43,565 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:12:43,573 - ai_trading.training - INFO - 💾 Saved training history: 87 stocks trained today
+2025-12-04 09:12:43,573 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:12:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:45] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:46] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:47] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:51] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:53,574 - ai_trading - INFO - ⏰ Remaining wait time: 125s - Starting quick training...
+2025-12-04 09:12:53,574 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:12:53,574 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 09:12:53] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:54,928 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:12:54,928 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:12:54,928 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:12:54,928 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:12:54,928 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:12:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:56] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:12:57] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:12:57,930 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:12:59] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.65초
+2025-12-04 09:12:59,919 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:12:59,919 - ai_trading.training - INFO - 📚 Already trained: 87 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:12:59,919 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:12:59,919 - ai_trading.training - INFO - 📋 After excluding trained: 4 stocks remain
+2025-12-04 09:12:59,919 - ai_trading.training - INFO - 
+📊 Training on: SJG세종 (033530)
+2025-12-04 09:12:59,920 - ai_trading.training - INFO - 📋 Today's progress: 88 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:13:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:01] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:03] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:04,921 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 09:13:05,209 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:13:05,209 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:13:05,209 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:13:05,209 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:13:05,209 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:13:05,211 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:13:05,211 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:13:05,211 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:13:05,231 - ai_trading.training - INFO - 💾 Saved training history: 88 stocks trained today
+2025-12-04 09:13:05,231 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:13:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:06] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:07] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:09] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:11] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:11] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:13] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:15,232 - ai_trading - INFO - ⏰ Remaining wait time: 103s - Starting quick training...
+2025-12-04 09:13:15,232 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:13:15,232 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 09:13:15] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:16,667 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:13:16,668 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:13:16,668 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:13:16,668 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:13:16,668 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:13:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:16] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:17] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:19,669 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:13:19] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.56초
+2025-12-04 09:13:21,748 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:13:21,748 - ai_trading.training - INFO - 📚 Already trained: 88 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:13:21,748 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:13:21,748 - ai_trading.training - INFO - 📋 After excluding trained: 3 stocks remain
+2025-12-04 09:13:21,748 - ai_trading.training - INFO - 
+📊 Training on: 와이투솔루션 (011690)
+2025-12-04 09:13:21,748 - ai_trading.training - INFO - 📋 Today's progress: 89 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:13:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:21] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:23] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:25] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:26,749 - ai_trading.training - INFO - Collecting historical price data...
+127.0.0.1 - - [04/Dec/2025 09:13:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:26] "GET /api/trades HTTP/1.1" 200 -
+2025-12-04 09:13:27,006 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:13:27,006 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:13:27,006 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:13:27,006 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:13:27,006 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:13:27,007 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:13:27,007 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:13:27,007 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:13:27,015 - ai_trading.training - INFO - 💾 Saved training history: 89 stocks trained today
+2025-12-04 09:13:27,015 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:13:27] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:29] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:31] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:35] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:36] "GET /api/trades HTTP/1.1" 200 -
+2025-12-04 09:13:37,016 - ai_trading - INFO - ⏰ Remaining wait time: 82s - Starting quick training...
+2025-12-04 09:13:37,017 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 09:13:37,017 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 09:13:37] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:38,357 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 09:13:38,357 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 09:13:38,357 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 09:13:38,358 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 09:13:38,358 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 09:13:39] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:41,359 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 09:13:41] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:41] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.66초
+2025-12-04 09:13:43,312 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 09:13:43,312 - ai_trading.training - INFO - 📚 Already trained: 89 - NVDA, 012340, 044180, 000080, Q530107
+2025-12-04 09:13:43,312 - ai_trading.training - INFO - ❌ Already failed: 1 - 0009K0
+2025-12-04 09:13:43,313 - ai_trading.training - INFO - 📋 After excluding trained: 2 stocks remain
+2025-12-04 09:13:43,313 - ai_trading.training - INFO - 
+📊 Training on: 디아이씨 (092200)
+2025-12-04 09:13:43,313 - ai_trading.training - INFO - 📋 Today's progress: 90 trained, 1 failed
+127.0.0.1 - - [04/Dec/2025 09:13:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:45] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:46] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:47] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:48,314 - ai_trading.training - INFO - Collecting historical price data...
+2025-12-04 09:13:48,749 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 09:13:48,749 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 09:13:48,749 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 09:13:48,749 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 09:13:48,749 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 09:13:48,751 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 09:13:48,751 - ai_trading.training - INFO -   - Trades: 0
+2025-12-04 09:13:48,751 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 09:13:48,767 - ai_trading.training - INFO - 💾 Saved training history: 90 stocks trained today
+2025-12-04 09:13:48,767 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 09:13:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:51] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:53] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:56] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:13:57] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 09:13:58,769 - ai_trading - INFO - ⏰ Remaining: 60s - Finishing wait period...
+127.0.0.1 - - [04/Dec/2025 09:13:59] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:01] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:03] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:06] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:07] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:09] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:11] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:11] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:13] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:15] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:16] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:17] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:19] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:21] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:23] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:25] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:26] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:27] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:29] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:31] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:35] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:36] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:37] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:39] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:41] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:41] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:46] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:46] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:52] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 09:14:52] "GET /api/logs HTTP/1.1" 200 -

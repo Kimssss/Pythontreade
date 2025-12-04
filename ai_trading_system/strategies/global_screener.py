@@ -118,16 +118,16 @@ class GlobalStockScreener:
         except Exception as e:
             logger.error(f"Error in domestic screening: {e}")
         
-        return candidates[:10]  # 상위 10개
+        return candidates[:100]  # 상위 100개
     
     async def _screen_overseas_stocks(self, markets: List[str]) -> List[Dict]:
         """해외 주식 스크리닝 - API 호출 최소화"""
         candidates = []
         
-        # 인기 종목 리스트 (API 호출 없이 기본 종목만)
+        # 인기 종목 리스트 (API 호출 줄이기 위해 선별된 종목)
         popular_stocks = {
-            'NASDAQ': ['AAPL', 'MSFT', 'GOOGL'],  # 3개로 축소
-            'NYSE': ['JPM', 'JNJ', 'WMT']        # 3개로 축소
+            'NASDAQ': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NFLX', 'NVDA'],
+            'NYSE': ['JPM', 'JNJ', 'WMT', 'BAC', 'XOM', 'HD', 'PG', 'V']
         }
         
         try:
@@ -161,10 +161,14 @@ class GlobalStockScreener:
                         if (criteria['min_price'] <= price <= criteria['max_price'] and
                             volume >= criteria['min_volume']):
                             
-                            # 기술적 분석 점수 계산
-                            score = await self._calculate_technical_score_overseas(exchange_code, symbol)
+                            # 간소화된 점수 계산 (추가 API 호출 없이)
+                            # 변화율과 거래량 기반 점수
+                            change_rate = abs(price_info['change_rate'])
+                            volume_score = min(volume / 1000000, 1.0)  # 거래량 정규화
+                            price_momentum = change_rate / 100  # 변화율 정규화
+                            score = (volume_score * 0.5) + (price_momentum * 0.5)
                             
-                            if score > 0.6:
+                            if score > 0.3:  # 기준 완화
                                 candidates.append({
                                     'market': 'US',
                                     'exchange': market,
@@ -187,7 +191,7 @@ class GlobalStockScreener:
         except Exception as e:
             logger.error(f"Error in overseas screening: {e}")
         
-        return candidates[:10]
+        return candidates[:100]
     
     async def _calculate_technical_score_domestic(self, stock_code: str) -> float:
         """국내 주식 기술적 분석 점수 계산"""

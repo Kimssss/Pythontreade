@@ -1,0 +1,650 @@
+/Users/sangwookim/PycharmProjects/PythonProject1/.venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+============================================================
+AI TRADING SYSTEM
+============================================================
+✓ All core dependencies installed
+Environment set up for demo mode
+
+Checking UI dependencies...
+
+Starting AI Trading System with Web UI...
+Mode: demo
+ * Serving Flask app 'ai_trading_system.web_dashboard'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.49.220.82:8080
+[33mPress CTRL+C to quit[0m
+
+✅ Web UI available at:
+   🏠 로컬 접속: http://127.0.0.1:8080
+   🌐 외부 접속: http://10.49.220.82:8080
+   ℹ️  네트워크 상의 다른 기기에서 http://10.49.220.82:8080로 접속 가능
+   ⚠️  방화벽 설정을 확인하세요 (Port 8080)
+Opening local browser...
+
+Press Ctrl+C to stop
+
+2025-12-04 14:11:51,452 - ai_trading - INFO - Initializing AI Trading System in demo mode
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /socket.io/?EIO=4&transport=polling&t=PhdnXlQ HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "POST /socket.io/?EIO=4&transport=polling&t=PhdnXlg&sid=GVXjt3WgmT_cd5cJAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /socket.io/?EIO=4&transport=polling&t=PhdnXlh&sid=GVXjt3WgmT_cd5cJAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /socket.io/?EIO=4&transport=polling&t=PhdnXlx&sid=GVXjt3WgmT_cd5cJAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:51] "GET /api/status HTTP/1.1" 200 -
+🔍 토큰 캐시 파일 경로: cache/token_demo_PSTP8BTWgg.pkl
+📁 캐시 파일 발견, 로드 중...
+📝 캐시 데이터: ['access_token', 'token_expire_time', 'saved_at']
+⏰ 현재 시간: 2025-12-04 14:11:51.453956
+⏰ 만료 시간: 2025-12-05 11:47:50.453303
+✅ 캐시된 토큰 로드 성공 (만료: 2025-12-05 11:47:50.453303)
+✅ 토큰 캐시 로드 성공
+2025-12-04 14:11:51,970 - ai_trading.dqn - INFO - DQN Agent initialized on cpu
+2025-12-04 14:11:51,970 - ai_trading.ensemble - INFO - Multi-Agent Ensemble initialized
+2025-12-04 14:11:51,974 - ai_trading.training - INFO - 📚 Loaded training history: 99 stocks trained today
+2025-12-04 14:11:51,975 - ai_trading - INFO - Mode: demo - All data will be fetched from API only
+2025-12-04 14:11:51,975 - ai_trading - INFO - AI Trading System initialized successfully
+2025-12-04 14:11:51,975 - ai_trading - INFO - Starting AI Trading System...
+2025-12-04 14:11:51,975 - ai_trading - INFO - === System Initialization ===
+2025-12-04 14:11:51,975 - ai_trading - INFO - Trading mode: demo
+2025-12-04 14:11:51,975 - ai_trading - INFO - Getting access token...
+2025-12-04 14:11:51,975 - ai_trading - INFO - Using existing cached token
+2025-12-04 14:11:51,975 - ai_trading - INFO - Access token acquired successfully
+2025-12-04 14:11:51,975 - ai_trading - INFO - Fetching initial account information...
+2025-12-04 14:11:51,975 - ai_trading - INFO - === Updating Portfolio Status ===
+2025-12-04 14:11:51,975 - ai_trading - INFO - Fetching cash balance...
+2025-12-04 14:11:52,321 - ai_trading - INFO - Cash balance: 10,000,000 KRW
+2025-12-04 14:11:52,321 - ai_trading - INFO - Fetching holdings...
+127.0.0.1 - - [04/Dec/2025 14:11:53] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:56] "GET /api/trades HTTP/1.1" 200 -
+⏰ Rate limit 대기: 4.65초
+2025-12-04 14:11:57,472 - ai_trading - INFO - Found 0 holdings
+2025-12-04 14:11:57,472 - ai_trading - INFO - Total portfolio value: 10,000,000 KRW
+2025-12-04 14:11:57,472 - ai_trading - INFO -   - Cash: 10,000,000 KRW
+2025-12-04 14:11:57,472 - ai_trading - INFO -   - Stocks: 0 KRW
+2025-12-04 14:11:57,472 - ai_trading - INFO - === Initialization Complete ===
+2025-12-04 14:11:57,472 - ai_trading - INFO - Initial portfolio value: 10,000,000 KRW
+2025-12-04 14:11:57,472 - ai_trading - INFO - 
+============================================================
+2025-12-04 14:11:57,473 - ai_trading - INFO - TRADING ACTIVE - 2025-12-04 14:11:57
+2025-12-04 14:11:57,473 - ai_trading - INFO - Active Markets: KOREAN
+2025-12-04 14:11:57,473 - ai_trading - INFO - 🇰🇷 Korean Market: 09:00-15:30 KST (ACTIVE)
+2025-12-04 14:11:57,473 - ai_trading - INFO - === Starting Trading Cycle ===
+2025-12-04 14:11:57,473 - ai_trading - INFO - Active markets: {'korean': True, 'us': False}
+127.0.0.1 - - [04/Dec/2025 14:11:57] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:11:57] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:11:57,791 - ai_trading.screener - INFO - API Response: {'output': [{'hts_kor_isnm': 'KODEX 200선물인버스2X', 'mksc_shrn_iscd': '252670', 'data_rank': '1', 'stck_prpr': '714', 'prdy_vrss_sign': '2', 'prdy_vrss': '13', 'prdy_ctrt': '1.85', 'acml_vol': '513164314', 'prdy_vol': '795941248', 'lstn_stcn': '2088900000', 'avrg_vol': '513164314', 'n_befr_clpr_vrss_prpr_rate': '1.85', 'vol_inrt': '64.47', 'vol_tnrt': '24.57', 'nday_vol_tnrt': '24.57', 'avrg_tr_pbmn': '367019508441', 'tr_pbmn_tnrt': '24.61', 'nday_tr_pbmn_tnrt': '24.61', 'acml_tr_pbmn': '367019508441'}, {'hts_kor_isnm': 'KODEX 인버스', 'mksc_shrn_iscd': '114800', 'data_rank': '2', 'stck_prpr': '2615', 'prdy_vrss_sign': '2', 'prdy_vrss': '25', 'prdy_ctrt': '0.97', 'acml_vol': '29614824', 'prdy_vol': '61330712', 'lstn_stcn': '304000000', 'avrg_vol': '29614824', 'n_befr_clpr_vrss_prpr_rate': '0.97', 'vol_inrt': '48.29', 'vol_tnrt': '9.74', 'nday_vol_tnrt': '9.74', 'avrg_tr_pbmn': '77526439723', 'tr_pbmn_tnrt': '9.75', 'nday_tr_pbmn_tnrt': '9.75', 'acml_tr_pbmn': '77526439723'}, {'hts_kor_isnm': '스맥', 'mksc_shrn_iscd': '099440', 'data_rank': '3', 'stck_prpr': '7620', 'prdy_vrss_sign': '2', 'prdy_vrss': '760', 'prdy_ctrt': '11.08', 'acml_vol': '26421169', 'prdy_vol': '41356628', 'lstn_stcn': '68243394', 'avrg_vol': '26421169', 'n_befr_clpr_vrss_prpr_rate': '11.08', 'vol_inrt': '63.89', 'vol_tnrt': '38.72', 'nday_vol_tnrt': '38.72', 'avrg_tr_pbmn': '195733533760', 'tr_pbmn_tnrt': '37.64', 'nday_tr_pbmn_tnrt': '37.64', 'acml_tr_pbmn': '195733533760'}, {'hts_kor_isnm': '한라캐스트', 'mksc_shrn_iscd': '125490', 'data_rank': '4', 'stck_prpr': '18700', 'prdy_vrss_sign': '2', 'prdy_vrss': '3130', 'prdy_ctrt': '20.10', 'acml_vol': '24985441', 'prdy_vol': '5142301', 'lstn_stcn': '36502352', 'avrg_vol': '24985441', 'n_befr_clpr_vrss_prpr_rate': '20.10', 'vol_inrt': '485.88', 'vol_tnrt': '68.45', 'nday_vol_tnrt': '68.45', 'avrg_tr_pbmn': '453171736295', 'tr_pbmn_tnrt': '66.39', 'nday_tr_pbmn_tnrt': '66.39', 'acml_tr_pbmn': '453171736295'}, {'hts_kor_isnm': '일성건설', 'mksc_shrn_iscd': '013360', 'data_rank': '5', 'stck_prpr': '1883', 'prdy_vrss_sign': '1', 'prdy_vrss': '434', 'prdy_ctrt': '29.95', 'acml_vol': '24448693', 'prdy_vol': '10910097', 'lstn_stcn': '54024880', 'avrg_vol': '24448693', 'n_befr_clpr_vrss_prpr_rate': '29.95', 'vol_inrt': '224.09', 'vol_tnrt': '45.25', 'nday_vol_tnrt': '45.25', 'avrg_tr_pbmn': '43347365116', 'tr_pbmn_tnrt': '42.61', 'nday_tr_pbmn_tnrt': '42.61', 'acml_tr_pbmn': '43347365116'}, {'hts_kor_isnm': 'KODEX 2차전지산업레버리지', 'mksc_shrn_iscd': '462330', 'data_rank': '6', 'stck_prpr': '1590', 'prdy_vrss_sign': '5', 'prdy_vrss': '-52', 'prdy_ctrt': '-3.17', 'acml_vol': '21915194', 'prdy_vol': '21858866', 'lstn_stcn': '329900000', 'avrg_vol': '21915194', 'n_befr_clpr_vrss_prpr_rate': '-3.17', 'vol_inrt': '100.26', 'vol_tnrt': '6.64', 'nday_vol_tnrt': '6.64', 'avrg_tr_pbmn': '35417945289', 'tr_pbmn_tnrt': '6.75', 'nday_tr_pbmn_tnrt': '6.75', 'acml_tr_pbmn': '35417945289'}, {'hts_kor_isnm': 'KODEX 코스닥150레버리지', 'mksc_shrn_iscd': '233740', 'data_rank': '7', 'stck_prpr': '12330', 'prdy_vrss_sign': '5', 'prdy_vrss': '-225', 'prdy_ctrt': '-1.79', 'acml_vol': '21854521', 'prdy_vol': '18769800', 'lstn_stcn': '141000000', 'avrg_vol': '21854521', 'n_befr_clpr_vrss_prpr_rate': '-1.79', 'vol_inrt': '116.43', 'vol_tnrt': '15.50', 'nday_vol_tnrt': '15.50', 'avrg_tr_pbmn': '272104233742', 'tr_pbmn_tnrt': '15.65', 'nday_tr_pbmn_tnrt': '15.65', 'acml_tr_pbmn': '272104233742'}, {'hts_kor_isnm': '휴림로봇', 'mksc_shrn_iscd': '090710', 'data_rank': '8', 'stck_prpr': '5870', 'prdy_vrss_sign': '2', 'prdy_vrss': '260', 'prdy_ctrt': '4.63', 'acml_vol': '20798645', 'prdy_vol': '11891189', 'lstn_stcn': '119457197', 'avrg_vol': '20798645', 'n_befr_clpr_vrss_prpr_rate': '4.63', 'vol_inrt': '174.91', 'vol_tnrt': '17.41', 'nday_vol_tnrt': '17.41', 'avrg_tr_pbmn': '120897916590', 'tr_pbmn_tnrt': '17.24', 'nday_tr_pbmn_tnrt': '17.24', 'acml_tr_pbmn': '120897916590'}, {'hts_kor_isnm': '대한해운', 'mksc_shrn_iscd': '005880', 'data_rank': '9', 'stck_prpr': '1945', 'prdy_vrss_sign': '2', 'prdy_vrss': '43', 'prdy_ctrt': '2.26', 'acml_vol': '18203128', 'prdy_vol': '8576472', 'lstn_stcn': '322747340', 'avrg_vol': '18203128', 'n_befr_clpr_vrss_prpr_rate': '2.26', 'vol_inrt': '212.24', 'vol_tnrt': '5.64', 'nday_vol_tnrt': '5.64', 'avrg_tr_pbmn': '36327015020', 'tr_pbmn_tnrt': '5.79', 'nday_tr_pbmn_tnrt': '5.79', 'acml_tr_pbmn': '36327015020'}, {'hts_kor_isnm': '원익홀딩스', 'mksc_shrn_iscd': '030530', 'data_rank': '10', 'stck_prpr': '27750', 'prdy_vrss_sign': '2', 'prdy_vrss': '3850', 'prdy_ctrt': '16.11', 'acml_vol': '17123994', 'prdy_vol': '2481601', 'lstn_stcn': '77237981', 'avrg_vol': '17123994', 'n_befr_clpr_vrss_prpr_rate': '16.11', 'vol_inrt': '690.04', 'vol_tnrt': '22.17', 'nday_vol_tnrt': '22.17', 'avrg_tr_pbmn': '464496739550', 'tr_pbmn_tnrt': '21.67', 'nday_tr_pbmn_tnrt': '21.67', 'acml_tr_pbmn': '464496739550'}, {'hts_kor_isnm': '대성산업', 'mksc_shrn_iscd': '128820', 'data_rank': '11', 'stck_prpr': '5630', 'prdy_vrss_sign': '5', 'prdy_vrss': '-600', 'prdy_ctrt': '-9.63', 'acml_vol': '16803128', 'prdy_vol': '10070630', 'lstn_stcn': '45235478', 'avrg_vol': '16803128', 'n_befr_clpr_vrss_prpr_rate': '-9.63', 'vol_inrt': '166.85', 'vol_tnrt': '37.15', 'nday_vol_tnrt': '37.15', 'avrg_tr_pbmn': '105411780570', 'tr_pbmn_tnrt': '41.39', 'nday_tr_pbmn_tnrt': '41.39', 'acml_tr_pbmn': '105411780570'}, {'hts_kor_isnm': 'KD', 'mksc_shrn_iscd': '044180', 'data_rank': '12', 'stck_prpr': '683', 'prdy_vrss_sign': '2', 'prdy_vrss': '22', 'prdy_ctrt': '3.33', 'acml_vol': '16369230', 'prdy_vol': '22729338', 'lstn_stcn': '26717799', 'avrg_vol': '16369230', 'n_befr_clpr_vrss_prpr_rate': '3.33', 'vol_inrt': '72.02', 'vol_tnrt': '61.27', 'nday_vol_tnrt': '61.27', 'avrg_tr_pbmn': '11767741441', 'tr_pbmn_tnrt': '64.49', 'nday_tr_pbmn_tnrt': '64.49', 'acml_tr_pbmn': '11767741441'}, {'hts_kor_isnm': 'KODEX 코스닥150선물인버스', 'mksc_shrn_iscd': '251340', 'data_rank': '13', 'stck_prpr': '2840', 'prdy_vrss_sign': '2', 'prdy_vrss': '30', 'prdy_ctrt': '1.07', 'acml_vol': '16154313', 'prdy_vol': '17710176', 'lstn_stcn': '85500000', 'avrg_vol': '16154313', 'n_befr_clpr_vrss_prpr_rate': '1.07', 'vol_inrt': '91.21', 'vol_tnrt': '18.89', 'nday_vol_tnrt': '18.89', 'avrg_tr_pbmn': '45657270398', 'tr_pbmn_tnrt': '18.80', 'nday_tr_pbmn_tnrt': '18.80', 'acml_tr_pbmn': '45657270398'}, {'hts_kor_isnm': 'KODEX 레버리지', 'mksc_shrn_iscd': '122630', 'data_rank': '14', 'stck_prpr': '41880', 'prdy_vrss_sign': '5', 'prdy_vrss': '-720', 'prdy_ctrt': '-1.69', 'acml_vol': '15090223', 'prdy_vol': '23806736', 'lstn_stcn': '88600000', 'avrg_vol': '15090223', 'n_befr_clpr_vrss_prpr_rate': '-1.69', 'vol_inrt': '63.39', 'vol_tnrt': '17.03', 'nday_vol_tnrt': '17.03', 'avrg_tr_pbmn': '629796724783', 'tr_pbmn_tnrt': '16.97', 'nday_tr_pbmn_tnrt': '16.97', 'acml_tr_pbmn': '629796724783'}, {'hts_kor_isnm': '뉴로핏', 'mksc_shrn_iscd': '380550', 'data_rank': '15', 'stck_prpr': '32850', 'prdy_vrss_sign': '2', 'prdy_vrss': '3700', 'prdy_ctrt': '12.69', 'acml_vol': '13126324', 'prdy_vol': '5049182', 'lstn_stcn': '11636603', 'avrg_vol': '13126324', 'n_befr_clpr_vrss_prpr_rate': '12.69', 'vol_inrt': '259.97', 'vol_tnrt': '112.80', 'nday_vol_tnrt': '112.80', 'avrg_tr_pbmn': '421641501025', 'tr_pbmn_tnrt': '110.30', 'nday_tr_pbmn_tnrt': '110.30', 'acml_tr_pbmn': '421641501025'}, {'hts_kor_isnm': '재영솔루텍', 'mksc_shrn_iscd': '049630', 'data_rank': '16', 'stck_prpr': '2320', 'prdy_vrss_sign': '2', 'prdy_vrss': '100', 'prdy_ctrt': '4.50', 'acml_vol': '12477064', 'prdy_vol': '8605305', 'lstn_stcn': '116897560', 'avrg_vol': '12477064', 'n_befr_clpr_vrss_prpr_rate': '4.50', 'vol_inrt': '144.99', 'vol_tnrt': '10.67', 'nday_vol_tnrt': '10.67', 'avrg_tr_pbmn': '28712077384', 'tr_pbmn_tnrt': '10.59', 'nday_tr_pbmn_tnrt': '10.59', 'acml_tr_pbmn': '28712077384'}, {'hts_kor_isnm': '에넥스', 'mksc_shrn_iscd': '011090', 'data_rank': '17', 'stck_prpr': '673', 'prdy_vrss_sign': '1', 'prdy_vrss': '155', 'prdy_ctrt': '29.92', 'acml_vol': '12262730', 'prdy_vol': '1129792', 'lstn_stcn': '59991641', 'avrg_vol': '12262730', 'n_befr_clpr_vrss_prpr_rate': '29.92', 'vol_inrt': '1085.40', 'vol_tnrt': '20.44', 'nday_vol_tnrt': '20.44', 'avrg_tr_pbmn': '7913061836', 'tr_pbmn_tnrt': '19.60', 'nday_tr_pbmn_tnrt': '19.60', 'acml_tr_pbmn': '7913061836'}, {'hts_kor_isnm': '디아이씨', 'mksc_shrn_iscd': '092200', 'data_rank': '18', 'stck_prpr': '10640', 'prdy_vrss_sign': '2', 'prdy_vrss': '840', 'prdy_ctrt': '8.57', 'acml_vol': '11686100', 'prdy_vol': '3838632', 'lstn_stcn': '38888569', 'avrg_vol': '11686100', 'n_befr_clpr_vrss_prpr_rate': '8.57', 'vol_inrt': '304.43', 'vol_tnrt': '30.05', 'nday_vol_tnrt': '30.05', 'avrg_tr_pbmn': '120931764115', 'tr_pbmn_tnrt': '29.23', 'nday_tr_pbmn_tnrt': '29.23', 'acml_tr_pbmn': '120931764115'}, {'hts_kor_isnm': '유일에너테크', 'mksc_shrn_iscd': '340930', 'data_rank': '19', 'stck_prpr': '2130', 'prdy_vrss_sign': '2', 'prdy_vrss': '271', 'prdy_ctrt': '14.58', 'acml_vol': '10846072', 'prdy_vol': '453152', 'lstn_stcn': '34204450', 'avrg_vol': '10846072', 'n_befr_clpr_vrss_prpr_rate': '14.58', 'vol_inrt': '2393.47', 'vol_tnrt': '31.71', 'nday_vol_tnrt': '31.71', 'avrg_tr_pbmn': '23335037736', 'tr_pbmn_tnrt': '32.03', 'nday_tr_pbmn_tnrt': '32.03', 'acml_tr_pbmn': '23335037736'}, {'hts_kor_isnm': '팬오션', 'mksc_shrn_iscd': '028670', 'data_rank': '20', 'stck_prpr': '4380', 'prdy_vrss_sign': '2', 'prdy_vrss': '50', 'prdy_ctrt': '1.15', 'acml_vol': '10410895', 'prdy_vol': '10791345', 'lstn_stcn': '534569512', 'avrg_vol': '10410895', 'n_befr_clpr_vrss_prpr_rate': '1.15', 'vol_inrt': '96.47', 'vol_tnrt': '1.95', 'nday_vol_tnrt': '1.95', 'avrg_tr_pbmn': '46738601693', 'tr_pbmn_tnrt': '2.00', 'nday_tr_pbmn_tnrt': '2.00', 'acml_tr_pbmn': '46738601693'}, {'hts_kor_isnm': '고영', 'mksc_shrn_iscd': '098460', 'data_rank': '21', 'stck_prpr': '28450', 'prdy_vrss_sign': '5', 'prdy_vrss': '-350', 'prdy_ctrt': '-1.22', 'acml_vol': '10315492', 'prdy_vol': '15724185', 'lstn_stcn': '68654755', 'avrg_vol': '10315492', 'n_befr_clpr_vrss_prpr_rate': '-1.22', 'vol_inrt': '65.60', 'vol_tnrt': '15.03', 'nday_vol_tnrt': '15.03', 'avrg_tr_pbmn': '293593957225', 'tr_pbmn_tnrt': '15.03', 'nday_tr_pbmn_tnrt': '15.03', 'acml_tr_pbmn': '293593957225'}, {'hts_kor_isnm': '현대무벡스', 'mksc_shrn_iscd': '319400', 'data_rank': '22', 'stck_prpr': '10620', 'prdy_vrss_sign': '2', 'prdy_vrss': '190', 'prdy_ctrt': '1.82', 'acml_vol': '10302067', 'prdy_vol': '15078860', 'lstn_stcn': '111376039', 'avrg_vol': '10302067', 'n_befr_clpr_vrss_prpr_rate': '1.82', 'vol_inrt': '68.32', 'vol_tnrt': '9.25', 'nday_vol_tnrt': '9.25', 'avrg_tr_pbmn': '110394533210', 'tr_pbmn_tnrt': '9.33', 'nday_tr_pbmn_tnrt': '9.33', 'acml_tr_pbmn': '110394533210'}, {'hts_kor_isnm': '오리엔트바이오', 'mksc_shrn_iscd': '002630', 'data_rank': '23', 'stck_prpr': '664', 'prdy_vrss_sign': '2', 'prdy_vrss': '37', 'prdy_ctrt': '5.90', 'acml_vol': '9474063', 'prdy_vol': '1000000', 'lstn_stcn': '118583005', 'avrg_vol': '9474063', 'n_befr_clpr_vrss_prpr_rate': '5.90', 'vol_inrt': '947.41', 'vol_tnrt': '7.99', 'nday_vol_tnrt': '7.99', 'avrg_tr_pbmn': '6442213256', 'tr_pbmn_tnrt': '8.18', 'nday_tr_pbmn_tnrt': '8.18', 'acml_tr_pbmn': '6442213256'}, {'hts_kor_isnm': '삼성전자', 'mksc_shrn_iscd': '005930', 'data_rank': '24', 'stck_prpr': '104300', 'prdy_vrss_sign': '5', 'prdy_vrss': '-200', 'prdy_ctrt': '-0.19', 'acml_vol': '8601390', 'prdy_vol': '14697927', 'lstn_stcn': '5919637922', 'avrg_vol': '8601390', 'n_befr_clpr_vrss_prpr_rate': '-0.19', 'vol_inrt': '58.52', 'vol_tnrt': '0.15', 'nday_vol_tnrt': '0.15', 'avrg_tr_pbmn': '893845124200', 'tr_pbmn_tnrt': '0.14', 'nday_tr_pbmn_tnrt': '0.14', 'acml_tr_pbmn': '893845124200'}, {'hts_kor_isnm': '와이투솔루션', 'mksc_shrn_iscd': '011690', 'data_rank': '25', 'stck_prpr': '4635', 'prdy_vrss_sign': '2', 'prdy_vrss': '585', 'prdy_ctrt': '14.44', 'acml_vol': '8509539', 'prdy_vol': '5881618', 'lstn_stcn': '36574394', 'avrg_vol': '8509539', 'n_befr_clpr_vrss_prpr_rate': '14.44', 'vol_inrt': '144.68', 'vol_tnrt': '23.27', 'nday_vol_tnrt': '23.27', 'avrg_tr_pbmn': '38546658942', 'tr_pbmn_tnrt': '22.74', 'nday_tr_pbmn_tnrt': '22.74', 'acml_tr_pbmn': '38546658942'}, {'hts_kor_isnm': '카티스', 'mksc_shrn_iscd': '140430', 'data_rank': '26', 'stck_prpr': '1759', 'prdy_vrss_sign': '5', 'prdy_vrss': '-26', 'prdy_ctrt': '-1.46', 'acml_vol': '8258816', 'prdy_vol': '4226940', 'lstn_stcn': '19102219', 'avrg_vol': '8258816', 'n_befr_clpr_vrss_prpr_rate': '-1.46', 'vol_inrt': '195.39', 'vol_tnrt': '43.23', 'nday_vol_tnrt': '43.23', 'avrg_tr_pbmn': '15797804493', 'tr_pbmn_tnrt': '47.02', 'nday_tr_pbmn_tnrt': '47.02', 'acml_tr_pbmn': '15797804493'}, {'hts_kor_isnm': '와이제이링크', 'mksc_shrn_iscd': '209640', 'data_rank': '27', 'stck_prpr': '3400', 'prdy_vrss_sign': '2', 'prdy_vrss': '495', 'prdy_ctrt': '17.04', 'acml_vol': '7874088', 'prdy_vol': '2777805', 'lstn_stcn': '28443146', 'avrg_vol': '7874088', 'n_befr_clpr_vrss_prpr_rate': '17.04', 'vol_inrt': '283.46', 'vol_tnrt': '27.68', 'nday_vol_tnrt': '27.68', 'avrg_tr_pbmn': '25435633505', 'tr_pbmn_tnrt': '26.30', 'nday_tr_pbmn_tnrt': '26.30', 'acml_tr_pbmn': '25435633505'}, {'hts_kor_isnm': '우림피티에스', 'mksc_shrn_iscd': '101170', 'data_rank': '28', 'stck_prpr': '10150', 'prdy_vrss_sign': '2', 'prdy_vrss': '360', 'prdy_ctrt': '3.68', 'acml_vol': '7290915', 'prdy_vol': '1728583', 'lstn_stcn': '13500000', 'avrg_vol': '7290915', 'n_befr_clpr_vrss_prpr_rate': '3.68', 'vol_inrt': '421.79', 'vol_tnrt': '54.01', 'nday_vol_tnrt': '54.01', 'avrg_tr_pbmn': '77919825195', 'tr_pbmn_tnrt': '56.87', 'nday_tr_pbmn_tnrt': '56.87', 'acml_tr_pbmn': '77919825195'}, {'hts_kor_isnm': 'KODEX 코스닥150', 'mksc_shrn_iscd': '229200', 'data_rank': '29', 'stck_prpr': '15975', 'prdy_vrss_sign': '5', 'prdy_vrss': '-155', 'prdy_ctrt': '-0.96', 'acml_vol': '7211170', 'prdy_vol': '10583727', 'lstn_stcn': '84900000', 'avrg_vol': '7211170', 'n_befr_clpr_vrss_prpr_rate': '-0.96', 'vol_inrt': '68.13', 'vol_tnrt': '8.49', 'nday_vol_tnrt': '8.49', 'avrg_tr_pbmn': '115678978171', 'tr_pbmn_tnrt': '8.53', 'nday_tr_pbmn_tnrt': '8.53', 'acml_tr_pbmn': '115678978171'}, {'hts_kor_isnm': '뉴인텍', 'mksc_shrn_iscd': '012340', 'data_rank': '30', 'stck_prpr': '477', 'prdy_vrss_sign': '5', 'prdy_vrss': '-45', 'prdy_ctrt': '-8.62', 'acml_vol': '7105385', 'prdy_vol': '18124216', 'lstn_stcn': '53005062', 'avrg_vol': '7105385', 'n_befr_clpr_vrss_prpr_rate': '-8.62', 'vol_inrt': '39.20', 'vol_tnrt': '13.41', 'nday_vol_tnrt': '13.41', 'avrg_tr_pbmn': '3724208037', 'tr_pbmn_tnrt': '14.73', 'nday_tr_pbmn_tnrt': '14.73', 'acml_tr_pbmn': '3724208037'}], 'rt_cd': '0', 'msg_cd': 'MCA00000', 'msg1': '정상처리 되었습니다.'}
+2025-12-04 14:11:57,791 - ai_trading.screener - INFO - 거래량 순위 종목: 30개
+2025-12-04 14:11:57,791 - ai_trading.screener - INFO - 추가 종목 확보를 위한 API 호출 시작 (현재: 30개)
+127.0.0.1 - - [04/Dec/2025 14:11:59] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:11:59,792 - ai_trading.screener - INFO - 상승률 순위 조회 중...
+2025-12-04 14:12:00,113 - ai_trading.screener - INFO - 상승률 순위에서 0개 추가, 총 30개
+127.0.0.1 - - [04/Dec/2025 14:12:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:01] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:12:02,115 - ai_trading.screener - INFO - 시가총액 순위 조회 중...
+2025-12-04 14:12:02,358 - ai_trading.screener - INFO - 시가총액 순위에서 0개 추가, 총 30개
+127.0.0.1 - - [04/Dec/2025 14:12:03] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:12:04,359 - ai_trading.screener - INFO - 하락률 순위 조회 중...
+2025-12-04 14:12:05,079 - ai_trading.screener - INFO - 하락률 순위에서 29개 추가, 총 59개
+127.0.0.1 - - [04/Dec/2025 14:12:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:06] "GET /api/trades HTTP/1.1" 200 -
+2025-12-04 14:12:07,080 - ai_trading.screener - INFO - 변동률 순위 조회 중...
+2025-12-04 14:12:07,328 - ai_trading.screener - INFO - 변동률 순위에서 0개 추가, 총 59개
+2025-12-04 14:12:07,328 - ai_trading.screener - INFO - 최종 수집된 종목: 59개
+2025-12-04 14:12:07,328 - ai_trading - INFO - Market condition: normal
+2025-12-04 14:12:07,329 - ai_trading - INFO - === Trading Korean Stocks ===
+127.0.0.1 - - [04/Dec/2025 14:12:07] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:12:07,808 - ai_trading.screener - INFO - API Response: {'output': [{'hts_kor_isnm': 'KODEX 200선물인버스2X', 'mksc_shrn_iscd': '252670', 'data_rank': '1', 'stck_prpr': '714', 'prdy_vrss_sign': '2', 'prdy_vrss': '13', 'prdy_ctrt': '1.85', 'acml_vol': '513275325', 'prdy_vol': '795941248', 'lstn_stcn': '2088900000', 'avrg_vol': '513275325', 'n_befr_clpr_vrss_prpr_rate': '1.85', 'vol_inrt': '64.49', 'vol_tnrt': '24.57', 'nday_vol_tnrt': '24.57', 'avrg_tr_pbmn': '367098676569', 'tr_pbmn_tnrt': '24.61', 'nday_tr_pbmn_tnrt': '24.61', 'acml_tr_pbmn': '367098676569'}, {'hts_kor_isnm': 'KODEX 인버스', 'mksc_shrn_iscd': '114800', 'data_rank': '2', 'stck_prpr': '2620', 'prdy_vrss_sign': '2', 'prdy_vrss': '30', 'prdy_ctrt': '1.16', 'acml_vol': '29631275', 'prdy_vol': '61330712', 'lstn_stcn': '304000000', 'avrg_vol': '29631275', 'n_befr_clpr_vrss_prpr_rate': '1.16', 'vol_inrt': '48.31', 'vol_tnrt': '9.75', 'nday_vol_tnrt': '9.75', 'avrg_tr_pbmn': '77569461653', 'tr_pbmn_tnrt': '9.74', 'nday_tr_pbmn_tnrt': '9.74', 'acml_tr_pbmn': '77569461653'}, {'hts_kor_isnm': '스맥', 'mksc_shrn_iscd': '099440', 'data_rank': '3', 'stck_prpr': '7610', 'prdy_vrss_sign': '2', 'prdy_vrss': '750', 'prdy_ctrt': '10.93', 'acml_vol': '26424073', 'prdy_vol': '41356628', 'lstn_stcn': '68243394', 'avrg_vol': '26424073', 'n_befr_clpr_vrss_prpr_rate': '10.93', 'vol_inrt': '63.89', 'vol_tnrt': '38.72', 'nday_vol_tnrt': '38.72', 'avrg_tr_pbmn': '195755646900', 'tr_pbmn_tnrt': '37.69', 'nday_tr_pbmn_tnrt': '37.69', 'acml_tr_pbmn': '195755646900'}, {'hts_kor_isnm': '한라캐스트', 'mksc_shrn_iscd': '125490', 'data_rank': '4', 'stck_prpr': '18680', 'prdy_vrss_sign': '2', 'prdy_vrss': '3110', 'prdy_ctrt': '19.97', 'acml_vol': '24991527', 'prdy_vol': '5142301', 'lstn_stcn': '36502352', 'avrg_vol': '24991527', 'n_befr_clpr_vrss_prpr_rate': '19.97', 'vol_inrt': '486.00', 'vol_tnrt': '68.47', 'nday_vol_tnrt': '68.47', 'avrg_tr_pbmn': '453285492985', 'tr_pbmn_tnrt': '66.48', 'nday_tr_pbmn_tnrt': '66.48', 'acml_tr_pbmn': '453285492985'}, {'hts_kor_isnm': '일성건설', 'mksc_shrn_iscd': '013360', 'data_rank': '5', 'stck_prpr': '1883', 'prdy_vrss_sign': '1', 'prdy_vrss': '434', 'prdy_ctrt': '29.95', 'acml_vol': '24448694', 'prdy_vol': '10910097', 'lstn_stcn': '54024880', 'avrg_vol': '24448694', 'n_befr_clpr_vrss_prpr_rate': '29.95', 'vol_inrt': '224.09', 'vol_tnrt': '45.25', 'nday_vol_tnrt': '45.25', 'avrg_tr_pbmn': '43347366999', 'tr_pbmn_tnrt': '42.61', 'nday_tr_pbmn_tnrt': '42.61', 'acml_tr_pbmn': '43347366999'}, {'hts_kor_isnm': 'KODEX 2차전지산업레버리지', 'mksc_shrn_iscd': '462330', 'data_rank': '6', 'stck_prpr': '1589', 'prdy_vrss_sign': '5', 'prdy_vrss': '-53', 'prdy_ctrt': '-3.23', 'acml_vol': '21923651', 'prdy_vol': '21858866', 'lstn_stcn': '329900000', 'avrg_vol': '21923651', 'n_befr_clpr_vrss_prpr_rate': '-3.23', 'vol_inrt': '100.30', 'vol_tnrt': '6.65', 'nday_vol_tnrt': '6.65', 'avrg_tr_pbmn': '35431391227', 'tr_pbmn_tnrt': '6.76', 'nday_tr_pbmn_tnrt': '6.76', 'acml_tr_pbmn': '35431391227'}, {'hts_kor_isnm': 'KODEX 코스닥150레버리지', 'mksc_shrn_iscd': '233740', 'data_rank': '7', 'stck_prpr': '12330', 'prdy_vrss_sign': '5', 'prdy_vrss': '-225', 'prdy_ctrt': '-1.79', 'acml_vol': '21854521', 'prdy_vol': '18769800', 'lstn_stcn': '141000000', 'avrg_vol': '21854521', 'n_befr_clpr_vrss_prpr_rate': '-1.79', 'vol_inrt': '116.43', 'vol_tnrt': '15.50', 'nday_vol_tnrt': '15.50', 'avrg_tr_pbmn': '272104233742', 'tr_pbmn_tnrt': '15.65', 'nday_tr_pbmn_tnrt': '15.65', 'acml_tr_pbmn': '272104233742'}, {'hts_kor_isnm': '휴림로봇', 'mksc_shrn_iscd': '090710', 'data_rank': '8', 'stck_prpr': '5870', 'prdy_vrss_sign': '2', 'prdy_vrss': '260', 'prdy_ctrt': '4.63', 'acml_vol': '20799627', 'prdy_vol': '11891189', 'lstn_stcn': '119457197', 'avrg_vol': '20799627', 'n_befr_clpr_vrss_prpr_rate': '4.63', 'vol_inrt': '174.92', 'vol_tnrt': '17.41', 'nday_vol_tnrt': '17.41', 'avrg_tr_pbmn': '120903672810', 'tr_pbmn_tnrt': '17.24', 'nday_tr_pbmn_tnrt': '17.24', 'acml_tr_pbmn': '120903672810'}, {'hts_kor_isnm': '대한해운', 'mksc_shrn_iscd': '005880', 'data_rank': '9', 'stck_prpr': '1944', 'prdy_vrss_sign': '2', 'prdy_vrss': '42', 'prdy_ctrt': '2.21', 'acml_vol': '18203505', 'prdy_vol': '8576472', 'lstn_stcn': '322747340', 'avrg_vol': '18203505', 'n_befr_clpr_vrss_prpr_rate': '2.21', 'vol_inrt': '212.25', 'vol_tnrt': '5.64', 'nday_vol_tnrt': '5.64', 'avrg_tr_pbmn': '36327747908', 'tr_pbmn_tnrt': '5.79', 'nday_tr_pbmn_tnrt': '5.79', 'acml_tr_pbmn': '36327747908'}, {'hts_kor_isnm': '원익홀딩스', 'mksc_shrn_iscd': '030530', 'data_rank': '10', 'stck_prpr': '27700', 'prdy_vrss_sign': '2', 'prdy_vrss': '3800', 'prdy_ctrt': '15.90', 'acml_vol': '17128431', 'prdy_vol': '2481601', 'lstn_stcn': '77237981', 'avrg_vol': '17128431', 'n_befr_clpr_vrss_prpr_rate': '15.90', 'vol_inrt': '690.22', 'vol_tnrt': '22.18', 'nday_vol_tnrt': '22.18', 'avrg_tr_pbmn': '464619626650', 'tr_pbmn_tnrt': '21.72', 'nday_tr_pbmn_tnrt': '21.72', 'acml_tr_pbmn': '464619626650'}, {'hts_kor_isnm': '대성산업', 'mksc_shrn_iscd': '128820', 'data_rank': '11', 'stck_prpr': '5640', 'prdy_vrss_sign': '5', 'prdy_vrss': '-590', 'prdy_ctrt': '-9.47', 'acml_vol': '16803285', 'prdy_vol': '10070630', 'lstn_stcn': '45235478', 'avrg_vol': '16803285', 'n_befr_clpr_vrss_prpr_rate': '-9.47', 'vol_inrt': '166.85', 'vol_tnrt': '37.15', 'nday_vol_tnrt': '37.15', 'avrg_tr_pbmn': '105412664970', 'tr_pbmn_tnrt': '41.32', 'nday_tr_pbmn_tnrt': '41.32', 'acml_tr_pbmn': '105412664970'}, {'hts_kor_isnm': 'KD', 'mksc_shrn_iscd': '044180', 'data_rank': '12', 'stck_prpr': '682', 'prdy_vrss_sign': '2', 'prdy_vrss': '21', 'prdy_ctrt': '3.18', 'acml_vol': '16369469', 'prdy_vol': '22729338', 'lstn_stcn': '26717799', 'avrg_vol': '16369469', 'n_befr_clpr_vrss_prpr_rate': '3.18', 'vol_inrt': '72.02', 'vol_tnrt': '61.27', 'nday_vol_tnrt': '61.27', 'avrg_tr_pbmn': '11767904439', 'tr_pbmn_tnrt': '64.58', 'nday_tr_pbmn_tnrt': '64.58', 'acml_tr_pbmn': '11767904439'}, {'hts_kor_isnm': 'KODEX 코스닥150선물인버스', 'mksc_shrn_iscd': '251340', 'data_rank': '13', 'stck_prpr': '2840', 'prdy_vrss_sign': '2', 'prdy_vrss': '30', 'prdy_ctrt': '1.07', 'acml_vol': '16154313', 'prdy_vol': '17710176', 'lstn_stcn': '85500000', 'avrg_vol': '16154313', 'n_befr_clpr_vrss_prpr_rate': '1.07', 'vol_inrt': '91.21', 'vol_tnrt': '18.89', 'nday_vol_tnrt': '18.89', 'avrg_tr_pbmn': '45657270398', 'tr_pbmn_tnrt': '18.80', 'nday_tr_pbmn_tnrt': '18.80', 'acml_tr_pbmn': '45657270398'}, {'hts_kor_isnm': 'KODEX 레버리지', 'mksc_shrn_iscd': '122630', 'data_rank': '14', 'stck_prpr': '41870', 'prdy_vrss_sign': '5', 'prdy_vrss': '-730', 'prdy_ctrt': '-1.71', 'acml_vol': '15092293', 'prdy_vol': '23806736', 'lstn_stcn': '88600000', 'avrg_vol': '15092293', 'n_befr_clpr_vrss_prpr_rate': '-1.71', 'vol_inrt': '63.40', 'vol_tnrt': '17.03', 'nday_vol_tnrt': '17.03', 'avrg_tr_pbmn': '629883405958', 'tr_pbmn_tnrt': '16.98', 'nday_tr_pbmn_tnrt': '16.98', 'acml_tr_pbmn': '629883405958'}, {'hts_kor_isnm': '뉴로핏', 'mksc_shrn_iscd': '380550', 'data_rank': '15', 'stck_prpr': '33000', 'prdy_vrss_sign': '2', 'prdy_vrss': '3850', 'prdy_ctrt': '13.21', 'acml_vol': '13133958', 'prdy_vol': '5049182', 'lstn_stcn': '11636603', 'avrg_vol': '13133958', 'n_befr_clpr_vrss_prpr_rate': '13.21', 'vol_inrt': '260.12', 'vol_tnrt': '112.87', 'nday_vol_tnrt': '112.87', 'avrg_tr_pbmn': '421892869625', 'tr_pbmn_tnrt': '109.87', 'nday_tr_pbmn_tnrt': '109.87', 'acml_tr_pbmn': '421892869625'}, {'hts_kor_isnm': '재영솔루텍', 'mksc_shrn_iscd': '049630', 'data_rank': '16', 'stck_prpr': '2315', 'prdy_vrss_sign': '2', 'prdy_vrss': '95', 'prdy_ctrt': '4.28', 'acml_vol': '12483770', 'prdy_vol': '8605305', 'lstn_stcn': '116897560', 'avrg_vol': '12483770', 'n_befr_clpr_vrss_prpr_rate': '4.28', 'vol_inrt': '145.07', 'vol_tnrt': '10.68', 'nday_vol_tnrt': '10.68', 'avrg_tr_pbmn': '28727611694', 'tr_pbmn_tnrt': '10.62', 'nday_tr_pbmn_tnrt': '10.62', 'acml_tr_pbmn': '28727611694'}, {'hts_kor_isnm': '에넥스', 'mksc_shrn_iscd': '011090', 'data_rank': '17', 'stck_prpr': '673', 'prdy_vrss_sign': '1', 'prdy_vrss': '155', 'prdy_ctrt': '29.92', 'acml_vol': '12262730', 'prdy_vol': '1129792', 'lstn_stcn': '59991641', 'avrg_vol': '12262730', 'n_befr_clpr_vrss_prpr_rate': '29.92', 'vol_inrt': '1085.40', 'vol_tnrt': '20.44', 'nday_vol_tnrt': '20.44', 'avrg_tr_pbmn': '7913061836', 'tr_pbmn_tnrt': '19.60', 'nday_tr_pbmn_tnrt': '19.60', 'acml_tr_pbmn': '7913061836'}, {'hts_kor_isnm': '디아이씨', 'mksc_shrn_iscd': '092200', 'data_rank': '18', 'stck_prpr': '10630', 'prdy_vrss_sign': '2', 'prdy_vrss': '830', 'prdy_ctrt': '8.47', 'acml_vol': '11687008', 'prdy_vol': '3838632', 'lstn_stcn': '38888569', 'avrg_vol': '11687008', 'n_befr_clpr_vrss_prpr_rate': '8.47', 'vol_inrt': '304.46', 'vol_tnrt': '30.05', 'nday_vol_tnrt': '30.05', 'avrg_tr_pbmn': '120941415735', 'tr_pbmn_tnrt': '29.26', 'nday_tr_pbmn_tnrt': '29.26', 'acml_tr_pbmn': '120941415735'}, {'hts_kor_isnm': '유일에너테크', 'mksc_shrn_iscd': '340930', 'data_rank': '19', 'stck_prpr': '2135', 'prdy_vrss_sign': '2', 'prdy_vrss': '276', 'prdy_ctrt': '14.85', 'acml_vol': '10846444', 'prdy_vol': '453152', 'lstn_stcn': '34204450', 'avrg_vol': '10846444', 'n_befr_clpr_vrss_prpr_rate': '14.85', 'vol_inrt': '2393.56', 'vol_tnrt': '31.71', 'nday_vol_tnrt': '31.71', 'avrg_tr_pbmn': '23335832906', 'tr_pbmn_tnrt': '31.96', 'nday_tr_pbmn_tnrt': '31.96', 'acml_tr_pbmn': '23335832906'}, {'hts_kor_isnm': '팬오션', 'mksc_shrn_iscd': '028670', 'data_rank': '20', 'stck_prpr': '4380', 'prdy_vrss_sign': '2', 'prdy_vrss': '50', 'prdy_ctrt': '1.15', 'acml_vol': '10411245', 'prdy_vol': '10791345', 'lstn_stcn': '534569512', 'avrg_vol': '10411245', 'n_befr_clpr_vrss_prpr_rate': '1.15', 'vol_inrt': '96.48', 'vol_tnrt': '1.95', 'nday_vol_tnrt': '1.95', 'avrg_tr_pbmn': '46740134693', 'tr_pbmn_tnrt': '2.00', 'nday_tr_pbmn_tnrt': '2.00', 'acml_tr_pbmn': '46740134693'}, {'hts_kor_isnm': '고영', 'mksc_shrn_iscd': '098460', 'data_rank': '21', 'stck_prpr': '28400', 'prdy_vrss_sign': '5', 'prdy_vrss': '-400', 'prdy_ctrt': '-1.39', 'acml_vol': '10316231', 'prdy_vol': '15724185', 'lstn_stcn': '68654755', 'avrg_vol': '10316231', 'n_befr_clpr_vrss_prpr_rate': '-1.39', 'vol_inrt': '65.61', 'vol_tnrt': '15.03', 'nday_vol_tnrt': '15.03', 'avrg_tr_pbmn': '293614952825', 'tr_pbmn_tnrt': '15.06', 'nday_tr_pbmn_tnrt': '15.06', 'acml_tr_pbmn': '293614952825'}, {'hts_kor_isnm': '현대무벡스', 'mksc_shrn_iscd': '319400', 'data_rank': '22', 'stck_prpr': '10620', 'prdy_vrss_sign': '2', 'prdy_vrss': '190', 'prdy_ctrt': '1.82', 'acml_vol': '10302207', 'prdy_vol': '15078860', 'lstn_stcn': '111376039', 'avrg_vol': '10302207', 'n_befr_clpr_vrss_prpr_rate': '1.82', 'vol_inrt': '68.32', 'vol_tnrt': '9.25', 'nday_vol_tnrt': '9.25', 'avrg_tr_pbmn': '110396019960', 'tr_pbmn_tnrt': '9.33', 'nday_tr_pbmn_tnrt': '9.33', 'acml_tr_pbmn': '110396019960'}, {'hts_kor_isnm': '오리엔트바이오', 'mksc_shrn_iscd': '002630', 'data_rank': '23', 'stck_prpr': '664', 'prdy_vrss_sign': '2', 'prdy_vrss': '37', 'prdy_ctrt': '5.90', 'acml_vol': '9474110', 'prdy_vol': '1000000', 'lstn_stcn': '118583005', 'avrg_vol': '9474110', 'n_befr_clpr_vrss_prpr_rate': '5.90', 'vol_inrt': '947.41', 'vol_tnrt': '7.99', 'nday_vol_tnrt': '7.99', 'avrg_tr_pbmn': '6442244464', 'tr_pbmn_tnrt': '8.18', 'nday_tr_pbmn_tnrt': '8.18', 'acml_tr_pbmn': '6442244464'}, {'hts_kor_isnm': '삼성전자', 'mksc_shrn_iscd': '005930', 'data_rank': '24', 'stck_prpr': '104300', 'prdy_vrss_sign': '5', 'prdy_vrss': '-200', 'prdy_ctrt': '-0.19', 'acml_vol': '8605815', 'prdy_vol': '14697927', 'lstn_stcn': '5919637922', 'avrg_vol': '8605815', 'n_befr_clpr_vrss_prpr_rate': '-0.19', 'vol_inrt': '58.55', 'vol_tnrt': '0.15', 'nday_vol_tnrt': '0.15', 'avrg_tr_pbmn': '894306659800', 'tr_pbmn_tnrt': '0.14', 'nday_tr_pbmn_tnrt': '0.14', 'acml_tr_pbmn': '894306659800'}, {'hts_kor_isnm': '와이투솔루션', 'mksc_shrn_iscd': '011690', 'data_rank': '25', 'stck_prpr': '4650', 'prdy_vrss_sign': '2', 'prdy_vrss': '600', 'prdy_ctrt': '14.81', 'acml_vol': '8510234', 'prdy_vol': '5881618', 'lstn_stcn': '36574394', 'avrg_vol': '8510234', 'n_befr_clpr_vrss_prpr_rate': '14.81', 'vol_inrt': '144.69', 'vol_tnrt': '23.27', 'nday_vol_tnrt': '23.27', 'avrg_tr_pbmn': '38549880287', 'tr_pbmn_tnrt': '22.67', 'nday_tr_pbmn_tnrt': '22.67', 'acml_tr_pbmn': '38549880287'}, {'hts_kor_isnm': '카티스', 'mksc_shrn_iscd': '140430', 'data_rank': '26', 'stck_prpr': '1759', 'prdy_vrss_sign': '5', 'prdy_vrss': '-26', 'prdy_ctrt': '-1.46', 'acml_vol': '8258954', 'prdy_vol': '4226940', 'lstn_stcn': '19102219', 'avrg_vol': '8258954', 'n_befr_clpr_vrss_prpr_rate': '-1.46', 'vol_inrt': '195.39', 'vol_tnrt': '43.24', 'nday_vol_tnrt': '43.24', 'avrg_tr_pbmn': '15798047235', 'tr_pbmn_tnrt': '47.02', 'nday_tr_pbmn_tnrt': '47.02', 'acml_tr_pbmn': '15798047235'}, {'hts_kor_isnm': '와이제이링크', 'mksc_shrn_iscd': '209640', 'data_rank': '27', 'stck_prpr': '3375', 'prdy_vrss_sign': '2', 'prdy_vrss': '470', 'prdy_ctrt': '16.18', 'acml_vol': '7957363', 'prdy_vol': '2777805', 'lstn_stcn': '28443146', 'avrg_vol': '7957363', 'n_befr_clpr_vrss_prpr_rate': '16.18', 'vol_inrt': '286.46', 'vol_tnrt': '27.98', 'nday_vol_tnrt': '27.98', 'avrg_tr_pbmn': '25716207160', 'tr_pbmn_tnrt': '26.79', 'nday_tr_pbmn_tnrt': '26.79', 'acml_tr_pbmn': '25716207160'}, {'hts_kor_isnm': '우림피티에스', 'mksc_shrn_iscd': '101170', 'data_rank': '28', 'stck_prpr': '10140', 'prdy_vrss_sign': '2', 'prdy_vrss': '350', 'prdy_ctrt': '3.58', 'acml_vol': '7292001', 'prdy_vol': '1728583', 'lstn_stcn': '13500000', 'avrg_vol': '7292001', 'n_befr_clpr_vrss_prpr_rate': '3.58', 'vol_inrt': '421.85', 'vol_tnrt': '54.01', 'nday_vol_tnrt': '54.01', 'avrg_tr_pbmn': '77930842625', 'tr_pbmn_tnrt': '56.93', 'nday_tr_pbmn_tnrt': '56.93', 'acml_tr_pbmn': '77930842625'}, {'hts_kor_isnm': 'KODEX 코스닥150', 'mksc_shrn_iscd': '229200', 'data_rank': '29', 'stck_prpr': '15975', 'prdy_vrss_sign': '5', 'prdy_vrss': '-155', 'prdy_ctrt': '-0.96', 'acml_vol': '7211264', 'prdy_vol': '10583727', 'lstn_stcn': '84900000', 'avrg_vol': '7211264', 'n_befr_clpr_vrss_prpr_rate': '-0.96', 'vol_inrt': '68.14', 'vol_tnrt': '8.49', 'nday_vol_tnrt': '8.49', 'avrg_tr_pbmn': '115680479821', 'tr_pbmn_tnrt': '8.53', 'nday_tr_pbmn_tnrt': '8.53', 'acml_tr_pbmn': '115680479821'}, {'hts_kor_isnm': '뉴인텍', 'mksc_shrn_iscd': '012340', 'data_rank': '30', 'stck_prpr': '477', 'prdy_vrss_sign': '5', 'prdy_vrss': '-45', 'prdy_ctrt': '-8.62', 'acml_vol': '7105385', 'prdy_vol': '18124216', 'lstn_stcn': '53005062', 'avrg_vol': '7105385', 'n_befr_clpr_vrss_prpr_rate': '-8.62', 'vol_inrt': '39.20', 'vol_tnrt': '13.41', 'nday_vol_tnrt': '13.41', 'avrg_tr_pbmn': '3724208037', 'tr_pbmn_tnrt': '14.73', 'nday_tr_pbmn_tnrt': '14.73', 'acml_tr_pbmn': '3724208037'}], 'rt_cd': '0', 'msg_cd': 'MCA00000', 'msg1': '정상처리 되었습니다.'}
+2025-12-04 14:12:07,808 - ai_trading.screener - INFO - 거래량 순위 종목: 30개
+2025-12-04 14:12:07,808 - ai_trading.screener - INFO - 추가 종목 확보를 위한 API 호출 시작 (현재: 30개)
+127.0.0.1 - - [04/Dec/2025 14:12:09] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:12:09,809 - ai_trading.screener - INFO - 상승률 순위 조회 중...
+2025-12-04 14:12:10,377 - ai_trading.screener - INFO - 상승률 순위에서 0개 추가, 총 30개
+127.0.0.1 - - [04/Dec/2025 14:12:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:11] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:12:12,378 - ai_trading.screener - INFO - 시가총액 순위 조회 중...
+2025-12-04 14:12:12,870 - ai_trading.screener - INFO - 시가총액 순위에서 0개 추가, 총 30개
+127.0.0.1 - - [04/Dec/2025 14:12:13] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:12:14,871 - ai_trading.screener - INFO - 하락률 순위 조회 중...
+2025-12-04 14:12:15,246 - ai_trading.screener - INFO - 하락률 순위에서 29개 추가, 총 59개
+127.0.0.1 - - [04/Dec/2025 14:12:15] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:16] "GET /api/trades HTTP/1.1" 200 -
+2025-12-04 14:12:17,247 - ai_trading.screener - INFO - 변동률 순위 조회 중...
+127.0.0.1 - - [04/Dec/2025 14:12:17] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:12:17,551 - ai_trading.screener - INFO - 변동률 순위에서 0개 추가, 총 59개
+2025-12-04 14:12:17,551 - ai_trading.screener - INFO - 최종 수집된 종목: 59개
+2025-12-04 14:12:17,560 - ai_trading.screener - INFO - Screened 30 stocks
+2025-12-04 14:12:17,560 - ai_trading - INFO - Screened 30 Korean stocks
+2025-12-04 14:12:17,560 - ai_trading - INFO - === Updating Portfolio Status ===
+2025-12-04 14:12:17,560 - ai_trading - INFO - Fetching cash balance...
+2025-12-04 14:12:18,092 - ai_trading - INFO - Cash balance: 10,000,000 KRW
+2025-12-04 14:12:18,092 - ai_trading - INFO - Fetching holdings...
+127.0.0.1 - - [04/Dec/2025 14:12:19] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:21] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:21] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 4.47초
+2025-12-04 14:12:22,847 - ai_trading - INFO - Found 0 holdings
+2025-12-04 14:12:22,847 - ai_trading - INFO - Total portfolio value: 10,000,000 KRW
+2025-12-04 14:12:22,847 - ai_trading - INFO -   - Cash: 10,000,000 KRW
+2025-12-04 14:12:22,847 - ai_trading - INFO -   - Stocks: 0 KRW
+127.0.0.1 - - [04/Dec/2025 14:12:22] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:23] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:25] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:26] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:27] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:29] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:31] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:35] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:36] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:37] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:39] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:41] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:45] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:46] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:47] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:51] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:51] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:53] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:56] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:57] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:12:59] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:01] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:03] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:06] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:07] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:09] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:11] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:13] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:15] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:16] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:17] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:19] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:21] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:21] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:23] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:25] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:26] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:27] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:29] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:31] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:35] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:36] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:37] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:39] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:41] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:45] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:46] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:47] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:51] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:51] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:53] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:56] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:57] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:13:59] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:01] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:03] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:06] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:07] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:09] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:11] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:13] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:15] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:16] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:17] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:19] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:21] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:21] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:23] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:25] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:26] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:27] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:29] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:31] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:35] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:36] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:37] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:39] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:41] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:43] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:45] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:46] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:47] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:49] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:51] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:51] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:51] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:51] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:53] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:55] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:56] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:57] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:14:59] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:01] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:01] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:01] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:03] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:05] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:06] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:07] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:09] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:11] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:11] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:11] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:13] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:15] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:16] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:17] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:19] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:21] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:21] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:21] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:21] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:23] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:25] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:26] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:27] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:29] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:31] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:31] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:31] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:33] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:35] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:36] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:37] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:39] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:41] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:41] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:41] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /socket.io/?EIO=4&transport=websocket&sid=GVXjt3WgmT_cd5cJAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /socket.io/?EIO=4&transport=polling&t=PhdoQ5R HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "POST /socket.io/?EIO=4&transport=polling&t=PhdoQ5b&sid=WDWM1ZnA5bG3jc1YAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /socket.io/?EIO=4&transport=polling&t=PhdoQ5c&sid=WDWM1ZnA5bG3jc1YAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /socket.io/?EIO=4&transport=polling&t=PhdoQ5q&sid=WDWM1ZnA5bG3jc1YAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /socket.io/?EIO=4&transport=websocket&sid=WDWM1ZnA5bG3jc1YAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /socket.io/?EIO=4&transport=polling&t=PhdoQZf HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /socket.io/?EIO=4&transport=polling&t=PhdoQZp&sid=2f1LrGWYVrVRthzVAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "POST /socket.io/?EIO=4&transport=polling&t=PhdoQZo&sid=2f1LrGWYVrVRthzVAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:46] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:48] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:49] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:50] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:52] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:54] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:54] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:54] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:56] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:58] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:15:59] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:00] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:02] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:04] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:04] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:04] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:06] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:08] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:09] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:10] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:12] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:14] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:14] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:14] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:14] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:16] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:18] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:19] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:20] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:22] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:24] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:24] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:24] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:26] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:28] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:29] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:30] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:32] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:34] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:34] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:34] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:36] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:38] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:39] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:40] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:42] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:44] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:44] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:44] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:44] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:46] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:48] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:49] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:50] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:52] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:54] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:54] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:54] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:56] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:58] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:16:59] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:00] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:02] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:04] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:04] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:04] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:06] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:08] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:09] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:10] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:12] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:14] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:14] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:14] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:14] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:16] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:18] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:19] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:20] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:22] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:24] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:24] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:24] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:26] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:28] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:29] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:30] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:32] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:34] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:34] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:34] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 4.25초
+⏰ Rate limit 대기: 4.42초
+⏰ Rate limit 대기: 1.36초
+⏰ Rate limit 대기: 3.50초
+⏰ Rate limit 대기: 4.32초
+⏰ Rate limit 대기: 4.20초
+⏰ Rate limit 대기: 4.03초
+⏰ Rate limit 대기: 4.34초
+⏰ Rate limit 대기: 4.10초
+⏰ Rate limit 대기: 4.22초
+⏰ Rate limit 대기: 4.43초
+⏰ Rate limit 대기: 4.32초
+⏰ Rate limit 대기: 4.26초
+⏰ Rate limit 대기: 4.39초
+⏰ Rate limit 대기: 4.18초
+⏰ Rate limit 대기: 4.17초
+⏰ Rate limit 대기: 4.30초
+⏰ Rate limit 대기: 4.37초
+⏰ Rate limit 대기: 3.94초
+⏰ Rate limit 대기: 3.98초
+⏰ Rate limit 대기: 4.05초
+⏰ Rate limit 대기: 4.16초
+⏰ Rate limit 대기: 4.20초
+⏰ Rate limit 대기: 4.39초
+⏰ Rate limit 대기: 4.30초
+⏰ Rate limit 대기: 4.42초
+⏰ Rate limit 대기: 4.42초
+⏰ Rate limit 대기: 4.40초
+⏰ Rate limit 대기: 4.41초
+⏰ Rate limit 대기: 4.21초
+⏰ Rate limit 대기: 1.29초
+⏰ Rate limit 대기: 3.40초
+⏰ Rate limit 대기: 4.36초
+⏰ Rate limit 대기: 0.77초
+⏰ Rate limit 대기: 3.89초
+⏰ Rate limit 대기: 4.40초
+⏰ Rate limit 대기: 4.44초
+⏰ Rate limit 대기: 0.22초
+⏰ Rate limit 대기: 1.82초
+⏰ Rate limit 대기: 4.43초
+Client disconnected
+⏰ Rate limit 대기: 4.21초
+Client disconnected
+⏰ Rate limit 대기: 4.22초
+⏰ Rate limit 대기: 2.57초
+⏰ Rate limit 대기: 4.27초
+⏰ Rate limit 대기: 4.23초
+⏰ Rate limit 대기: 3.26초
+⏰ Rate limit 대기: 4.27초
+⚠️ 500 에러 발생 (초당 거래건수를 초과하였습니다.), 1초 후 재시도 (1/3)
+⏰ Rate limit 대기: 3.76초
+⏰ Rate limit 대기: 4.49초
+⏰ Rate limit 대기: 4.33초
+⏰ Rate limit 대기: 4.38초
+⏰ Rate limit 대기: 4.34초
+⏰ Rate limit 대기: 3.40초
+⏰ Rate limit 대기: 4.42초
+⏰ Rate limit 대기: 4.41초
+⏰ Rate limit 대기: 4.34초
+⏰ Rate limit 대기: 4.43초
+⏰ Rate limit 대기: 4.47초
+⏰ Rate limit 대기: 3.70초
+2025-12-04 14:17:34,587 - ai_trading - INFO - Generated 0 Korean trading signals
+2025-12-04 14:17:34,587 - ai_trading - INFO - After risk filtering: 0 signals
+2025-12-04 14:17:34,588 - ai_trading - INFO - Executed 0 Korean trades
+2025-12-04 14:17:34,588 - ai_trading - INFO - Performance: Value=10,000,000, Return=0.00%
+WebSocket emit error: Object of type datetime is not JSON serializable
+2025-12-04 14:17:34,588 - ai_trading - INFO - 
+[Next Cycle] Waiting 5 minutes for next trading cycle...
+2025-12-04 14:17:34,588 - ai_trading - INFO - Next run at: 14:16:57
+2025-12-04 14:17:34,588 - ai_trading - INFO - 
+🧠 [Training During Wait] Starting background learning...
+2025-12-04 14:17:34,589 - ai_trading - INFO - ⏰ Remaining wait time: 300s - Starting quick training...
+2025-12-04 14:17:34,589 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 14:17:34,589 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 14:17:35,898 - ai_trading.training - INFO - ⚠️ No suitable stocks for quick training
+2025-12-04 14:17:35,898 - ai_trading - INFO - ⚠️ Quick training failed, trying fallback...
+2025-12-04 14:17:35,898 - ai_trading.training - INFO - 
+============================================================
+2025-12-04 14:17:35,898 - ai_trading.training - INFO - 🎯 SINGLE STOCK TRAINING MODE
+2025-12-04 14:17:35,898 - ai_trading.training - INFO - ============================================================
+127.0.0.1 - - [04/Dec/2025 14:17:36] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:38] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:17:38,899 - ai_trading.training - INFO - Fetching top volume stocks...
+127.0.0.1 - - [04/Dec/2025 14:17:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:39] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:40] "GET /api/logs HTTP/1.1" 200 -
+⏰ Rate limit 대기: 1.69초
+2025-12-04 14:17:41,108 - ai_trading.training - INFO - 📊 Total stocks fetched: 30
+2025-12-04 14:17:41,108 - ai_trading.training - INFO - 📚 Already trained: 99 - 252710, 000157, 004960, 000215, 011090
+2025-12-04 14:17:41,108 - ai_trading.training - INFO - ❌ Already failed: 0 - 
+2025-12-04 14:17:41,108 - ai_trading.training - INFO - 📋 After excluding trained: 0 stocks remain
+2025-12-04 14:17:41,108 - ai_trading.training - INFO - 🔄 All top stocks trained today. Resetting for new round...
+2025-12-04 14:17:41,108 - ai_trading.training - INFO - 
+📊 Training on: KODEX 200선물인버스2X (252670)
+2025-12-04 14:17:41,108 - ai_trading.training - INFO - 📋 Today's progress: 1 trained, 0 failed
+127.0.0.1 - - [04/Dec/2025 14:17:42] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:44] "GET /api/performance HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:44] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:44] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:44] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:17:46,109 - ai_trading.training - INFO - Collecting historical price data...
+127.0.0.1 - - [04/Dec/2025 14:17:46] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:17:46,614 - ai_trading.training - INFO - ✅ Data collected: 30 days
+2025-12-04 14:17:46,614 - ai_trading.training - INFO - 
+🧠 DQN training (10 episodes)...
+2025-12-04 14:17:46,615 - ai_trading.training - INFO -   Episode 1: Loss = 0.0000
+2025-12-04 14:17:46,615 - ai_trading.training - INFO -   Episode 10: Loss = 0.0000
+2025-12-04 14:17:46,615 - ai_trading.training - INFO - 
+✅ Training complete! Average loss: 0.0000
+2025-12-04 14:17:46,616 - ai_trading.training - INFO - 
+📊 Quick backtest results:
+2025-12-04 14:17:46,616 - ai_trading.training - INFO -   - Trades: 1
+2025-12-04 14:17:46,616 - ai_trading.training - INFO -   - Win rate: 0.0%
+2025-12-04 14:17:46,626 - ai_trading.training - INFO - 💾 Saved training history: 1 stocks trained today
+2025-12-04 14:17:46,626 - ai_trading - INFO - ✅ Fallback training completed!
+127.0.0.1 - - [04/Dec/2025 14:17:48] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:49] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:50] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:52] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:54] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:54] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:54] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:56] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:17:56,627 - ai_trading - INFO - ⏰ Remaining wait time: 278s - Starting quick training...
+2025-12-04 14:17:56,627 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 14:17:56,627 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+2025-12-04 14:17:58,081 - ai_trading.training - INFO - ⚡ Quick learning: KODEX 인버스 (114800)
+127.0.0.1 - - [04/Dec/2025 14:17:58] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:17:59,011 - ai_trading.training - INFO - 💾 Saved training history: 2 stocks trained today
+2025-12-04 14:17:59,011 - ai_trading.training - INFO - ✅ Quick training completed in 2.4s
+2025-12-04 14:17:59,011 - ai_trading.training - INFO -    Stock: KODEX 인버스
+2025-12-04 14:17:59,011 - ai_trading.training - INFO -    Estimated win rate: 50.1%
+2025-12-04 14:17:59,011 - ai_trading - INFO - ✅ Quick training completed!
+2025-12-04 14:17:59,011 - ai_trading - INFO -    Stock: KODEX 인버스
+2025-12-04 14:17:59,011 - ai_trading - INFO -    Win rate: 50.1%
+127.0.0.1 - - [04/Dec/2025 14:17:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:17:59] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:00] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:02] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:04] "GET /api/portfolio HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:04] "GET /api/trades HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:04] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:06] "GET /api/logs HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:08] "GET /api/logs HTTP/1.1" 200 -
+2025-12-04 14:18:09,012 - ai_trading - INFO - ⏰ Remaining wait time: 266s - Starting quick training...
+2025-12-04 14:18:09,012 - ai_trading.training - INFO - 🚀 Quick Training Mode (Max: 60s)
+2025-12-04 14:18:09,012 - ai_trading.training - INFO - ⚡ Fetching minimal data for quick training...
+127.0.0.1 - - [04/Dec/2025 14:18:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Dec/2025 14:18:09] "GET /api/trades HTTP/1.1" 200 -

@@ -45,7 +45,7 @@ class TechnicalIndicators:
         
         return {
             'macd': macd_line,
-            'signal': signal_line,
+            '신호': signal_line,
             'histogram': histogram
         }
     
@@ -140,7 +140,7 @@ class TechnicalIndicators:
         # MACD
         macd_data = TechnicalIndicators.calculate_macd(df['close'])
         result['MACD'] = macd_data['macd']
-        result['MACD_signal'] = macd_data['signal']
+        result['MACD_signal'] = macd_data['신호']
         result['MACD_hist'] = macd_data['histogram']
         
         # 볼린저 밴드

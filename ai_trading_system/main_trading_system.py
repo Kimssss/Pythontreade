@@ -51,7 +51,7 @@ class AITradingSystem:
             mode: 'demo' (모의투자) 또는 'real' (실전투자)
         """
         self.mode = mode
-        logger.info(f"Initializing AI Trading System in {mode} mode")
+        logger.info(f"AI 트레이딩 시스템 초기화 중 - {mode} 모드")
         
         # KIS API 초기화
         config = KIS_CONFIG[mode]
@@ -86,7 +86,7 @@ class AITradingSystem:
         self.total_value = 0
         
         # API를 통해서만 데이터 가져오기 - 더미 데이터 사용 금지
-        logger.info(f"Mode: {mode} - All data will be fetched from API only")
+        logger.info(f"모드: {mode} - 모든 데이터는 API에서만 가져옵니다")
         
         # 거래 히스토리
         self.trade_history = []
@@ -95,24 +95,34 @@ class AITradingSystem:
         # 실행 상태
         self.is_running = False
         
-        logger.info("AI Trading System initialized successfully")
+        logger.info("AI 트레이딩 시스템 초기화 완료")
     
     async def initialize(self):
         """시스템 초기화 및 토큰 발급"""
-        logger.info("=== System Initialization ===")
-        logger.info(f"Trading mode: {self.mode}")
-        logger.info("Getting access token...")
+        logger.info("=== 시스템 초기화 ===")
+        logger.info(f"거래 모드: {self.mode}")
+        logger.info("액세스 토큰 발급 중...")
         
-        # 토큰 발급 시도
-        token_result = self.kis_api.get_access_token()
-        if not token_result:
-            logger.error("Failed to get access token - check API credentials")
+        # 토큰 발급 시도 (캐시 우선 사용)
+        try:
+            # 이미 토큰이 있는지 확인
+            if hasattr(self.kis_api, 'access_token') and self.kis_api.access_token:
+                logger.info("기존 캐시된 토큰 사용")
+                token_result = True
+            else:
+                token_result = self.kis_api.get_access_token()
+            
+            if not token_result:
+                logger.error("액세스 토큰 발급 실패 - API 인증 정보를 확인하세요")
+                raise Exception("Failed to get access token")
+        except Exception as e:
+            logger.error(f"토큰 발급 오류: {e}")
             raise Exception("Failed to get access token")
         
-        logger.info("Access token acquired successfully")
+        logger.info("액세스 토큰 발급 성공")
         
         # 계좌 정보 조회
-        logger.info("Fetching initial account information...")
+        logger.info("초기 계좌 정보 조회 중...")
         await self.update_portfolio_status()
         
         logger.info("=== Initialization Complete ===")
@@ -123,12 +133,12 @@ class AITradingSystem:
         logger.info("=== Updating Portfolio Status ===")
         try:
             # 현금 잔고 조회
-            logger.info("Fetching cash balance...")
+            logger.info("가져오는 중 cash balance...")
             self.cash_balance = self.kis_api.get_available_cash()
             logger.info(f"Cash balance: {self.cash_balance:,.0f} KRW")
             
             # 보유 종목 조회
-            logger.info("Fetching holdings...")
+            logger.info("가져오는 중 holdings...")
             holdings = self.kis_api.get_holding_stocks()
             logger.info(f"Found {len(holdings)} holdings")
             
@@ -153,7 +163,7 @@ class AITradingSystem:
             self.total_value = portfolio_value
             # 잔고가 0이면 API에서 반환한 실제 값
             if self.total_value == 0:
-                logger.warning("Portfolio value is 0. This is the actual balance from API.")
+                logger.warning("포트폴리오 가치 is 0. This is the actual balance from API.")
             
             logger.info(f"Total portfolio value: {self.total_value:,.0f} KRW")
             logger.info(f"  - Cash: {self.cash_balance:,.0f} KRW")
@@ -255,14 +265,11 @@ class AITradingSystem:
         
         # 각 종목별 신호 생성 및 거래 결정
         signals = []
-        for stock in candidates[:10]:  # 상위 10개 종목만 분석
+        for stock in candidates[:100]:  # 상위 100개 종목 분석
             signal = await self.analyze_stock_and_generate_signal(stock)
             if signal and signal['confidence'] >= TRADING_CONFIG['min_confidence']:
                 signals.append(signal)
-            # 데모 모드에서 테스트를 위해 신뢰도 낮아도 1개는 포함
-            elif self.mode == 'demo' and TRADING_CONFIG.get('force_trade_test') and len(signals) == 0 and signal:
-                logger.info(f"Demo mode: Including low confidence signal for testing - {stock['name']} (confidence: {signal['confidence']:.2%})")
-                signals.append(signal)
+            # 신뢰도 기준 미달시 제외
         
         logger.info(f"Generated {len(signals)} Korean trading signals")
         
@@ -274,10 +281,7 @@ class AITradingSystem:
         executed_trades = await self.execute_trades(filtered_signals)
         logger.info(f"Executed {len(executed_trades)} Korean trades")
         
-        # 데모 모드: 거래가 없으면 테스트 거래 실행
-        if self.mode == 'demo' and len(executed_trades) == 0 and TRADING_CONFIG.get('force_trade_test') and len(candidates) > 0:
-            logger.info("Demo mode: No trades executed, forcing a test trade...")
-            await self._execute_demo_test_trade(candidates[0])
+        # 거래 완료
     
     async def _trade_us_stocks(self, market_condition: str):
         """미국 주식 거래"""
@@ -295,15 +299,14 @@ class AITradingSystem:
             if overseas_balance:
                 logger.info(f"US cash balance: ${overseas_balance.get('foreign_currency_amount', 0):,.2f}")
             else:
-                logger.warning("Failed to get overseas balance")
+                logger.warning("가져오기 실패 overseas balance")
                 overseas_balance = {'foreign_currency_amount': 0}
             
             # 신호 생성 및 거래
-            for stock in us_candidates[:5]:  # 상위 5개
+            for stock in us_candidates[:100]:  # 상위 100개
                 try:
-                    # 매수 신호인 경우 (데모 모드에서는 기준 완화)
-                    score_threshold = 0.5 if self.mode == 'demo' else 0.7
-                    if stock['score'] > score_threshold:  # 점수 기준
+                    # 매수 신호인 경우 (보수적 기준 적용)
+                    if stock['score'] > 0.65:  # 점수 기준 - 실전용 적정 설정
                         # 적정 수량 계산 (포트폴리오의 10% 이내)
                         available_cash = overseas_balance.get('foreign_currency_amount', 0) if overseas_balance else 0
                         position_size = min(available_cash * 0.1, 10000)  # 최대 $10,000
@@ -486,16 +489,11 @@ class AITradingSystem:
                 'value': position_value
             }
             
-            # 데모 모드에서는 리스크 체크 완화
-            if self.mode == 'demo' and TRADING_CONFIG.get('force_trade_test'):
-                approved = True
-                reason = "Demo mode - Risk check bypassed"
-            else:
-                # 리스크 한도 체크
-                approved, reason = self.risk_manager.check_risk_limits(
-                    {'portfolio': self.portfolio, 'returns': portfolio_returns},
-                    mock_position
-                )
+            # 리스크 한도 체크 (모든 모드에서 동일 적용)
+            approved, reason = self.risk_manager.check_risk_limits(
+                {'portfolio': self.portfolio, 'returns': portfolio_returns},
+                mock_position
+            )
             
             if approved:
                 signal['position_size'] = self.risk_manager.calculate_position_size(
@@ -543,7 +541,7 @@ class AITradingSystem:
                             'action': 'BUY',
                             'quantity': quantity,
                             'price': signal['current_price'],
-                            'signal': signal,
+                            '신호': signal,
                             'order_no': result.get('output', {}).get('odno')
                         }
                         
@@ -574,7 +572,7 @@ class AITradingSystem:
                                 'action': 'SELL',
                                 'quantity': holding['quantity'],
                                 'price': signal['current_price'],
-                                'signal': signal,
+                                '신호': signal,
                                 'order_no': result.get('output', {}).get('odno')
                             }
                             
@@ -616,7 +614,7 @@ class AITradingSystem:
     
     async def rebalance_portfolio(self):
         """포트폴리오 리밸런싱"""
-        logger.info("Starting portfolio rebalancing...")
+        logger.info("시작 portfolio rebalancing...")
         
         try:
             # 현재 보유 종목 재평가
@@ -680,7 +678,7 @@ class AITradingSystem:
     
     async def run(self):
         """메인 실행 루프"""
-        logger.info("Starting AI Trading System...")
+        logger.info("시작 AI Trading System...")
         
         try:
             # 초기화
@@ -894,7 +892,7 @@ class AITradingSystem:
                                     logger.info("✅ Training completed!")
                                     logger.info(f"   Stock: {training_result['stock']}")
                                     logger.info(f"   Win rate: {training_result['win_rate']:.1%}")
-                                elif training_result and training_result.get('error') == 'no_stocks_available':
+                                elif training_result and training_result.get('오류') == 'no_stocks_available':
                                     # 더 이상 시도할 종목이 없음
                                     logger.warning("⚠️ No more stocks available to train - ending session")
                                     break

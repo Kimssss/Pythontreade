@@ -388,8 +388,13 @@ class KisAPIOverseas:
         }
         
         try:
-            response = self.api.session.get(url, headers=headers, params=params, timeout=10)
-            return response.json()
+            response = self.api._make_api_request_with_retry(
+                'GET', url, headers=headers, params=params,
+                endpoint_name="overseas_holdings"
+            )
+            if response:
+                return response.json()
+            return None
         except Exception as e:
             api_logger.error(f"해외 보유종목 조회 실패: {e}")
             return None
@@ -426,7 +431,12 @@ class KisAPIOverseas:
         }
         
         try:
-            response = self.api.session.get(url, headers=headers, params=params, timeout=10)
+            response = self.api._make_api_request_with_retry(
+                'GET', url, headers=headers, params=params,
+                endpoint_name="overseas_balance_check"
+            )
+            if not response:
+                return None
             result = response.json()
             if result.get('rt_cd') == '0':
                 return result

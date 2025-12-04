@@ -105,9 +105,14 @@ def main_cli():
         print("   - 실제 수익/손실 발생")
         print("   - 신중한 선택 필요")
         print("")
+        print("3️⃣  백테스팅 (Backtest)")
+        print("   📊 과거 데이터로 전략 검증")
+        print("   - 가상 데이터로 성능 테스트")
+        print("   - 리스크 없는 전략 평가")
+        print("")
         
         while True:
-            choice = input("선택하세요 (1 또는 2): ").strip()
+            choice = input("선택하세요 (1, 2 또는 3): ").strip()
             if choice == '1':
                 args.mode = 'demo'
                 print("✅ 모의투자 모드 선택됨")
@@ -116,34 +121,48 @@ def main_cli():
                 args.mode = 'real'
                 print("⚠️  실전투자 모드 선택됨")
                 break
-            else:
-                print("❌ 1 또는 2를 입력하세요")
-        
-        # UI 옵션 선택
-        print("\n📊 UI 옵션을 선택하세요:")
-        print("")
-        print("1️⃣  웹 대시보드 포함 (추천)")
-        print("   - 브라우저에서 실시간 모니터링")
-        print("   - 차트와 거래 내역 확인")
-        print("   - http://localhost:8080")
-        print("")
-        print("2️⃣  콘솔만 사용")
-        print("   - 터미널에서만 로그 확인")
-        print("   - 가벼운 실행")
-        print("")
-        
-        while True:
-            ui_choice = input("선택하세요 (1 또는 2): ").strip()
-            if ui_choice == '1':
-                args.no_ui = False
-                print("✅ 웹 대시보드 활성화")
-                break
-            elif ui_choice == '2':
-                args.no_ui = True
-                print("✅ 콘솔 모드 선택됨")
+            elif choice == '3':
+                args.mode = 'backtest'
+                print("📊 백테스팅 모드 선택됨")
                 break
             else:
-                print("❌ 1 또는 2를 입력하세요")
+                print("❌ 1, 2 또는 3을 입력하세요")
+        
+        # 백테스팅이 아닌 경우만 UI 옵션 선택
+        if args.mode != 'backtest':
+            # UI 옵션 선택
+            print("\n📊 UI 옵션을 선택하세요:")
+            print("")
+            print("1️⃣  웹 대시보드 포함 (추천)")
+            print("   - 브라우저에서 실시간 모니터링")
+            print("   - 차트와 거래 내역 확인")
+            print("   - http://localhost:8080")
+            print("")
+            print("2️⃣  콘솔만 사용")
+            print("   - 터미널에서만 로그 확인")
+            print("   - 가벼운 실행")
+            print("")
+            
+            while True:
+                ui_choice = input("선택하세요 (1 또는 2): ").strip()
+                if ui_choice == '1':
+                    args.no_ui = False
+                    print("✅ 웹 대시보드 활성화")
+                    break
+                elif ui_choice == '2':
+                    args.no_ui = True
+                    print("✅ 콘솔 모드 선택됨")
+                    break
+                else:
+                    print("❌ 1 또는 2를 입력하세요")
+        else:
+            # 백테스팅은 콘솔만 사용
+            args.no_ui = True
+            print("✅ 백테스팅 모드는 콘솔로 실행됩니다")
+    else:
+        # 명령행 인자로 모드 지정시 기본값 설정
+        if args.no_ui is None:
+            args.no_ui = False  # 기본적으로 UI 활성화
     
     print("=" * 60)
     print("AI TRADING SYSTEM")
@@ -167,7 +186,14 @@ def main_cli():
         print("\nConfiguration check complete")
         return
     
-    # 경고 메시지
+    # 백테스팅 모드 처리
+    if args.mode == 'backtest':
+        print("\n📊 백테스팅 모드로 실행합니다...")
+        print("과거 데이터를 사용한 전략 검증을 시작합니다.")
+        run_backtest_mode()
+        return
+    
+    # 실전 거래 경고 메시지
     if args.mode == 'real':
         print("\n⚠️  WARNING: Running in REAL trading mode!")
         print("This will execute actual trades with real money.")
@@ -211,6 +237,102 @@ def main_cli():
             traceback.print_exc()
             sys.exit(1)
 
+
+def run_backtest_mode():
+    """백테스팅 모드 실행"""
+    print("\n📊 AI 트레이딩 백테스팅 설정")
+    print("=" * 50)
+    
+    # 기본 설정값
+    from datetime import datetime, timedelta
+    default_end = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    default_start = default_end - timedelta(days=730)  # 2년 (365 * 2 = 730일)
+    default_capital = 10000000  # 1천만원
+    
+    print(f"📅 기간: {default_start.strftime('%Y-%m-%d')} ~ {default_end.strftime('%Y-%m-%d')} (2년)")
+    print(f"💰 초기자본: {default_capital:,}원")
+    print(f"📈 대상: 국내+해외 주식")
+    print("")
+    
+    # 사용자 확인
+    while True:
+        choice = input("기본 설정으로 시작하시겠습니까? (y/n): ").strip().lower()
+        if choice in ['y', 'yes', '네', '']:
+            # 기본값으로 실행
+            start_date = default_start.strftime('%Y-%m-%d')
+            end_date = default_end.strftime('%Y-%m-%d')
+            capital = default_capital
+            market = "both"
+            break
+        elif choice in ['n', 'no', '아니요']:
+            # 사용자 정의 설정
+            print("\n⚙️  사용자 정의 설정")
+            
+            # 기간 설정
+            print("📅 백테스트 기간 설정:")
+            start_input = input(f"시작일 (YYYY-MM-DD, 기본값: {default_start.strftime('%Y-%m-%d')}): ").strip()
+            start_date = start_input if start_input else default_start.strftime('%Y-%m-%d')
+            
+            end_input = input(f"종료일 (YYYY-MM-DD, 기본값: {default_end.strftime('%Y-%m-%d')}): ").strip()
+            end_date = end_input if end_input else default_end.strftime('%Y-%m-%d')
+            
+            # 자본 설정
+            capital_input = input(f"초기자본 (원, 기본값: {default_capital:,}): ").strip()
+            try:
+                capital = int(capital_input.replace(',', '')) if capital_input else default_capital
+            except:
+                capital = default_capital
+                
+            # 시장 설정
+            print("\n📈 백테스트 대상 선택:")
+            print("1️⃣  국내만")
+            print("2️⃣  해외만") 
+            print("3️⃣  국내+해외 (추천)")
+            
+            market_choice = input("선택 (1-3, 기본값: 3): ").strip()
+            if market_choice == '1':
+                market = "domestic"
+            elif market_choice == '2':
+                market = "overseas"
+            else:
+                market = "both"
+            break
+        else:
+            print("❌ y 또는 n을 입력하세요")
+    
+    print(f"\n🚀 백테스트 시작!")
+    print(f"📅 기간: {start_date} ~ {end_date}")
+    print(f"💰 자본: {capital:,}원")
+    print(f"📈 대상: {market}")
+    print("=" * 50)
+    
+    # 빠른 백테스트 실행
+    print(f"\n⚡ 빠른 시뮬레이션 모드로 실행합니다...")
+    print("(실제 API 호출 없이 시뮬레이션 데이터 사용)")
+    
+    try:
+        from datetime import datetime
+        start_dt = datetime.strptime(start_date, '%Y-%m-%d')
+        end_dt = datetime.strptime(end_date, '%Y-%m-%d')
+        
+        # 빠른 백테스트 실행
+        import subprocess
+        result = subprocess.run(
+            ["python", "fast_backtest.py", start_dt.strftime('%Y-%m-%d'), end_dt.strftime('%Y-%m-%d'), str(capital)],
+            capture_output=True, 
+            text=True
+        )
+        
+        if result.returncode == 0:
+            print(result.stdout)
+        else:
+            print(f"❌ 오류 발생: {result.stderr}")
+            
+    except Exception as e:
+        print(f"❌ 백테스트 실행 중 오류: {e}")
+        print("\n수동 실행:")
+        print("python fast_backtest.py")
+    
 
 def run_with_ui(mode):
     """UI와 함께 실행"""
