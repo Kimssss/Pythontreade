@@ -4,12 +4,7 @@
     "001520",
     "114800",
     "233740",
-    "462330",
-    "011090",
-    "013360",
-    "125490",
-    "251340",
-    "122630"
+    "462330"
   ],
   "history": [
     {
@@ -16741,7 +16736,49 @@
       "stock_code": "122630",
       "stock_name": "KODEX \ub808\ubc84\ub9ac\uc9c0",
       "timestamp": "2025-12-05T21:36:48.998527"
+    },
+    {
+      "date": "20251205",
+      "time": "22:09:27",
+      "stock_code": "252670",
+      "stock_name": "KODEX 200\uc120\ubb3c\uc778\ubc84\uc2a42X",
+      "timestamp": "2025-12-05T22:09:27.781358"
+    },
+    {
+      "date": "20251205",
+      "time": "22:09:38",
+      "stock_code": "0054V0",
+      "stock_name": "\uc5d4\uc5d0\uc774\uce58\uc2a4\ud32932\ud638",
+      "timestamp": "2025-12-05T22:09:38.017083"
+    },
+    {
+      "date": "20251205",
+      "time": "22:09:48",
+      "stock_code": "001520",
+      "stock_name": "\ub3d9\uc591",
+      "timestamp": "2025-12-05T22:09:48.245411"
+    },
+    {
+      "date": "20251205",
+      "time": "22:09:58",
+      "stock_code": "114800",
+      "stock_name": "KODEX \uc778\ubc84\uc2a4",
+      "timestamp": "2025-12-05T22:09:58.577373"
+    },
+    {
+      "date": "20251205",
+      "time": "22:10:08",
+      "stock_code": "233740",
+      "stock_name": "KODEX \ucf54\uc2a4\ub2e5150\ub808\ubc84\ub9ac\uc9c0",
+      "timestamp": "2025-12-05T22:10:08.876048"
+    },
+    {
+      "date": "20251205",
+      "time": "22:10:19",
+      "stock_code": "462330",
+      "stock_name": "KODEX 2\ucc28\uc804\uc9c0\uc0b0\uc5c5\ub808\ubc84\ub9ac\uc9c0",
+      "timestamp": "2025-12-05T22:10:19.118610"
     }
   ],
-  "last_updated": "2025-12-05T21:36:54.102985"
+  "last_updated": "2025-12-05T22:10:24.207849"
 }

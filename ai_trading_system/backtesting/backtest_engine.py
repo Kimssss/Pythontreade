@@ -204,12 +204,21 @@ class BacktestEngine:
     def _calculate_trade_profit(self, sell_trade: Dict) -> float:
         """거래별 손익 계산 (매도 거래 기준)"""
         symbol = sell_trade['symbol']
-        # 단순화: 평균 매수가와 매도가 차이로 계산
-        if symbol in self.portfolio:
-            avg_buy_price = self.portfolio[symbol]['avg_price']
-            profit = (sell_trade['effective_price'] - avg_buy_price) * sell_trade['quantity']
-            return profit
-        return 0
+        
+        # 매도 거래에 대해 해당 매수 거래 찾기
+        buy_trades = [t for t in self.trades if t['symbol'] == symbol and t['action'] == 'buy' 
+                     and t['timestamp'] <= sell_trade['timestamp']]
+        
+        if not buy_trades:
+            return 0
+            
+        # 가장 최근 매수 거래의 가격 사용 (LIFO)
+        latest_buy = max(buy_trades, key=lambda t: t['timestamp'])
+        avg_buy_price = latest_buy['effective_price']
+        
+        # 손익 계산 (수수료 포함)
+        profit = (sell_trade['effective_price'] - avg_buy_price) * sell_trade['quantity']
+        return profit
         
     def get_trading_summary(self) -> Dict:
         """거래 요약 정보"""

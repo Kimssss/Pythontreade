@@ -254,22 +254,40 @@ class WeekendTrainer:
     async def _train_dqn_agent(self, training_data):
         """DQN 에이전트 학습"""
         try:
+            from ..config.settings import MODEL_CONFIG
             dqn_agent = self.ensemble.dqn_agent
             total_loss = 0
             episodes = 0
             
+            # 설정에서 에피소드 수 가져오기
+            min_episodes = MODEL_CONFIG['dqn'].get('min_episodes', 100)
+            max_episodes = MODEL_CONFIG['dqn'].get('max_episodes', 500)
+            
             for stock_data in training_data:
                 df = stock_data['data']
+                stock_name = stock_data.get('name', 'Unknown')
+                
+                # 적응형 에피소드 수 (데이터 양에 따라 조정)
+                data_points = len(df)
+                episodes_per_stock = min(max_episodes, max(min_episodes, data_points * 2))
+                
+                logger.info(f"🧠 DQN training ({episodes_per_stock} episodes)...")
                 
                 # 에피소드별 학습
-                for i in range(5):  # 5 에피소드
+                for i in range(episodes_per_stock):
                     episode_loss = self._train_episode(dqn_agent, df)
                     total_loss += episode_loss
                     episodes += 1
                     
-                    if episodes % 10 == 0:
-                        logger.info(f"DQN Training: {episodes} episodes, "
-                                   f"Avg Loss: {total_loss/episodes:.4f}")
+                    # 진행 상황 로그 (더 자주)
+                    if i % 25 == 0 and i > 0:
+                        avg_loss = total_loss / episodes if episodes > 0 else 0
+                        logger.info(f"   Episode {i+1}: Loss = {episode_loss:.4f}, Avg = {avg_loss:.4f}")
+                        
+                    # 조기 종료 조건 (손실이 충분히 감소했을 때)
+                    if i > min_episodes and episode_loss < 0.001:
+                        logger.info(f"   Early stopping at episode {i+1} (loss converged)")
+                        break
             
             # 모델 저장
             model_path = Path('models') / f'dqn_model_{datetime.now().strftime("%Y%m%d_%H%M%S")}.pt'
@@ -287,19 +305,121 @@ class WeekendTrainer:
             return {'오류': str(e)}
     
     def _train_episode(self, agent, df):
-        """단일 에피소드 학습"""
-        # 간단한 학습 로직 (실제로는 더 복잡함)
-        total_loss = 0
-        batch_size = 32
+        """단일 에피소드 학습 - 실제 시장 시뮬레이션"""
+        import numpy as np
+        from ..config.settings import MODEL_CONFIG
         
-        # 메모리에서 배치 샘플링하여 학습
-        if len(agent.memory) > batch_size:
-            for _ in range(10):
+        if len(df) < 20:
+            return 0
+            
+        total_loss = 0
+        step_count = 0
+        
+        # 초기 자본과 포지션
+        cash = 10000000  # 1000만원
+        position = 0     # 보유 주식 수
+        entry_price = 0  # 매수 가격
+        
+        # 에피소드 시뮬레이션
+        for i in range(20, len(df) - 1):  # 20일 후부터 시작 (기술적 지표 계산 필요)
+            # 현재 상태 계산 (기술적 지표들)
+            current_prices = df.iloc[max(0, i-20):i+1]['close'].values
+            if len(current_prices) < 5:
+                continue
+                
+            # 단순 상태 생성 (실제로는 더 복잡한 지표 사용)
+            state = self._calculate_simple_state(current_prices)
+            
+            # 행동 선택
+            action = agent.act(state, training=True)
+            
+            # 행동 실행 및 리워드 계산
+            current_price = df.iloc[i]['close']
+            next_price = df.iloc[i+1]['close']
+            reward = 0
+            
+            # 0: Buy, 1: Sell, 2: Hold
+            if action == 0 and position == 0 and cash >= current_price:  # 매수
+                position = int(cash * 0.95 / current_price)  # 5% 현금 보유
+                cash -= position * current_price
+                entry_price = current_price
+                reward = -0.003  # 거래 비용
+                
+            elif action == 1 and position > 0:  # 매도
+                cash += position * current_price * 0.997  # 수수료 차감
+                profit_rate = (current_price - entry_price) / entry_price
+                reward = profit_rate * MODEL_CONFIG['dqn'].get('reward_scale', 100.0)
+                position = 0
+                entry_price = 0
+                
+            elif action == 2:  # 보유
+                if position > 0:
+                    # 보유 중 수익률로 작은 리워드
+                    price_change = (next_price - current_price) / current_price
+                    reward = price_change * 0.1
+                else:
+                    reward = 0
+            
+            # 다음 상태
+            next_state = self._calculate_simple_state(df.iloc[max(0, i-19):i+2]['close'].values)
+            
+            # 메모리에 경험 저장
+            done = (i == len(df) - 2)
+            agent.remember(state, action, reward, next_state, done)
+            
+            # 학습 실행
+            if len(agent.memory) > agent.batch_size:
                 loss = agent.train_step()
                 if loss is not None:
                     total_loss += loss
+                    step_count += 1
         
-        return total_loss / 10 if total_loss > 0 else 0
+        return total_loss / max(step_count, 1)
+    
+    def _calculate_simple_state(self, prices):
+        """단순 상태 계산 (기술적 지표 기반)"""
+        import numpy as np
+        
+        if len(prices) < 5:
+            return np.zeros(10)
+            
+        # 기본 지표들
+        sma_5 = np.mean(prices[-5:])
+        sma_20 = np.mean(prices[-min(20, len(prices)):])
+        current_price = prices[-1]
+        
+        # RSI 계산 (단순화)
+        deltas = np.diff(prices)
+        gains = np.where(deltas > 0, deltas, 0)
+        losses = np.where(deltas < 0, -deltas, 0)
+        
+        avg_gain = np.mean(gains[-14:]) if len(gains) >= 14 else np.mean(gains)
+        avg_loss = np.mean(losses[-14:]) if len(losses) >= 14 else np.mean(losses)
+        
+        if avg_loss == 0:
+            rsi = 100
+        else:
+            rs = avg_gain / avg_loss
+            rsi = 100 - (100 / (1 + rs))
+        
+        # 정규화된 상태 벡터
+        state = np.array([
+            (current_price - sma_5) / sma_5,     # SMA5 대비 편차
+            (current_price - sma_20) / sma_20,   # SMA20 대비 편차
+            (sma_5 - sma_20) / sma_20,           # SMA 교차
+            (rsi - 50) / 50,                     # RSI 정규화
+            np.std(prices[-5:]) / current_price,  # 변동성
+            *np.diff(prices)[-5:] / prices[-6:-1] # 최근 5일 수익률
+        ])
+        
+        # NaN 처리
+        state = np.nan_to_num(state, 0)
+        
+        # 고정 길이로 맞춤 (부족하면 0으로 패딩)
+        if len(state) < 10:
+            state = np.pad(state, (0, 10 - len(state)), 'constant')
+        
+        return state[:10]
     
     async def _optimize_factor_weights(self, training_data):
         """팩터 가중치 최적화"""

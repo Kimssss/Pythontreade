@@ -42,14 +42,17 @@ MODEL_CONFIG = {
     'dqn': {
         'state_size': 31,
         'action_size': 3,
-        'learning_rate': 0.001,
+        'learning_rate': 0.0005,      # 학습률 낮춤 (안정성 향상)
         'epsilon': 1.0,
-        'epsilon_min': 0.01,
-        'epsilon_decay': 0.995,
-        'gamma': 0.95,
-        'batch_size': 32,
-        'memory_size': 2000,
-        'update_target_freq': 100
+        'epsilon_min': 0.05,          # 최소 탐험율 증가
+        'epsilon_decay': 0.999,       # 더 천천히 감소
+        'gamma': 0.99,                # 할인율 증가 (장기 보상 중시)
+        'batch_size': 64,             # 배치 사이즈 증가
+        'memory_size': 10000,         # 메모리 크기 증가
+        'update_target_freq': 50,     # 타겟 네트워크 업데이트 빈도 증가
+        'min_episodes': 100,          # 최소 에피소드 수
+        'max_episodes': 500,          # 최대 에피소드 수
+        'reward_scale': 100.0         # 리워드 스케일링
     },
     'ensemble_weights': {
         'dqn_agent': 0.4,
