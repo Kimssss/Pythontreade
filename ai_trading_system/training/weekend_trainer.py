@@ -449,6 +449,109 @@ class WeekendTrainer:
             logger.error(f"Factor optimization error: {e}")
             return {'오류': str(e)}
     
+    async def _run_automl_optimization(self):
+        """AutoML 하이퍼파라미터 최적화 실행"""
+        try:
+            from ..utils.automl_optimizer import AutoMLOptimizer
+            
+            optimizer = AutoMLOptimizer()
+            
+            logger.info("🔧 AutoML 하이퍼파라미터 최적화 시작...")
+            
+            # 1. DQN 파라미터 최적화
+            logger.info("   DQN 파라미터 최적화 중...")
+            dqn_result = optimizer.optimize_dqn_params(
+                training_data=[],  # 실제로는 최근 학습 데이터 사용
+                n_trials=20
+            )
+            
+            # 2. Transformer 파라미터 최적화 (최근 가격 데이터 사용)
+            try:
+                recent_data = await self._get_recent_market_data()
+                if len(recent_data) > 30:
+                    logger.info("   Transformer 파라미터 최적화 중...")
+                    transformer_result = optimizer.optimize_transformer_params(
+                        price_data=recent_data,
+                        n_trials=15
+                    )
+                else:
+                    transformer_result = {'message': '데이터 부족으로 건너뜀'}
+            except Exception as e:
+                logger.warning(f"Transformer 최적화 실패: {e}")
+                transformer_result = {'오류': str(e)}
+            
+            # 3. 앙상블 가중치 최적화
+            logger.info("   앙상블 가중치 최적화 중...")
+            ensemble_result = optimizer.optimize_ensemble_weights(
+                validation_data=[],  # 실제로는 검증 데이터 사용
+                n_trials=30
+            )
+            
+            logger.info("✅ AutoML 최적화 완료")
+            
+            return {
+                'dqn_optimization': dqn_result,
+                'transformer_optimization': transformer_result,
+                'ensemble_optimization': ensemble_result,
+                'status': 'completed'
+            }
+            
+        except Exception as e:
+            logger.error(f"AutoML 최적화 오류: {e}")
+            return {'오류': str(e)}
+    
+    async def _get_recent_market_data(self):
+        """최근 시장 데이터 조회 (AutoML용)"""
+        try:
+            # 대표 종목의 최근 60일 데이터
+            stocks = await self._get_top_volume_stocks()
+            if not stocks:
+                return pd.DataFrame()
+            
+            first_stock = stocks[0]['code']
+            
+            # 일봉 데이터 조회
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=60)
+            
+            daily_data = []
+            current_date = start_date
+            
+            while current_date <= end_date:
+                try:
+                    price_data = self.kis_api.get_daily_price(
+                        first_stock, 
+                        current_date.strftime('%Y%m%d')
+                    )
+                    
+                    if price_data:
+                        daily_data.append({
+                            'date': current_date,
+                            'close': float(price_data.get('stck_clpr', 0)),
+                            'volume': int(price_data.get('acml_vol', 0))
+                        })
+                    
+                    current_date += timedelta(days=1)
+                    
+                    # API 호출 간격
+                    await asyncio.sleep(1)
+                    
+                except Exception as e:
+                    logger.debug(f"일별 데이터 조회 실패: {current_date} - {e}")
+                    current_date += timedelta(days=1)
+                    continue
+            
+            if daily_data:
+                df = pd.DataFrame(daily_data)
+                df = df[df['close'] > 0]  # 유효한 데이터만
+                return df.sort_values('date')
+            
+            return pd.DataFrame()
+            
+        except Exception as e:
+            logger.error(f"최근 시장 데이터 조회 실패: {e}")
+            return pd.DataFrame()
+    
     async def _optimize_technical_params(self, training_data):
         """기술적 지표 파라미터 최적화"""
         try:

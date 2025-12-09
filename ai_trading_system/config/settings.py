@@ -55,9 +55,23 @@ MODEL_CONFIG = {
         'reward_scale': 100.0         # 리워드 스케일링
     },
     'ensemble_weights': {
-        'dqn_agent': 0.4,
-        'factor_agent': 0.3,
-        'technical_agent': 0.3
+        'dqn_agent': 0.3,
+        'factor_agent': 0.25,
+        'technical_agent': 0.25,
+        'transformer_agent': 0.2
+    },
+    'automl': {
+        'enabled': True,
+        'optimization_schedule': {
+            'dqn_frequency': 7,  # 7일마다
+            'transformer_frequency': 14,  # 14일마다
+            'ensemble_frequency': 3  # 3일마다
+        },
+        'optuna_trials': {
+            'dqn': 50,
+            'transformer': 30,
+            'ensemble': 100
+        }
     }
 }
 

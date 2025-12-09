@@ -21,6 +21,8 @@ try:
     from .utils.risk_manager import RiskManager
     from .utils.technical_indicators import TechnicalIndicators
     from .training.weekend_trainer import WeekendTrainer
+    from .mlops.model_manager import AutoMLOpsManager
+    from .agents.sentiment_agent import SentimentAgent
     from .config.settings import (
         KIS_CONFIG, TRADING_CONFIG, DATA_CONFIG, 
         LOGGING_CONFIG, SCREENING_CONFIG
@@ -32,6 +34,8 @@ except ImportError:
     from utils.risk_manager import RiskManager
     from utils.technical_indicators import TechnicalIndicators
     from training.weekend_trainer import WeekendTrainer
+    from mlops.model_manager import AutoMLOpsManager
+    from agents.sentiment_agent import SentimentAgent
     from config.settings import (
         KIS_CONFIG, TRADING_CONFIG, DATA_CONFIG, 
         LOGGING_CONFIG, SCREENING_CONFIG
@@ -69,6 +73,13 @@ class AITradingSystem:
         self.risk_manager = RiskManager()
         self.indicators = TechnicalIndicators()
         self.trainer = WeekendTrainer(self.ensemble, self.kis_api)
+        
+        # MLOps 자동화 시스템
+        self.mlops_manager = AutoMLOpsManager()
+        self.mlops_manager.start_monitoring()
+        
+        # 감성 분석 에이전트
+        self.sentiment_agent = SentimentAgent()
         
         # 해외주식 API 초기화
         self.kis_api.initialize_overseas_api()

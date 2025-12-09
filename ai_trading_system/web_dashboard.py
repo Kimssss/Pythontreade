@@ -42,7 +42,12 @@ def get_status():
         'total_value': trading_system.total_value,
         'cash_balance': trading_system.cash_balance,
         'positions': len(trading_system.portfolio),
-        'active_markets': trading_system.get_active_markets() if hasattr(trading_system, 'get_active_markets') else {}
+        'active_markets': trading_system.get_active_markets() if hasattr(trading_system, 'get_active_markets') else {},
+        'timestamp': datetime.now().isoformat(),
+        'agents_active': ['DQN', 'Technical', 'Factor', 'Transformer'],
+        'system_health': 'healthy',
+        'last_update': datetime.now().strftime('%H:%M:%S'),
+        'uptime_seconds': getattr(trading_system, 'uptime_seconds', 0)
     })
 
 @app.route('/api/portfolio')

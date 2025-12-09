@@ -14,12 +14,14 @@ try:
     from ..utils.technical_indicators import TechnicalIndicators
     from ..utils.kis_api import KisAPIEnhanced
     from ..config.settings import MODEL_CONFIG, TRADING_CONFIG
+    from ..agents.transformer_agent import TransformerAgent
 except ImportError:
     from models.dqn_agent import DQNAgent
     from strategies.stock_screener import StockScreener
     from utils.technical_indicators import TechnicalIndicators
     from utils.kis_api import KisAPIEnhanced
     from config.settings import MODEL_CONFIG, TRADING_CONFIG
+    from agents.transformer_agent import TransformerAgent
 
 logger = logging.getLogger('ai_trading.ensemble')
 
@@ -122,15 +124,23 @@ class MultiAgentEnsemble:
         self.dqn_agent = DQNAgent()
         self.technical_agent = TechnicalAnalysisAgent()
         self.factor_agent = FactorInvestingAgent(StockScreener(kis_api))
+        self.transformer_agent = TransformerAgent()
         
-        # 가중치
+        # 가중치 (Transformer 추가)
         self.weights = MODEL_CONFIG['ensemble_weights'].copy()
+        if 'transformer_agent' not in self.weights:
+            # 기존 가중치 재분배
+            total_weight = sum(self.weights.values())
+            for key in self.weights:
+                self.weights[key] = self.weights[key] * 0.8 / total_weight
+            self.weights['transformer_agent'] = 0.2
         
         # 성과 추적
         self.agent_performance = {
             'dqn_agent': [],
             'factor_agent': [],
-            'technical_agent': []
+            'technical_agent': [],
+            'transformer_agent': []
         }
         
         logger.info("Multi-Agent Ensemble initialized")
@@ -174,7 +184,29 @@ class MultiAgentEnsemble:
         factor_result = await self.factor_agent.analyze(stock_code, market_data)
         decisions['factor_agent'] = factor_result
         
-        # 4. 앙상블 결정
+        # 4. Transformer 예측 에이전트
+        try:
+            transformer_result = self.transformer_agent.get_trend_signal(price_data)
+            # 신호를 행동으로 변환
+            transformer_signal = transformer_result['신호']
+            if transformer_signal > 0.3:
+                action = 0  # 매수
+            elif transformer_signal < -0.3:
+                action = 1  # 매도
+            else:
+                action = 2  # 관망
+            
+            decisions['transformer_agent'] = {
+                'action': action,
+                'confidence': transformer_result['confidence'],
+                'predicted_price': transformer_result.get('predicted_price', 0),
+                'trend': transformer_result.get('trend', 'sideways')
+            }
+        except Exception as e:
+            logger.warning(f"Transformer 에이전트 오류: {e}")
+            decisions['transformer_agent'] = {'action': 2, 'confidence': 0.5}
+        
+        # 5. 앙상블 결정
         final_decision = self._ensemble_decision(decisions)
         
         return {

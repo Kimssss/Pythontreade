@@ -142,6 +142,10 @@ class DQNAgent:
         
         return loss.item()
     
+    def train_step(self):
+        """한 번의 학습 스텝 (weekend_trainer에서 사용)"""
+        return self.replay()
+    
     def calculate_reward(self, action: int, current_price: float, 
                         next_price: float, position: int) -> float:
         """보상 계산
