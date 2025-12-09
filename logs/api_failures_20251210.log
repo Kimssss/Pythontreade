@@ -113,3 +113,164 @@
 2025-12-10 04:43:17,579 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
 2025-12-10 04:43:22,732 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
 2025-12-10 04:43:27,859 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:43:32,849 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:43:37,976 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:43:43,088 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:43:48,212 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:43:53,349 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:43:58,498 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:44:03,638 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:44:08,755 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:44:08,874 - kis_api - DEBUG - API 요청 성공: overseas_balance_check - GET
+2025-12-10 04:44:08,874 - kis_api - WARNING - 해외 잔고 조회 실패: 모의투자 종목코드정보를 확인하세요.(코드오류)                                   
+2025-12-10 04:44:13,760 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:44:25,868 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:44:37,997 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:44:50,175 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:45:02,281 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:45:14,424 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:45:26,551 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:45:38,732 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:45:50,836 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:46:02,981 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:46:16,122 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:46:21,245 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 04:46:34,399 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:46:39,503 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 04:46:52,645 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:46:57,731 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 04:47:10,882 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:47:15,994 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 04:47:29,132 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:47:34,239 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 04:47:47,395 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:47:52,544 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 04:48:05,680 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:48:10,782 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 04:49:08,979 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:49:11,097 - kis_api - DEBUG - API 요청 성공: screen_20173 - GET
+2025-12-10 04:49:13,209 - kis_api - DEBUG - API 요청 성공: screen_20172 - GET
+2025-12-10 04:49:15,335 - kis_api - DEBUG - API 요청 성공: screen_20174 - GET
+2025-12-10 04:49:17,477 - kis_api - DEBUG - API 요청 성공: screen_20175 - GET
+2025-12-10 04:49:22,605 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:49:27,689 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:49:32,822 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:49:37,926 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:49:43,080 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:49:48,186 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:49:53,300 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:49:58,391 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:50:03,427 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:56:46,643 - kis_api - INFO - Overseas stock API initialized
+2025-12-10 04:56:46,644 - kis_api - INFO - Overseas stock API initialized
+2025-12-10 04:56:46,644 - kis_api - INFO - get_available_cash() called
+2025-12-10 04:56:46,828 - kis_api - DEBUG - API 요청 성공: balance - GET
+2025-12-10 04:56:46,828 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9836280', 'nxdy_excc_amt': '9836280', 'prvs_rcdl_excc_amt': '9836280', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '161700', 'tot_evlu_amt': '9997980', 'nass_amt': '9997980', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '163700', 'evlu_amt_smtl_amt': '161700', 'evlu_pfls_smtl_amt': '-2000', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9999480', 'asst_icdc_amt': '-1500', 'asst_icdc_erng_rt': '-0.01500078'}]
+2025-12-10 04:56:46,828 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,836,280, nxdy_excc_amt=9,836,280
+2025-12-10 04:56:46,828 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,836,280
+2025-12-10 04:56:46,828 - kis_api - INFO - 보유 주식 조회 시작
+2025-12-10 04:56:51,809 - kis_api - DEBUG - API 요청 성공: balance - GET
+2025-12-10 04:56:51,809 - kis_api - DEBUG - output1 count: 1 items
+2025-12-10 04:56:51,809 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 1주, 평가금액: 161,700원
+2025-12-10 04:56:51,809 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-10 04:56:51,917 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 04:56:54,030 - kis_api - DEBUG - API 요청 성공: screen_20173 - GET
+2025-12-10 04:56:56,130 - kis_api - DEBUG - API 요청 성공: screen_20172 - GET
+2025-12-10 04:56:58,240 - kis_api - DEBUG - API 요청 성공: screen_20174 - GET
+2025-12-10 04:57:00,371 - kis_api - DEBUG - API 요청 성공: screen_20175 - GET
+2025-12-10 04:57:00,488 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:05,586 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:10,696 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:15,793 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:20,883 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:25,978 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:31,094 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:36,207 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:41,199 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:46,347 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:51,446 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:57:56,543 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:58:01,628 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:58:06,742 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:58:11,832 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:58:16,932 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:58:17,046 - kis_api - DEBUG - API 요청 성공: overseas_balance_check - GET
+2025-12-10 04:58:17,047 - kis_api - WARNING - 해외 잔고 조회 실패: 모의투자 종목코드정보를 확인하세요.(코드오류)                                   
+2025-12-10 04:58:21,983 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:58:34,087 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:58:46,173 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:58:58,311 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:59:10,417 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:59:22,532 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:59:34,646 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:59:46,765 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 04:59:58,870 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:00:10,985 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:00:24,158 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:00:29,268 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:00:42,416 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:00:47,532 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:01:00,651 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:01:05,758 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:01:18,908 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:01:24,028 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:01:37,167 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:01:42,278 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:01:55,397 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:02:00,547 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:02:13,658 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:02:18,770 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:03:17,167 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:03:19,277 - kis_api - DEBUG - API 요청 성공: screen_20173 - GET
+2025-12-10 05:03:21,361 - kis_api - DEBUG - API 요청 성공: screen_20172 - GET
+2025-12-10 05:03:23,467 - kis_api - DEBUG - API 요청 성공: screen_20174 - GET
+2025-12-10 05:03:25,571 - kis_api - DEBUG - API 요청 성공: screen_20175 - GET
+2025-12-10 05:03:25,698 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:03:30,791 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:03:35,899 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:03:41,066 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:03:46,161 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:03:51,267 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:03:56,388 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:01,488 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:06,515 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:11,631 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:16,724 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:21,819 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:26,936 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:32,022 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:37,141 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:42,247 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:04:42,404 - kis_api - DEBUG - API 요청 성공: overseas_balance_check - GET
+2025-12-10 05:04:42,404 - kis_api - WARNING - 해외 잔고 조회 실패: 모의투자 종목코드정보를 확인하세요.(코드오류)                                   
+2025-12-10 05:04:45,591 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:04:50,710 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:05:03,814 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:05:08,911 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:05:22,078 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:05:27,172 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:05:40,586 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:05:45,685 - kis_api - DEBUG - API 요청 성공: daily_price - GET
+2025-12-10 05:08:51,361 - kis_api - INFO - Overseas stock API initialized
+2025-12-10 05:08:51,361 - kis_api - INFO - Overseas stock API initialized
+2025-12-10 05:08:51,361 - kis_api - INFO - get_available_cash() called
+2025-12-10 05:08:51,518 - kis_api - DEBUG - API 요청 성공: balance - GET
+2025-12-10 05:08:51,518 - kis_api - DEBUG - output2 data: [{'dnca_tot_amt': '9836280', 'nxdy_excc_amt': '9836280', 'prvs_rcdl_excc_amt': '9836280', 'cma_evlu_amt': '0', 'bfdy_buy_amt': '0', 'thdt_buy_amt': '0', 'nxdy_auto_rdpt_amt': '0', 'bfdy_sll_amt': '0', 'thdt_sll_amt': '0', 'd2_auto_rdpt_amt': '0', 'bfdy_tlex_amt': '0', 'thdt_tlex_amt': '0', 'tot_loan_amt': '0', 'scts_evlu_amt': '161700', 'tot_evlu_amt': '9997980', 'nass_amt': '9997980', 'fncg_gld_auto_rdpt_yn': '', 'pchs_amt_smtl_amt': '163700', 'evlu_amt_smtl_amt': '161700', 'evlu_pfls_smtl_amt': '-2000', 'tot_stln_slng_chgs': '0', 'bfdy_tot_asst_evlu_amt': '9999480', 'asst_icdc_amt': '-1500', 'asst_icdc_erng_rt': '-0.01500078'}]
+2025-12-10 05:08:51,518 - kis_api - INFO - Cash available: ord_psbl_cash=0, dnca_tot_amt=9,836,280, nxdy_excc_amt=9,836,280
+2025-12-10 05:08:51,518 - kis_api - INFO - Using nxdy_excc_amt (weekend/after-hours): 9,836,280
+2025-12-10 05:08:51,518 - kis_api - INFO - 보유 주식 조회 시작
+2025-12-10 05:08:56,570 - kis_api - DEBUG - API 요청 성공: balance - GET
+2025-12-10 05:08:56,571 - kis_api - DEBUG - output1 count: 1 items
+2025-12-10 05:08:56,571 - kis_api - INFO - Holding found: 한국금융지주 (071050) - 1주, 평가금액: 161,700원
+2025-12-10 05:08:56,571 - kis_api - INFO - Total holdings: 1 stocks
+2025-12-10 05:08:56,669 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 05:08:58,769 - kis_api - DEBUG - API 요청 성공: screen_20173 - GET
+2025-12-10 05:09:00,875 - kis_api - DEBUG - API 요청 성공: screen_20172 - GET
+2025-12-10 05:09:02,998 - kis_api - DEBUG - API 요청 성공: screen_20174 - GET
+2025-12-10 05:09:05,109 - kis_api - DEBUG - API 요청 성공: screen_20175 - GET
+2025-12-10 05:09:05,237 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:09:10,339 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:09:15,467 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:09:20,614 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:09:25,748 - kis_api - DEBUG - API 요청 성공: overseas_price - GET
+2025-12-10 05:09:30,825 - kis_api - DEBUG - API 요청 성공: overseas_price - GET

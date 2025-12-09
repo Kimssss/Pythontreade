@@ -136,22 +136,22 @@ class AITradingSystem:
         logger.info("초기 계좌 정보 조회 중...")
         await self.update_portfolio_status()
         
-        logger.info("=== Initialization Complete ===")
-        logger.info(f"Initial portfolio value: {self.total_value:,.0f} KRW")
+        logger.info("=== 초기화 완료 ===")
+        logger.info(f"초기 포트폴리오 가치: {self.total_value:,.0f}원")
     
     async def update_portfolio_status(self):
         """포트폴리오 상태 업데이트"""
-        logger.info("=== Updating Portfolio Status ===")
+        logger.info("=== 포트폴리오 상태 업데이트 ===")
         try:
             # 현금 잔고 조회
-            logger.info("가져오는 중 cash balance...")
+            logger.info("현금 잔고 조회 중...")
             self.cash_balance = self.kis_api.get_available_cash()
-            logger.info(f"Cash balance: {self.cash_balance:,.0f} KRW")
+            logger.info(f"현금 잔고: {self.cash_balance:,.0f}원")
             
             # 보유 종목 조회
-            logger.info("가져오는 중 holdings...")
+            logger.info("보유 종목 조회 중...")
             holdings = self.kis_api.get_holding_stocks()
-            logger.info(f"Found {len(holdings)} holdings")
+            logger.info(f"{len(holdings)}개 보유 종목 발견")
             
             self.portfolio = {}
             portfolio_value = self.cash_balance
@@ -174,25 +174,25 @@ class AITradingSystem:
             self.total_value = portfolio_value
             # 잔고가 0이면 API에서 반환한 실제 값
             if self.total_value == 0:
-                logger.warning("포트폴리오 가치 is 0. This is the actual balance from API.")
+                logger.warning("포트폴리오 가치가 0입니다. 이는 API에서 받은 실제 값입니다.")
             
-            logger.info(f"Total portfolio value: {self.total_value:,.0f} KRW")
-            logger.info(f"  - Cash: {self.cash_balance:,.0f} KRW")
-            logger.info(f"  - Stocks: {portfolio_value - self.cash_balance:,.0f} KRW")
+            logger.info(f"총 포트폴리오 가치: {self.total_value:,.0f}원")
+            logger.info(f"  - 현금: {self.cash_balance:,.0f}원")
+            logger.info(f"  - 주식: {portfolio_value - self.cash_balance:,.0f}원")
             
         except Exception as e:
-            logger.error(f"Error updating portfolio status: {e}", exc_info=True)
+            logger.error(f"포트폴리오 상태 업데이트 오류: {e}", exc_info=True)
             # 주말이나 장외시간일 경우 기본값 사용
-            logger.info("Using default values for weekend/after-hours")
+            logger.info("주말/장외시간으로 기본값 사용")
             if self.cash_balance is None:
                 self.cash_balance = 0
             if self.total_value is None:
                 self.total_value = 0
             
             # API 응답에서 받은 실제 값 사용 (더미 데이터 금지)
-            logger.warning(f"API returned values - Cash: {self.cash_balance:,.0f}, Total: {self.total_value:,.0f}")
+            logger.warning(f"API 반환 값 - 현금: {self.cash_balance:,.0f}원, 총액: {self.total_value:,.0f}원")
             
-            logger.info(f"Default values set - Cash: {self.cash_balance:,.0f}, Total: {self.total_value:,.0f}")
+            logger.info(f"기본값 설정 완료 - 현금: {self.cash_balance:,.0f}원, 총액: {self.total_value:,.0f}원")
     
     def get_active_markets(self) -> Dict[str, bool]:
         """현재 거래 가능한 시장 확인"""
@@ -233,22 +233,22 @@ class AITradingSystem:
 
     async def run_trading_cycle(self):
         """메인 트레이딩 사이클 - 시간대별 자동 거래"""
-        logger.info("=== Starting Trading Cycle ===")
+        logger.info("=== 거래 사이클 시작 ===")
         
         try:
             # 현재 거래 가능한 시장 확인
             active_markets = self.get_active_markets()
-            logger.info(f"Active markets: {active_markets}")
+            logger.info(f"활성 시장: {active_markets}")
             
             # 활성 시장이 없으면 스킵
             active_list = [k for k, v in active_markets.items() if v]
             if not active_list:
-                logger.info("No active markets at this time")
+                logger.info("현재 시간에 활성 시장이 없습니다")
                 return
             
             # 1. 시장 상태 분석
             market_condition = await self.analyze_market_condition()
-            logger.info(f"Market condition: {market_condition}")
+            logger.info(f"시장 상황: {market_condition}")
             
             # 2. 활성 시장에 따른 종목 스크리닝
             if active_markets['korean']:
@@ -625,7 +625,7 @@ class AITradingSystem:
     
     async def rebalance_portfolio(self):
         """포트폴리오 리밸런싱"""
-        logger.info("시작 portfolio rebalancing...")
+        logger.info("포트폴리오 리밸런싱 시작...")
         
         try:
             # 현재 보유 종목 재평가
@@ -689,7 +689,7 @@ class AITradingSystem:
     
     async def run(self):
         """메인 실행 루프"""
-        logger.info("시작 AI Trading System...")
+        logger.info("AI 자동매매 시스템 시작...")
         
         try:
             # 초기화
@@ -706,23 +706,23 @@ class AITradingSystem:
                     if now.weekday() < 5 and active_list:  # 평일이고 활성 시장이 있는 경우
                         # 트레이딩 사이클 실행
                         logger.info(f"\n{'='*60}")
-                        logger.info(f"TRADING ACTIVE - {now.strftime('%Y-%m-%d %H:%M:%S')}")
-                        logger.info(f"Active Markets: {', '.join(active_list).upper()}")
+                        logger.info(f"거래 활성 - {now.strftime('%Y-%m-%d %H:%M:%S')}")
+                        logger.info(f"활성 시장: {', '.join(active_list).upper()}")
                         
                         # 각 시장의 거래 시간 표시
                         if active_markets['korean']:
-                            logger.info("🇰🇷 Korean Market: 09:00-15:30 KST (ACTIVE)")
+                            logger.info("🇰🇷 한국 시장: 09:00-15:30 KST (활성)")
                         if active_markets['us']:
-                            logger.info("🇺🇸 US Market: 23:30-06:00 KST (ACTIVE)")
+                            logger.info("🇺🇸 미국 시장: 23:30-06:00 KST (활성)")
                             
                         await self.run_trading_cycle()
                         
                         # 다음 사이클까지 대기 (5분) + 학습
-                        logger.info("\n[Next Cycle] Waiting 5 minutes for next trading cycle...")
-                        logger.info(f"Next run at: {(now + timedelta(minutes=5)).strftime('%H:%M:%S')}")
+                        logger.info("\n[다음 사이클] 다음 거래 사이클까지 5분 대기...")
+                        logger.info(f"다음 실행: {(now + timedelta(minutes=5)).strftime('%H:%M:%S')}")
                         
                         # 5분 대기 시간 동안 학습 실행
-                        logger.info("\n🧠 [Training During Wait] Starting background learning...")
+                        logger.info("\n🧠 [대기 중 학습] 백그라운드 학습 시작...")
                         
                         # 학습을 위한 시간 분할 (총 300초 = 5분)
                         training_start_time = datetime.now()
@@ -732,43 +732,43 @@ class AITradingSystem:
                             remaining_time = total_wait_time - (datetime.now() - training_start_time).total_seconds()
                             
                             if remaining_time > 60:  # 1분 이상 남았으면 학습 시도
-                                logger.info(f"⏰ Remaining wait time: {remaining_time:.0f}s - Starting quick training...")
+                                logger.info(f"⏰ 남은 대기시간: {remaining_time:.0f}초 - 빠른 학습 시작...")
                                 
                                 try:
                                     # 빠른 학습 모드 사용 (최대 60초)
                                     training_result = await self.trainer.run_quick_training(max_time_seconds=min(60, remaining_time - 10))
                                     
                                     if training_result:
-                                        logger.info("✅ Quick training completed!")
-                                        logger.info(f"   Stock: {training_result['stock_name']}")
-                                        logger.info(f"   Win rate: {training_result['win_rate']:.1%}")
+                                        logger.info("✅ 빠른 학습 완료!")
+                                        logger.info(f"   종목: {training_result['stock_name']}")
+                                        logger.info(f"   승률: {training_result['win_rate']:.1%}")
                                     else:
-                                        logger.info("⚠️ Quick training failed, trying fallback...")
+                                        logger.info("⚠️ 빠른 학습 실패, 대체 방법 시도...")
                                         # 실패 시 기존 방식으로 시도
                                         training_result = await self.trainer.run_single_stock_training()
                                         if training_result:
-                                            logger.info("✅ Fallback training completed!")
+                                            logger.info("✅ 대체 학습 완료!")
                                         
                                 except Exception as e:
-                                    logger.error(f"Training error during wait: {e}")
+                                    logger.error(f"대기 중 학습 오류: {e}")
                                 
                                 # 학습 후 짧은 휴식
                                 await asyncio.sleep(10)
                             else:
                                 # 남은 시간이 1분 미만이면 그냥 대기
-                                logger.info(f"⏰ Remaining: {remaining_time:.0f}s - Finishing wait period...")
+                                logger.info(f"⏰ 남은시간: {remaining_time:.0f}초 - 대기 완료...")
                                 await asyncio.sleep(remaining_time)
                                 break
                         
-                        logger.info("✅ Wait period completed with background learning")
+                        logger.info("✅ 백그라운드 학습과 함께 대기 완료")
                     else:
                             # 장 마감 후 일일 정산
                             if now.hour == 15 and now.minute == 30:
-                                logger.info("\n[MARKET CLOSE] Running daily settlement...")
+                                logger.info("\n[장마감] 일일 정산 실행...")
                                 await self.daily_settlement()
                             
                             # 장외 시간 대기
-                            logger.info(f"\n[AFTER HOURS] No active markets at {now.strftime('%H:%M')}")
+                            logger.info(f"\n[장외시간] {now.strftime('%H:%M')} 현재 활성 시장 없음")
                             
                             # 다음 오픈 시간 계산
                             next_open_times = []
@@ -776,31 +776,31 @@ class AITradingSystem:
                             
                             # 한국 시장
                             if current_hour < 9:
-                                next_open_times.append("🇰🇷 Korean: Today 09:00")
+                                next_open_times.append("🇰🇷 한국장: 오늘 09:00")
                             elif current_hour >= 15:
-                                next_open_times.append("🇰🇷 Korean: Tomorrow 09:00")
+                                next_open_times.append("🇰🇷 한국장: 내일 09:00")
                                 
                             # 미국 시장 (서머타임 기준)
                             if 4 <= now.month <= 10:  # 서머타임
                                 if current_hour < 22:
-                                    next_open_times.append("🇺🇸 US: Today 22:30")
+                                    next_open_times.append("🇺🇸 미국장: 오늘 22:30")
                                 else:
-                                    next_open_times.append("🇺🇸 US: Active Now")
+                                    next_open_times.append("🇺🇸 미국장: 현재 활성")
                             else:  # 표준시간
                                 if current_hour < 23:
-                                    next_open_times.append("🇺🇸 US: Today 23:30")
+                                    next_open_times.append("🇺🇸 미국장: 오늘 23:30")
                                 else:
-                                    next_open_times.append("🇺🇸 US: Active Now")
+                                    next_open_times.append("🇺🇸 미국장: 현재 활성")
                                     
                             if next_open_times:
-                                logger.info("Next market opens:")
+                                logger.info("다음 시장 개장:")
                                 for time in next_open_times:
                                     logger.info(f"  {time}")
                             
                             # 장외시간 학습 (15:30 ~ 09:00)
                             # 주식시장 종료 후부터 다음날 시작 전까지 계속 학습
-                            logger.info("\n[After-hours Training] Market closed - Training time!")
-                            logger.info(f"Current time: {now.strftime('%H:%M')}")
+                            logger.info("\n[장외시간 학습] 장 마감 - 학습 시간!")
+                            logger.info(f"현재 시간: {now.strftime('%H:%M')}")
                             
                             stocks_trained = 0
                             attempts = 0  # 시도 횟수  
