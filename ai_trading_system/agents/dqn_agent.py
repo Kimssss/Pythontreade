@@ -96,7 +96,7 @@ class DQNAgent:
             signal = self.get_signal(action)
             
             return {
-                '신호: signal,
+                '신호': signal,
                 'confidence': abs(signal),
                 'action': action,
                 'state_dim': len(state)
@@ -104,7 +104,7 @@ class DQNAgent:
             
         except Exception as e:
             logger.error(f"DQN 분석 중 오류: {e}")
-            return {'신호: 0, 'confidence': 0, 'action': 1}
+            return {'신호': 0, 'confidence': 0, 'action': 1}
             
     def _extract_features(self, price_data, additional_features=None) -> np.ndarray:
         """가격 데이터에서 특성 추출"""

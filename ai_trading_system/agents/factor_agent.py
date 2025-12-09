@@ -28,7 +28,7 @@ class FactorAgent:
         """
         try:
             if len(price_data) < 10:
-                return {'신호: 0, 'confidence': 0}
+                return {'신호': 0, 'confidence': 0}
                 
             # 가격 및 거래량 팩터
             current_price = price_data.iloc[-1]['close']
@@ -58,7 +58,7 @@ class FactorAgent:
             signal = max(-1, min(1, signal))
             
             return {
-                '신호: signal,
+                '신호': signal,
                 'confidence': abs(signal),
                 'factors': {
                     'momentum': momentum_factor,
@@ -70,7 +70,7 @@ class FactorAgent:
             
         except Exception as e:
             logger.error(f"팩터 분석 중 오류: {e}")
-            return {'신호: 0, 'confidence': 0}
+            return {'신호': 0, 'confidence': 0}
             
     def _calculate_momentum(self, price_data: pd.DataFrame) -> float:
         """모멘텀 팩터 계산"""
