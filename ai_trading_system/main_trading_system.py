@@ -105,8 +105,18 @@ class AITradingSystem:
         # 해외주식 API 초기화
         self.kis_api.initialize_overseas_api()
         
+        # 매매 로거 초기화
+        try:
+            from ai_trading_system.utils.trading_logger import TradingLogger
+        except ImportError:
+            from utils.trading_logger import TradingLogger
+        self.trading_logger = TradingLogger()
+        
         # 글로벌 스크리너 초기화
-        from .strategies.global_screener import GlobalStockScreener
+        try:
+            from ai_trading_system.strategies.global_screener import GlobalStockScreener
+        except ImportError:
+            from strategies.global_screener import GlobalStockScreener
         self.global_screener = GlobalStockScreener(self.kis_api)
         
         # 거래 모드 설정 (국내만, 해외만, 또는 둘 다)

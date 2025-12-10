@@ -10344,3 +10344,5 @@
 2025-12-10 21:43:08,446 - kis_api - DEBUG - API 요청 성공: daily_price - GET
 2025-12-10 21:43:13,748 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
 2025-12-10 22:43:16,809 - kis_api - DEBUG - API 요청 성공: volume_rank - GET
+2025-12-10 23:06:17,518 - kis_api - DEBUG - API 요청 성공: balance - GET
+2025-12-10 23:06:25,024 - kis_api - DEBUG - API 요청 성공: balance - GET

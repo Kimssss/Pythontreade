@@ -45,6 +45,10 @@ def main():
         ensemble = MultiAgentEnsemble(kis_api)
         screener = StockScreener(kis_api)
         
+        # 매매 로거 초기화
+        from ai_trading_system.utils.trading_logger import TradingLogger
+        trading_logger = TradingLogger()
+        
         print("✅ 시스템 초기화 성공")
         print("\n📊 실시간 모니터링 중...")
         
@@ -68,6 +72,18 @@ def main():
                 if balance_info and balance_info.get('rt_cd') == '0':
                     total_balance = balance_info.get('ctx_area_fk100', {}).get('dnca_tot_amt', '0')
                     print(f"   💰 총 잔고: {total_balance:,}원")
+                    
+                    # 포트폴리오 로그 기록
+                    try:
+                        total_assets = float(total_balance) if total_balance else 0
+                        trading_logger.log_portfolio_status(
+                            total_assets=total_assets,
+                            cash=total_assets,  # 현재는 현금만
+                            stocks_value=0,
+                            daily_profit=0
+                        )
+                    except:
+                        pass
                 else:
                     print("   ⚠️ 잔고 조회 실패")
                 
@@ -120,9 +136,24 @@ def main():
                         import numpy as np
                         dummy_state = np.random.random(31)  # 31차원 상태 벡터
                         action = dqn_agent.act(dummy_state, training=False)
+                        confidence = dqn_agent.get_action_confidence(dummy_state)
                         
                         action_names = ['매수', '매도', '보유']
                         print(f"   🤖 AI 신호: {action_names[action]}")
+                        print(f"   📊 신뢰도: {confidence['max_confidence']*100:.1f}%")
+                        
+                        # AI 신호 로그 기록
+                        trading_logger.log_ai_signal(
+                            stock_code=stock_code,
+                            stock_name=stock_name,
+                            signal=action_names[action],
+                            confidence=confidence['max_confidence']*100,
+                            indicators={
+                                'dqn_buy': confidence['buy_confidence'],
+                                'dqn_sell': confidence['sell_confidence'],
+                                'dqn_hold': confidence['hold_confidence']
+                            }
+                        )
                     else:
                         print(f"   ⚠️ {stock_name} 가격 조회 실패")
                 

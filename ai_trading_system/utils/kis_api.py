@@ -38,7 +38,7 @@ api_logger.addHandler(file_handler)
 
 
 class KisAPIEnhanced:
-    def __init__(self, appkey, appsecret, account_no, is_real=False, min_request_interval=0.2):
+    def __init__(self, appkey, appsecret, account_no, is_real=False, min_request_interval=1.0):
         """
         한국투자증권 API 클래스 - 강화 버전
         
