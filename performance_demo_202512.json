@@ -1,10 +1,22 @@
 [
   {
-    "timestamp": "2025-12-10 04:44:08.875740",
-    "total_value": 9997980.0,
+    "timestamp": "2025-12-10 09:22:00.270091",
+    "total_value": 9996080.0,
     "cash_balance": 9836280.0,
     "positions": 1,
     "daily_trades": 0,
+    "win_rate": 0,
+    "total_trades": 0,
     "daily_return": 0
+  },
+  {
+    "timestamp": "2025-12-10 09:32:33.370389",
+    "total_value": 0,
+    "cash_balance": 0,
+    "positions": 0,
+    "daily_trades": 0,
+    "win_rate": 0,
+    "total_trades": 0,
+    "daily_return": -1.0
   }
 ]

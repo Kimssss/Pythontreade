@@ -377,18 +377,19 @@ class WeekendTrainer:
         return total_loss / max(step_count, 1)
     
     def _calculate_simple_state(self, prices):
-        """단순 상태 계산 (기술적 지표 기반)"""
+        """31차원 상태 계산 (DQN 네트워크와 일치)"""
         import numpy as np
         
         if len(prices) < 5:
-            return np.zeros(10)
+            return np.zeros(31)
             
         # 기본 지표들
         sma_5 = np.mean(prices[-5:])
+        sma_10 = np.mean(prices[-min(10, len(prices)):])
         sma_20 = np.mean(prices[-min(20, len(prices)):])
         current_price = prices[-1]
         
-        # RSI 계산 (단순화)
+        # RSI 계산
         deltas = np.diff(prices)
         gains = np.where(deltas > 0, deltas, 0)
         losses = np.where(deltas < 0, -deltas, 0)
@@ -402,24 +403,41 @@ class WeekendTrainer:
             rs = avg_gain / avg_loss
             rsi = 100 - (100 / (1 + rs))
         
-        # 정규화된 상태 벡터
+        # MACD 계산 (단순화)
+        ema_12 = np.mean(prices[-12:]) if len(prices) >= 12 else current_price
+        ema_26 = np.mean(prices[-26:]) if len(prices) >= 26 else current_price
+        macd = ema_12 - ema_26
+        
+        # 볼린저 밴드
+        bb_period = min(20, len(prices))
+        bb_sma = np.mean(prices[-bb_period:])
+        bb_std = np.std(prices[-bb_period:])
+        bb_upper = bb_sma + (2 * bb_std)
+        bb_lower = bb_sma - (2 * bb_std)
+        bb_position = (current_price - bb_lower) / (bb_upper - bb_lower) if bb_upper != bb_lower else 0.5
+        
+        # 최근 30일 수익률 (가능한 만큼)
+        max_returns = min(30, len(prices) - 1)
+        if max_returns > 0:
+            recent_returns = np.diff(prices)[-max_returns:] / prices[-max_returns-1:-1]
+            # 30개로 패딩
+            if len(recent_returns) < 30:
+                recent_returns = np.pad(recent_returns, (30-len(recent_returns), 0), 'constant')
+            else:
+                recent_returns = recent_returns[-30:]
+        else:
+            recent_returns = np.zeros(30)
+        
+        # 31차원 상태 벡터 구성
         state = np.array([
-            (current_price - sma_5) / sma_5,     # SMA5 대비 편차
-            (current_price - sma_20) / sma_20,   # SMA20 대비 편차
-            (sma_5 - sma_20) / sma_20,           # SMA 교차
-            (rsi - 50) / 50,                     # RSI 정규화
-            np.std(prices[-5:]) / current_price,  # 변동성
-            *np.diff(prices)[-5:] / prices[-6:-1] # 최근 5일 수익률
+            *recent_returns,  # 30차원: 최근 30일 수익률
+            0  # 1차원: 포지션 정보 (나중에 외부에서 설정)
         ])
         
         # NaN 처리
         state = np.nan_to_num(state, 0)
         
-        # 고정 길이로 맞춤 (부족하면 0으로 패딩)
-        if len(state) < 10:
-            state = np.pad(state, (0, 10 - len(state)), 'constant')
-        
-        return state[:10]
+        return state
     
     async def _optimize_factor_weights(self, training_data):
         """팩터 가중치 최적화"""

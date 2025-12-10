@@ -13,9 +13,12 @@ import logging
 from typing import Dict, List, Tuple, Optional
 
 try:
-    from ..config.settings import MODEL_CONFIG
+    from ai_trading_system.config.settings import MODEL_CONFIG
 except ImportError:
-    from config.settings import MODEL_CONFIG
+    try:
+        from ..config.settings import MODEL_CONFIG
+    except ImportError:
+        from config.settings import MODEL_CONFIG
 
 logger = logging.getLogger('ai_trading.dqn')
 
@@ -73,8 +76,8 @@ class DQNAgent:
         # 타겟 네트워크 초기화
         self.update_target_network()
         
-        # 학습 카운터
-        self.train_step = 0
+        # 학습 카운터 (이름 변경으로 메서드 이름과 충돌 방지)
+        self.update_count = 0
         
         logger.info(f"DQN Agent initialized on {self.device}")
     
@@ -136,8 +139,8 @@ class DQNAgent:
             self.epsilon *= self.epsilon_decay
         
         # 타겟 네트워크 업데이트
-        self.train_step += 1
-        if self.train_step % self.update_target_freq == 0:
+        self.update_count += 1
+        if self.update_count % self.update_target_freq == 0:
             self.update_target_network()
         
         return loss.item()

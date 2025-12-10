@@ -15,31 +15,45 @@ import os
 
 # 시스템 모듈
 try:
-    from .models.ensemble_system import MultiAgentEnsemble
-    from .strategies.stock_screener import StockScreener
-    from .utils.kis_api import KisAPIEnhanced
-    from .utils.risk_manager import RiskManager
-    from .utils.technical_indicators import TechnicalIndicators
-    from .training.weekend_trainer import WeekendTrainer
-    from .mlops.model_manager import AutoMLOpsManager
-    from .agents.sentiment_agent import SentimentAgent
-    from .config.settings import (
+    from ai_trading_system.models.ensemble_system import MultiAgentEnsemble
+    from ai_trading_system.strategies.stock_screener import StockScreener
+    from ai_trading_system.utils.kis_api import KisAPIEnhanced
+    from ai_trading_system.utils.risk_manager import RiskManager
+    from ai_trading_system.utils.technical_indicators import TechnicalIndicators
+    from ai_trading_system.training.weekend_trainer import WeekendTrainer
+    from ai_trading_system.mlops.model_manager import AutoMLOpsManager
+    from ai_trading_system.agents.sentiment_agent import SentimentAgent
+    from ai_trading_system.config.settings import (
         KIS_CONFIG, TRADING_CONFIG, DATA_CONFIG, 
         LOGGING_CONFIG, SCREENING_CONFIG
     )
 except ImportError:
-    from models.ensemble_system import MultiAgentEnsemble
-    from strategies.stock_screener import StockScreener
-    from utils.kis_api import KisAPIEnhanced
-    from utils.risk_manager import RiskManager
-    from utils.technical_indicators import TechnicalIndicators
-    from training.weekend_trainer import WeekendTrainer
-    from mlops.model_manager import AutoMLOpsManager
-    from agents.sentiment_agent import SentimentAgent
-    from config.settings import (
-        KIS_CONFIG, TRADING_CONFIG, DATA_CONFIG, 
-        LOGGING_CONFIG, SCREENING_CONFIG
-    )
+    try:
+        from .models.ensemble_system import MultiAgentEnsemble
+        from .strategies.stock_screener import StockScreener
+        from .utils.kis_api import KisAPIEnhanced
+        from .utils.risk_manager import RiskManager
+        from .utils.technical_indicators import TechnicalIndicators
+        from .training.weekend_trainer import WeekendTrainer
+        from .mlops.model_manager import AutoMLOpsManager
+        from .agents.sentiment_agent import SentimentAgent
+        from .config.settings import (
+            KIS_CONFIG, TRADING_CONFIG, DATA_CONFIG, 
+            LOGGING_CONFIG, SCREENING_CONFIG
+        )
+    except ImportError:
+        from models.ensemble_system import MultiAgentEnsemble
+        from strategies.stock_screener import StockScreener
+        from utils.kis_api import KisAPIEnhanced
+        from utils.risk_manager import RiskManager
+        from utils.technical_indicators import TechnicalIndicators
+        from training.weekend_trainer import WeekendTrainer
+        from mlops.model_manager import AutoMLOpsManager
+        from agents.sentiment_agent import SentimentAgent
+        from config.settings import (
+            KIS_CONFIG, TRADING_CONFIG, DATA_CONFIG, 
+            LOGGING_CONFIG, SCREENING_CONFIG
+        )
 
 # 로깅 설정
 logging.config.dictConfig(LOGGING_CONFIG)
@@ -80,6 +94,13 @@ class AITradingSystem:
         
         # 감성 분석 에이전트
         self.sentiment_agent = SentimentAgent()
+        
+        # 백테스트 엔진 (Win Rate 계산용)
+        try:
+            from ai_trading_system.backtesting.backtest_engine import BacktestEngine
+        except ImportError:
+            from backtesting.backtest_engine import BacktestEngine
+        self.backtest_engine = BacktestEngine(initial_capital=10000000)
         
         # 해외주식 API 초기화
         self.kis_api.initialize_overseas_api()
@@ -559,6 +580,16 @@ class AITradingSystem:
                         executed.append(trade)
                         self.trade_history.append(trade)
                         
+                        # 백테스트 엔진에도 기록 (Win Rate 계산용)
+                        self.backtest_engine.add_trade(
+                            symbol=stock_code,
+                            action='buy',
+                            quantity=quantity,
+                            price=signal['current_price'],
+                            timestamp=datetime.now(),
+                            reason=f"AI Signal: {signal.get('confidence', 0):.2f}"
+                        )
+                        
                         logger.info(f"Executed BUY: {stock_code} x{quantity}")
                         
                         # 잔고 업데이트
@@ -589,6 +620,16 @@ class AITradingSystem:
                             
                             executed.append(trade)
                             self.trade_history.append(trade)
+                            
+                            # 백테스트 엔진에도 기록 (Win Rate 계산용)
+                            self.backtest_engine.add_trade(
+                                symbol=stock_code,
+                                action='sell',
+                                quantity=holding['quantity'],
+                                price=signal['current_price'],
+                                timestamp=datetime.now(),
+                                reason=f"AI Signal: {signal.get('confidence', 0):.2f}"
+                            )
                             
                             logger.info(f"Executed SELL: {stock_code} x{holding['quantity']}")
                 
@@ -653,13 +694,24 @@ class AITradingSystem:
     
     def record_performance(self):
         """성과 기록"""
+        # 백테스트 엔진으로 성과 계산
+        if len(self.backtest_engine.trades) > 0:
+            self.backtest_engine.calculate_performance_metrics()
+            win_rate = self.backtest_engine.performance_metrics.get('win_rate', 0)
+            total_trades = self.backtest_engine.performance_metrics.get('total_trades', 0)
+        else:
+            win_rate = 0
+            total_trades = 0
+        
         performance = {
             'timestamp': datetime.now(),
             'total_value': self.total_value,
             'cash_balance': self.cash_balance,
             'positions': len(self.portfolio),
             'daily_trades': len([t for t in self.trade_history 
-                               if t['timestamp'].date() == datetime.now().date()])
+                               if t['timestamp'].date() == datetime.now().date()]),
+            'win_rate': win_rate,
+            'total_trades': total_trades
         }
         
         # 수익률 계산
@@ -684,8 +736,10 @@ class AITradingSystem:
         if len(self.performance_history) > 1000:
             self.performance_history = self.performance_history[-1000:]
         
-        logger.info(f"Performance: Value={performance['total_value']:,.0f}, "
-                   f"Return={performance['daily_return']:.2%}")
+        logger.info(f"📊 성과: 자산={performance['total_value']:,.0f}원, "
+                   f"수익률={performance['daily_return']:.2%}, "
+                   f"승률={performance['win_rate']:.1%} "
+                   f"({performance['total_trades']}거래)")
     
     async def run(self):
         """메인 실행 루프"""

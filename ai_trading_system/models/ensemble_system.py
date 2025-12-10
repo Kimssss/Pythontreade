@@ -9,19 +9,27 @@ import logging
 from datetime import datetime
 
 try:
-    from .dqn_agent import DQNAgent
-    from ..strategies.stock_screener import StockScreener
-    from ..utils.technical_indicators import TechnicalIndicators
-    from ..utils.kis_api import KisAPIEnhanced
-    from ..config.settings import MODEL_CONFIG, TRADING_CONFIG
-    from ..agents.transformer_agent import TransformerAgent
+    from ai_trading_system.models.dqn_agent import DQNAgent
+    from ai_trading_system.strategies.stock_screener import StockScreener
+    from ai_trading_system.utils.technical_indicators import TechnicalIndicators
+    from ai_trading_system.utils.kis_api import KisAPIEnhanced
+    from ai_trading_system.config.settings import MODEL_CONFIG, TRADING_CONFIG
+    from ai_trading_system.agents.transformer_agent import TransformerAgent
 except ImportError:
-    from models.dqn_agent import DQNAgent
-    from strategies.stock_screener import StockScreener
-    from utils.technical_indicators import TechnicalIndicators
-    from utils.kis_api import KisAPIEnhanced
-    from config.settings import MODEL_CONFIG, TRADING_CONFIG
-    from agents.transformer_agent import TransformerAgent
+    try:
+        from .dqn_agent import DQNAgent
+        from ..strategies.stock_screener import StockScreener
+        from ..utils.technical_indicators import TechnicalIndicators
+        from ..utils.kis_api import KisAPIEnhanced
+        from ..config.settings import MODEL_CONFIG, TRADING_CONFIG
+        from ..agents.transformer_agent import TransformerAgent
+    except ImportError:
+        from models.dqn_agent import DQNAgent
+        from strategies.stock_screener import StockScreener
+        from utils.technical_indicators import TechnicalIndicators
+        from utils.kis_api import KisAPIEnhanced
+        from config.settings import MODEL_CONFIG, TRADING_CONFIG
+        from agents.transformer_agent import TransformerAgent
 
 logger = logging.getLogger('ai_trading.ensemble')
 
