@@ -112,6 +112,21 @@ class AITradingSystem:
             from utils.trading_logger import TradingLogger
         self.trading_logger = TradingLogger()
         
+        # Gmail 알림 초기화
+        try:
+            from ai_trading_system.utils.gmail_notifier import GmailNotifier
+        except ImportError:
+            from utils.gmail_notifier import GmailNotifier
+        
+        try:
+            self.gmail_notifier = GmailNotifier()
+            logger.info("📧 Gmail 알림 시스템 활성화 (dsangwoo@gmail.com)")
+            # 시작 알림
+            self.gmail_notifier.notify_monitoring_start()
+        except Exception as e:
+            logger.warning(f"Gmail 알림 초기화 실패: {e}")
+            self.gmail_notifier = None
+        
         # 글로벌 스크리너 초기화
         try:
             from ai_trading_system.strategies.global_screener import GlobalStockScreener
