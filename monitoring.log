@@ -1,0 +1,17 @@
+2025-12-11 23:14:19,465 - trading_system - INFO - === AI 자동매매 시스템 초기화 ===
+2025-12-11 23:14:19,606 - trading_system - INFO - 토큰 응답: {'access_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6ImVkY2VjODY4LWI3M2YtNDkzYS1iMjBjLTlhOWQyMTRmMjJkZiIsInByZHRfY2QiOiIiLCJpc3MiOiJ1bm9ndyIsImV4cCI6MTc2NTU0Nzk0MSwiaWF0IjoxNzY1NDYxNTQxLCJqdGkiOiJQU1RQOEJUV2dnNGxvYTc2bUlTUVB6YjJ0SHZqeHRyQlVESUQifQ.j1M8LrtQCm7Yi1du5xhytaVKSkRmWwAwLcF8xYxiVUFnR3t5YfGEe0GBw5_l5shMSz7mgqqSxEAIwSsLQMCziA', 'access_token_token_expired': '2025-12-12 22:59:01', 'token_type': 'Bearer', 'expires_in': 86400}
+2025-12-11 23:14:19,606 - trading_system - INFO - ✅ 액세스 토큰 발급 성공
+2025-12-11 23:14:19,607 - trading_system - INFO - KIS 브로커 초기화 완료 - 모의투자
+2025-12-11 23:14:19,607 - trading_system - INFO - AI 자동매매 시스템 초기화 완료
+2025-12-11 23:14:19,607 - trading_system - INFO - 🚀 AI 자동매매 시스템 시작
+2025-12-11 23:14:19,773 - trading_system - INFO - 📊 포트폴리오 상태 업데이트 완료
+2025-12-11 23:14:19,775 - trading_system - INFO -    💰 총 자산: 9,993,280원
+2025-12-11 23:14:19,775 - trading_system - INFO -    💵 현금: 9,836,280원
+2025-12-11 23:14:19,775 - trading_system - INFO -    📈 보유 종목: 1개
+2025-12-11 23:14:19,775 - trading_system - INFO -    - 한국금융지주: 1주, 수익률 -4.09%
+2025-12-11 23:14:19,775 - trading_system - INFO - 😴 장외시간 대기 - 23:14:19
+2025-12-11 23:14:20,010 - trading_system - INFO - 📊 포트폴리오 상태 업데이트 완료
+2025-12-11 23:14:20,010 - trading_system - INFO -    💰 총 자산: 9,993,280원
+2025-12-11 23:14:20,010 - trading_system - INFO -    💵 현금: 9,836,280원
+2025-12-11 23:14:20,010 - trading_system - INFO -    📈 보유 종목: 1개
+2025-12-11 23:14:20,010 - trading_system - INFO -    - 한국금융지주: 1주, 수익률 -4.09%

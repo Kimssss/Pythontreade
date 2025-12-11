@@ -1,0 +1,24 @@
+# 한국투자증권 API 설정
+# 실전투자 계좌
+my_app: "PSCqWTEJAst52ZjLzjv78vCj0eEUix0TNOzS"
+my_sec: "I9iBCx+BK++QFgq6mb6KPJj/x7I0jB/8L9xl79NGoFLvVknEpIST/yWwKuyoe9rwUIwAYVDmwip1+/ety0NTTtFrTNwV6Gym5sVRRN1r3iEC+/UsMN0POLH3Ba3OhwG96EqCCk2aI1CfOKS9AHf9i1lnPucAGOxGzXOVL2FqTsEZaUchOTI="
+
+# 모의투자 계좌  
+paper_app: "PSTP8BTWgg4loa76mISQPzb2tHvjxtrBUDID"
+paper_sec: "rc+xPU2Ya43Z7MgdiLNknR3QWQMc9yBHj9j4WuK63/XiBvusTUcRVhi3vl8tQdup5yUbRBJJ5+AHv1o3dUgdMdX3Xw5AN09go98Z2+BMeBfF/kaDCw9jHDH1RWhjBi5grVjfBkFArbt3lrP+pFkSdeiJxEPUgx+4nZ9gog744kyo5LEq3hI="
+
+# 계좌 정보
+my_acct_stock: "50157423"
+my_prod: "01"
+
+# API 설정
+base_url_prod: "https://openapi.koreainvestment.com:9443"
+base_url_paper: "https://openapivts.koreainvestment.com:29443"
+websocket_url: "ws://ops.koreainvestment.com:31000"
+
+# 거래 설정
+default_symbols:
+  - "005930"  # 삼성전자
+  - "000660"  # SK하이닉스
+  - "035420"  # NAVER
+  - "051910"  # LG화학
