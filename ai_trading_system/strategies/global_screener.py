@@ -56,14 +56,14 @@ class GlobalStockScreener:
         # 국내 주식 스크리닝
         domestic_markets = [m for m in markets if m in ['KOSPI', 'KOSDAQ']]
         if domestic_markets:
-            logger.info(f"Screening domestic stocks: {domestic_markets}")
+            logger.info(f"국내 주식 스크리닝: {domestic_markets}")
             domestic_stocks = await self._screen_domestic_stocks()
             results['domestic'] = domestic_stocks
         
         # 해외 주식 스크리닝  
         overseas_markets = [m for m in markets if m in ['NASDAQ', 'NYSE', 'AMEX']]
         if overseas_markets:
-            logger.info(f"Screening overseas stocks: {overseas_markets}")
+            logger.info(f"해외 주식 스크리닝: {overseas_markets}")
             overseas_stocks = await self._screen_overseas_stocks(overseas_markets)
             results['overseas'] = overseas_stocks
         
