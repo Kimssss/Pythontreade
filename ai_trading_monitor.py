@@ -18,13 +18,23 @@ except ImportError:
     subprocess.check_call(["pip", "install", "PyYAML"])
     import yaml
 
-try:
-    import requests
-except ImportError:
-    print("❌ requests 모듈이 설치되어 있지 않습니다.")
-    import subprocess
-    subprocess.check_call(["pip", "install", "requests"])
-    import requests
+# requests 모듈 임포트 (표준 라이브러리가 아니므로 주의)
+import sys
+import importlib
+
+# requests 모듈 재로드 시도
+if 'requests' in sys.modules:
+    importlib.reload(sys.modules['requests'])
+    
+import requests
+
+# requests.post가 제대로 임포트되었는지 확인
+if not hasattr(requests, 'post'):
+    print("❌ requests 모듈이 손상되었습니다. 재설치가 필요할 수 있습니다.")
+    # 기본 HTTP 기능만 사용하도록 대체
+    import urllib.request
+    import urllib.parse
+    import ssl
 import time
 import threading
 from collections import deque
