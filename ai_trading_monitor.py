@@ -18,23 +18,53 @@ except ImportError:
     subprocess.check_call(["pip", "install", "PyYAML"])
     import yaml
 
-# requests 모듈 임포트 (표준 라이브러리가 아니므로 주의)
+# 표준 라이브러리만 사용해서 HTTP 요청
+import urllib.request
+import urllib.parse
+import ssl
 import sys
 import importlib
 
-# requests 모듈 재로드 시도
-if 'requests' in sys.modules:
-    importlib.reload(sys.modules['requests'])
-    
-import requests
+def http_post(url: str, headers: dict, data: dict) -> dict:
+    """urllib을 사용한 POST 요청"""
+    try:
+        # JSON 데이터 인코딩
+        json_data = json.dumps(data).encode('utf-8')
+        
+        # 요청 생성
+        req = urllib.request.Request(url, data=json_data, headers=headers, method='POST')
+        
+        # SSL 컨텍스트 설정
+        ctx = ssl.create_default_context()
+        
+        # 요청 실행
+        with urllib.request.urlopen(req, context=ctx) as response:
+            return json.loads(response.read().decode('utf-8'))
+            
+    except Exception as e:
+        logger.error(f"HTTP POST 오류: {e}")
+        raise
 
-# requests.post가 제대로 임포트되었는지 확인
-if not hasattr(requests, 'post'):
-    print("❌ requests 모듈이 손상되었습니다. 재설치가 필요할 수 있습니다.")
-    # 기본 HTTP 기능만 사용하도록 대체
-    import urllib.request
-    import urllib.parse
-    import ssl
+def http_get(url: str, headers: dict, params: dict) -> dict:
+    """urllib을 사용한 GET 요청"""
+    try:
+        # 파라미터 인코딩
+        query_string = urllib.parse.urlencode(params)
+        full_url = f"{url}?{query_string}"
+        
+        # 요청 생성
+        req = urllib.request.Request(full_url, headers=headers)
+        
+        # SSL 컨텍스트 설정
+        ctx = ssl.create_default_context()
+        
+        # 요청 실행
+        with urllib.request.urlopen(req, context=ctx) as response:
+            return json.loads(response.read().decode('utf-8'))
+            
+    except Exception as e:
+        logger.error(f"HTTP GET 오류: {e}")
+        raise
 import time
 import threading
 from collections import deque
@@ -120,8 +150,7 @@ class KISBroker:
         }
         
         try:
-            response = requests.post(url, headers={"content-type": "application/json"}, json=body)
-            result = response.json()
+            result = http_post(url, {"content-type": "application/json"}, body)
             
             logger.info(f"토큰 응답: {result}")
             
@@ -168,8 +197,7 @@ class KISBroker:
         }
         
         try:
-            response = requests.get(url, headers=headers, params=params)
-            result = response.json()
+            result = http_get(url, headers, params)
             
             if result.get('rt_cd') == '0':
                 output = result['output']
@@ -210,8 +238,7 @@ class KISBroker:
         }
         
         try:
-            response = requests.get(url, headers=headers, params=params)
-            result = response.json()
+            result = http_get(url, headers, params)
             
             if result.get('rt_cd') == '0':
                 return result
@@ -221,21 +248,109 @@ class KISBroker:
         except Exception as e:
             logger.error(f"계좌 조회 오류: {e}")
             return None
+    
+    def get_us_stock_price(self, symbol: str) -> dict:
+        """미국 주식 현재가 조회"""
+        self.rate_limiter.wait()
+        
+        url = f"{self.base_url}/uapi/overseas-price/v1/quotations/price"
+        headers = self._get_headers("HHDFS00000300")
+        params = {
+            "AUTH": "",
+            "EXCD": "NAS",  # NASDAQ
+            "SYMB": symbol
+        }
+        
+        try:
+            result = http_get(url, headers, params)
+            
+            if result.get('rt_cd') == '0':
+                output = result['output']
+                return {
+                    'symbol': symbol,
+                    'current_price': float(output['last']),
+                    'change': float(output['diff']),
+                    'change_rate': float(output['rate']),
+                    'volume': int(output['tvol']) if output.get('tvol') else 0
+                }
+            else:
+                logger.error(f"미국 주식 현재가 조회 실패: {result.get('msg1')}")
+                return None
+        except Exception as e:
+            logger.error(f"미국 주식 현재가 조회 오류: {e}")
+            return None
+    
+    def place_order(self, stock_code: str, quantity: int, direction: str, order_type: str = "01") -> dict:
+        """한국 주식 매수/매도 주문"""
+        self.rate_limiter.wait()
+        
+        url = f"{self.base_url}/uapi/domestic-stock/v1/trading/order-cash"
+        tr_id = ("VTTC0802U" if self.paper_trading else "TTTC0802U") if direction == "BUY" else \
+                ("VTTC0801U" if self.paper_trading else "TTTC0801U")
+        
+        body = {
+            "CANO": self.config["my_acct_stock"],
+            "ACNT_PRDT_CD": self.config["my_prod"],
+            "PDNO": stock_code,
+            "ORD_DVSN": order_type,
+            "ORD_QTY": str(quantity),
+            "ORD_UNPR": "0"  # 시장가
+        }
+        
+        try:
+            result = http_post(url, self._get_headers(tr_id), body)
+            return result
+        except Exception as e:
+            logger.error(f"한국 주식 주문 오류: {e}")
+            return {"rt_cd": "1", "msg1": str(e)}
+    
+    def place_us_order(self, symbol: str, quantity: int, price: float, direction: str) -> dict:
+        """미국 주식 매수/매도 주문"""
+        self.rate_limiter.wait()
+        
+        url = f"{self.base_url}/uapi/overseas-stock/v1/trading/order"
+        tr_id = ("VTTT1002U" if self.paper_trading else "JTTT1002U") if direction == "BUY" else \
+                ("VTTT1001U" if self.paper_trading else "JTTT1001U")
+        
+        body = {
+            "CANO": self.config["my_acct_stock"],
+            "ACNT_PRDT_CD": self.config["my_prod"], 
+            "OVRS_EXCG_CD": "NASD",
+            "PDNO": symbol,
+            "ORD_QTY": str(quantity),
+            "OVRS_ORD_UNPR": str(price),
+            "ORD_SVR_DVSN_CD": "0"
+        }
+        
+        try:
+            result = http_post(url, self._get_headers(tr_id), body)
+            return result
+        except Exception as e:
+            logger.error(f"미국 주식 주문 오류: {e}")
+            return {"rt_cd": "1", "msg1": str(e)}
 
 class SimpleStrategy:
-    """간단한 거래 전략"""
+    """간단한 거래 전략 (한국/미국)"""
     
-    def __init__(self, symbols: List[str]):
-        self.symbols = symbols
+    def __init__(self, kr_symbols: List[str], us_symbols: List[str]):
+        self.kr_symbols = kr_symbols  # 한국 주식
+        self.us_symbols = us_symbols  # 미국 주식
         self.name = "Simple_Strategy"
     
-    def generate_signals(self, broker: KISBroker) -> List[Dict]:
-        """간단한 신호 생성"""
+    def generate_signals(self, broker: KISBroker, market_type: str = "KR") -> List[Dict]:
+        """간단한 신호 생성 (한국/미국)"""
         signals = []
         
-        for symbol in self.symbols:
+        # 현재 개장 중인 시장에 따라 종목 선택
+        symbols = self.kr_symbols if market_type == "KR" else self.us_symbols
+        
+        for symbol in symbols:
             try:
-                price_info = broker.get_stock_price(symbol)
+                if market_type == "KR":
+                    price_info = broker.get_stock_price(symbol)
+                else:
+                    price_info = broker.get_us_stock_price(symbol)
+                    
                 if price_info:
                     change_rate = price_info['change_rate']
                     
@@ -244,13 +359,14 @@ class SimpleStrategy:
                         signals.append({
                             'symbol': symbol,
                             'action': 'BUY',
-                            'reason': f'하락률 {change_rate:.2f}%로 매수 신호'
+                            'reason': f'{market_type} 주식 {symbol} 하락률 {change_rate:.2f}%로 매수 신호',
+                            'market': market_type
                         })
                 
                 time.sleep(0.2)  # API 호출 간격
                 
             except Exception as e:
-                logger.error(f"신호 생성 오류 ({symbol}): {e}")
+                logger.error(f"{market_type} 신호 생성 오류 ({symbol}): {e}")
         
         return signals
 
@@ -262,7 +378,11 @@ class TradingSystem:
         logger.info("=== AI 자동매매 시스템 초기화 ===")
         
         self.broker = KISBroker(config_path, paper_trading)
-        self.strategy = SimpleStrategy(['005930', '000660'])  # 삼성전자, SK하이닉스
+        # 한국 주식과 미국 주식 모니터링
+        self.strategy = SimpleStrategy(
+            kr_symbols=['005930', '000660'],  # 삼성전자, SK하이닉스
+            us_symbols=['AAPL', 'TSLA', 'MSFT']  # 애플, 테슬라, 마이크로소프트
+        )
         
         self.portfolio = {}
         self.cash_balance = 0
@@ -279,6 +399,86 @@ class TradingSystem:
             "data": data
         }
         monitoring_logger.info(json.dumps(monitoring_data, ensure_ascii=False))
+    
+    async def execute_trade(self, signal: dict):
+        """실제 매수/매도 실행"""
+        try:
+            symbol = signal['symbol']
+            action = signal['action']
+            market = signal['market']
+            
+            # 기본 주문 수량 계산 (포트폴리오의 1% 투자)
+            order_amount = int(self.cash_balance * 0.01)
+            
+            if action == "BUY":
+                if market == "KR":
+                    # 한국 주식 현재가 조회
+                    price_info = self.broker.get_stock_price(symbol)
+                    if price_info:
+                        current_price = price_info['current_price']
+                        quantity = max(1, order_amount // current_price)
+                        
+                        logger.info(f"💰 한국 주식 매수 시도: {symbol} {quantity}주 @ {current_price:,}원")
+                        
+                        # 실제 매수 주문
+                        result = self.broker.place_order(symbol, quantity, "BUY", "01")  # 시장가 주문
+                        
+                        if result and result.get('rt_cd') == '0':
+                            logger.info(f"✅ 매수 성공: {symbol} {quantity}주")
+                            self.log_monitoring_data("trade_success", {
+                                "type": "BUY",
+                                "market": "KR",
+                                "symbol": symbol,
+                                "quantity": quantity,
+                                "price": current_price,
+                                "amount": quantity * current_price
+                            })
+                        else:
+                            logger.error(f"❌ 매수 실패: {symbol} - {result.get('msg1', 'Unknown error')}")
+                            self.log_monitoring_data("trade_failure", {
+                                "type": "BUY",
+                                "market": "KR", 
+                                "symbol": symbol,
+                                "error": result.get('msg1', 'Unknown error')
+                            })
+                else:  # US 주식
+                    # 미국 주식 현재가 조회
+                    price_info = self.broker.get_us_stock_price(symbol)
+                    if price_info:
+                        current_price = price_info['current_price']
+                        quantity = max(1, int(order_amount // (current_price * 1300)))  # 달러 환율 고려
+                        
+                        logger.info(f"💰 미국 주식 매수 시도: {symbol} {quantity}주 @ ${current_price:.2f}")
+                        
+                        # 실제 매수 주문
+                        result = self.broker.place_us_order(symbol, quantity, current_price, "BUY")
+                        
+                        if result and result.get('rt_cd') == '0':
+                            logger.info(f"✅ 미국 주식 매수 성공: {symbol} {quantity}주")
+                            self.log_monitoring_data("trade_success", {
+                                "type": "BUY",
+                                "market": "US",
+                                "symbol": symbol,
+                                "quantity": quantity,
+                                "price": current_price,
+                                "amount": quantity * current_price
+                            })
+                        else:
+                            logger.error(f"❌ 미국 주식 매수 실패: {symbol} - {result.get('msg1', 'Unknown error')}")
+                            self.log_monitoring_data("trade_failure", {
+                                "type": "BUY",
+                                "market": "US",
+                                "symbol": symbol, 
+                                "error": result.get('msg1', 'Unknown error')
+                            })
+                            
+        except Exception as e:
+            logger.error(f"매매 실행 오류: {e}")
+            self.log_monitoring_data("trade_error", {
+                "symbol": symbol,
+                "action": action,
+                "error": str(e)
+            })
     
     async def update_portfolio(self):
         """포트폴리오 상태 업데이트"""
@@ -324,17 +524,62 @@ class TradingSystem:
             logger.error(f"포트폴리오 업데이트 오류: {e}")
     
     def is_market_open(self) -> bool:
-        """장 개장 여부 확인"""
+        """장 개장 여부 확인 (한국/미국)"""
         now = datetime.now()
         weekday = now.weekday()
         hour = now.hour
         minute = now.minute
         
-        # 평일 09:00 ~ 15:30
+        # 한국 장: 평일 09:00 ~ 15:30
         if weekday < 5 and (9 <= hour < 15 or (hour == 15 and minute <= 30)):
             return True
         
+        # 미국 장: 한국시간 기준
+        # 서머타임 (3월 둘째 주일 ~ 11월 첫째 주일): 21:30 ~ 04:00
+        # 일반시간: 22:30 ~ 05:00
+        if self.is_us_summer_time():
+            # 서머타임: 21:30 ~ 익일 04:00
+            if weekday < 5 and hour >= 21 and minute >= 30:
+                return True
+            elif weekday < 6 and hour < 4:  # 익일 새벽
+                return True
+        else:
+            # 일반시간: 22:30 ~ 익일 05:00
+            if weekday < 5 and hour >= 22 and minute >= 30:
+                return True
+            elif weekday < 6 and hour < 5:  # 익일 새벽
+                return True
+        
         return False
+    
+    def is_us_summer_time(self) -> bool:
+        """미국 서머타임 여부 확인"""
+        now = datetime.now()
+        year = now.year
+        
+        # 3월 둘째 주 일요일
+        march = datetime(year, 3, 1)
+        second_sunday_march = march + timedelta(days=(6-march.weekday() + 7))
+        
+        # 11월 첫째 주 일요일
+        november = datetime(year, 11, 1)
+        first_sunday_november = november + timedelta(days=(6-november.weekday()))
+        
+        return second_sunday_march <= now < first_sunday_november
+    
+    def get_market_type(self) -> str:
+        """현재 개장 중인 시장 종류 반환"""
+        now = datetime.now()
+        hour = now.hour
+        
+        # 한국 장 시간
+        if 9 <= hour < 16:
+            return "KR"
+        # 미국 장 시간
+        elif hour >= 21 or hour < 6:
+            return "US"
+        else:
+            return "CLOSED"
     
     async def run(self):
         """메인 실행 루프"""
@@ -349,17 +594,22 @@ class TradingSystem:
                     current_time = datetime.now()
                     
                     if self.is_market_open():
-                        logger.info(f"📊 장중 모니터링 - {current_time.strftime('%H:%M:%S')}")
+                        market_type = self.get_market_type()
+                        market_name = "한국장" if market_type == "KR" else "미국장"
+                        logger.info(f"📊 {market_name} 중 모니터링 - {current_time.strftime('%H:%M:%S')}")
                         
-                        # 신호 생성
-                        signals = self.strategy.generate_signals(self.broker)
+                        # 신호 생성 (현재 개장 중인 시장에 따라)
+                        signals = self.strategy.generate_signals(self.broker, market_type)
                         
                         if signals:
-                            logger.info(f"🎯 {len(signals)}개 거래 신호 감지")
+                            logger.info(f"🎯 {market_name} {len(signals)}개 거래 신호 감지")
                             for signal in signals:
-                                logger.info(f"   📈 {signal['symbol']}: {signal['action']} - {signal['reason']}")
+                                logger.info(f"   📈 {signal['market']} {signal['symbol']}: {signal['action']} - {signal['reason']}")
+                                
+                                # 실제 매수/매도 실행
+                                await self.execute_trade(signal)
                         else:
-                            logger.info("   📍 현재 거래 신호 없음")
+                            logger.info(f"   📍 {market_name} 현재 거래 신호 없음")
                         
                         # 포트폴리오 업데이트
                         await self.update_portfolio()
@@ -385,6 +635,42 @@ class TradingSystem:
         finally:
             self.is_running = False
             logger.info("AI 자동매매 시스템 종료")
+
+def main():
+    """메인 함수"""
+    print(f"""
+╔══════════════════════════════════════════════════╗
+║              🚀 AI 자동매매 시스템                 ║
+║                                                  ║
+║  시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}                    ║
+╚══════════════════════════════════════════════════╝
+    """)
+    
+    try:
+        # 프롬프트 요구사항: 모의투자 모드로 자동 설정
+        print("\n✅ 프롬프트 요구사항에 따라 모의투자 모드로 자동 초기화합니다...")
+        trading_system = TradingSystem(paper_trading=True)
+        
+        print(f"""
+╔══════════════════════════════════════════════════╗
+║  초기화 완료 - 모의투자 모드                        ║
+║  프롬프트 요구사항에 따라 자동으로 24시간 모니터링 시작  ║
+╚══════════════════════════════════════════════════╝
+        """)
+        
+        print("\n🚀 24시간 모니터링을 시작합니다...")
+        print("📊 한국장/미국장 자동 감지 및 모니터링")
+        print("⚠️  모니터링 중지: Ctrl+C")
+        print("=" * 60)
+        
+        try:
+            asyncio.run(trading_system.run())
+        except KeyboardInterrupt:
+            print("\n⏹️  모니터링이 중지되었습니다.")
+        
+    except Exception as e:
+        print(f"\n❌ 시스템 오류: {e}")
+        logger.error(f"시스템 오류: {e}")
 
 def get_user_choice():
     """사용자 선택 메뉴"""
@@ -460,140 +746,30 @@ def main_interactive():
     """)
     
     try:
-        # 거래 모드 선택
-        paper_trading = select_trading_mode()
-        mode_name = "모의투자" if paper_trading else "실전투자"
-        
-        print(f"\n✅ {mode_name} 모드로 시스템을 초기화합니다...")
-        trading_system = TradingSystem(paper_trading=paper_trading)
+        # 프롬프트 요구사항: 모의투자 모드로 자동 설정
+        print("\n✅ 프롬프트 요구사항에 따라 모의투자 모드로 자동 초기화합니다...")
+        trading_system = TradingSystem(paper_trading=True)
         
         print(f"""
 ╔══════════════════════════════════════════════════╗
-║  초기화 완료 - {mode_name} 모드                    ║
+║  초기화 완료 - 모의투자 모드                        ║
+║  프롬프트 요구사항에 따라 자동으로 24시간 모니터링 시작  ║
 ╚══════════════════════════════════════════════════╝
         """)
         
-        while True:
-            choice = get_user_choice()
-            
-            if choice == '1':
-                print("\n🚀 24시간 모니터링을 시작합니다...")
-                print("⚠️  모니터링 중지: Ctrl+C")
-                print("=" * 60)
-                
-                try:
-                    asyncio.run(trading_system.run())
-                except KeyboardInterrupt:
-                    print("\n⏹️  모니터링이 중지되었습니다.")
-                    continue
-            
-            elif choice == '2':
-                print("\n📊 포트폴리오 상태를 확인합니다...")
-                try:
-                    asyncio.run(trading_system.update_portfolio())
-                    input("\n계속하려면 Enter를 누르세요...")
-                except Exception as e:
-                    print(f"❌ 포트폴리오 조회 오류: {e}")
-            
-            elif choice == '3':
-                symbols = ['005930', '000660', '035420']  # 삼성전자, SK하이닉스, NAVER
-                print("\n💰 주요 종목 현재가 조회...")
-                
-                for symbol in symbols:
-                    try:
-                        price_info = trading_system.broker.get_stock_price(symbol)
-                        if price_info:
-                            print(f"📈 {symbol}: {price_info['current_price']:,}원 ({price_info['change_rate']:+.2f}%)")
-                        else:
-                            print(f"❌ {symbol}: 현재가 조회 실패")
-                        time.sleep(0.2)
-                    except Exception as e:
-                        print(f"❌ {symbol}: {e}")
-                
-                input("\n계속하려면 Enter를 누르세요...")
-            
-            elif choice == '4':
-                print("\n👋 AI 자동매매 시스템을 종료합니다.")
-                break
-        
-    except Exception as e:
-        print(f"\n❌ 시스템 초기화 오류: {e}")
-        logger.error(f"시스템 오류: {e}")
-        print("API 설정을 확인해주세요.")
-
-def main_monitoring():
-    """자동 모니터링 함수 (모의투자 모드)"""
-    print(f"""
-╔══════════════════════════════════════════════════╗
-║           🤖 AI 자동 모니터링 시작                 ║
-║                                                  ║
-║  모드: 모의투자 (Demo)                            ║
-║  시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}                    ║
-╚══════════════════════════════════════════════════╝
-    """)
-    
-    try:
-        # 모의투자 모드로 초기화
-        trading_system = TradingSystem(paper_trading=True)
-        
-        print("✅ 시스템 초기화 완료")
-        print("🚀 24시간 모니터링을 시작합니다...")
+        print("\n🚀 24시간 모니터링을 시작합니다...")
+        print("📊 한국장/미국장 자동 감지 및 모니터링")
         print("⚠️  모니터링 중지: Ctrl+C")
         print("=" * 60)
         
-        # 바로 모니터링 시작
-        asyncio.run(trading_system.run())
+        try:
+            asyncio.run(trading_system.run())
+        except KeyboardInterrupt:
+            print("\n⏹️  모니터링이 중지되었습니다.")
         
-    except KeyboardInterrupt:
-        print("\n⏹️  모니터링이 중지되었습니다.")
     except Exception as e:
         print(f"\n❌ 시스템 오류: {e}")
         logger.error(f"시스템 오류: {e}")
-
-def main():
-    """메인 함수"""
-    import sys
-    
-    # 명령행 인수 확인
-    if len(sys.argv) > 1 and sys.argv[1] == "--monitor":
-        main_monitoring()
-    elif len(sys.argv) > 1 and sys.argv[1] == "--auto":
-        auto_monitoring()
-    else:
-        main_interactive()
-
-def auto_monitoring():
-    """자동 24시간 모니터링 (사용자 입력 없이)"""
-    print(f"""
-╔══════════════════════════════════════════════════╗
-║           🤖 AI 24시간 자동 모니터링 시작          ║
-║                                                  ║
-║  모드: 모의투자 (Demo)                            ║
-║  시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}                    ║
-║  프롬프트 요구사항에 따라 자동 실행                ║
-╚══════════════════════════════════════════════════╝
-    """)
-    
-    try:
-        # 모의투자 모드로 자동 초기화
-        trading_system = TradingSystem(paper_trading=True)
-        
-        print("✅ 시스템 초기화 완료")
-        print("🚀 프롬프트 요구사항: 24시간 실제 데모 버전 모니터링 시작")
-        print("📊 모니터링 중 오류 발생시 즉시 수정 후 재시작")
-        print("📧 주요 이슈는 dsangwoo@gmail.com으로 알림")
-        print("⚠️  모니터링 중지: Ctrl+C")
-        print("=" * 60)
-        
-        # 24시간 모니터링 시작
-        asyncio.run(trading_system.run())
-        
-    except KeyboardInterrupt:
-        print("\n⏹️  사용자에 의해 모니터링이 중지되었습니다.")
-    except Exception as e:
-        print(f"\n❌ 모니터링 중 오류 발생: {e}")
-        logger.error(f"모니터링 오류: {e}")
-        print("프롬프트 요구사항에 따라 오류를 수정하고 재시작이 필요합니다.")
 
 if __name__ == "__main__":
     main()
