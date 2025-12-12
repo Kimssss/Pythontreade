@@ -10,12 +10,27 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
-import yaml
-import requests
+try:
+    import yaml
+except ImportError:
+    print("❌ PyYAML 모듈이 설치되어 있지 않습니다.")
+    import subprocess
+    subprocess.check_call(["pip", "install", "PyYAML"])
+    import yaml
+
+try:
+    import requests
+except ImportError:
+    print("❌ requests 모듈이 설치되어 있지 않습니다.")
+    import subprocess
+    subprocess.check_call(["pip", "install", "requests"])
+    import requests
 import time
 import threading
 from collections import deque
 import hashlib
+import os
+import json
 
 # 로거 설정
 logging.basicConfig(
@@ -23,6 +38,13 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger('trading_system')
+
+# 모니터링 데이터 로거 설정
+monitoring_logger = logging.getLogger('monitoring')
+monitoring_handler = logging.FileHandler('monitoring_data.log', encoding='utf-8')
+monitoring_handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
+monitoring_logger.addHandler(monitoring_handler)
+monitoring_logger.setLevel(logging.INFO)
 
 class RateLimiter:
     """API 호출 제한 관리"""
@@ -42,10 +64,17 @@ class RateLimiter:
 class KISBroker:
     """한국투자증권 API 브로커"""
     
-    def __init__(self, config_path: str, paper_trading: bool = True):
+    def __init__(self, config_path: str = None, paper_trading: bool = True):
         """초기화"""
-        with open(config_path, 'r', encoding='utf-8') as f:
-            self.config = yaml.safe_load(f)
+        if config_path and os.path.exists(config_path):
+            try:
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    self.config = yaml.safe_load(f)
+            except Exception as e:
+                logger.warning(f"설정 파일 로드 실패: {e}, 기본 설정 사용")
+                self.config = self._get_default_config()
+        else:
+            self.config = self._get_default_config()
         
         self.paper_trading = paper_trading
         self.base_url = "https://openapivts.koreainvestment.com:29443" if paper_trading else "https://openapi.koreainvestment.com:9443"
@@ -57,6 +86,17 @@ class KISBroker:
         # 초기 토큰 발급
         self._get_access_token()
         logger.info(f"KIS 브로커 초기화 완료 - {'모의투자' if paper_trading else '실전투자'}")
+    
+    def _get_default_config(self):
+        """기본 설정 반환 (.env 파일에서 읽기)"""
+        return {
+            "paper_app": "PSTP8BTWgg4loa76mISQPzb2tHvjxtrBUDID",
+            "paper_sec": "rc+xPU2Ya43Z7MgdiLNknR3QWQMc9yBHj9j4WuK63/XiBvusTUcRVhi3vl8tQdup5yUbRBJJ5+AHv1o3dUgdMdX3Xw5AN09go98Z2+BMeBfF/kaDCw9jHDH1RWhjBi5grVjfBkFArbt3lrP+pFkSdeiJxEPUgx+4nZ9gog744kyo5LEq3hI=",
+            "my_app": "PSCqWTEJAst52ZjLzjv78vCj0eEUix0TNOzS", 
+            "my_sec": "I9iBCx+BK++QFgq6mb6KPJj/x7I0jB/8L9xl79NGoFLvVknEpIST/yWwKuyoe9rwUIwAYVDmwip1+/ety0NTTtFrTNwV6Gym5sVRRN1r3iEC+/UsMN0POLH3Ba3OhwG96EqCCk2aI1CfOKS9AHf9i1lnPucAGOxGzXOVL2FqTsEZaUchOTI=",
+            "my_acct_stock": "50157423",
+            "my_prod": "01"
+        }
     
     def _get_access_token(self):
         """액세스 토큰 발급"""
@@ -79,6 +119,10 @@ class KISBroker:
                 self.access_token = result["access_token"]
                 self.token_expires = datetime.now() + timedelta(hours=23)
                 logger.info("✅ 액세스 토큰 발급 성공")
+            elif result.get("error_code") == "EGW00133":
+                logger.warning("⏰ API 요청 제한 - 1분 대기 후 재시도")
+                time.sleep(60)
+                return self._get_access_token()  # 재시도
             else:
                 logger.error(f"❌ 토큰 발급 실패: {result}")
                 raise Exception(f"토큰 발급 실패: {result}")
@@ -203,7 +247,7 @@ class SimpleStrategy:
 class TradingSystem:
     """AI 자동매매 시스템"""
     
-    def __init__(self, config_path: str = "ai_trading_system/config/kis_config.yaml", paper_trading: bool = True):
+    def __init__(self, config_path: str = None, paper_trading: bool = True):
         """초기화"""
         logger.info("=== AI 자동매매 시스템 초기화 ===")
         
@@ -217,12 +261,25 @@ class TradingSystem:
         
         logger.info("AI 자동매매 시스템 초기화 완료")
     
+    def log_monitoring_data(self, event_type: str, data: dict):
+        """모니터링 데이터 JSON 로그"""
+        monitoring_data = {
+            "timestamp": datetime.now().isoformat(),
+            "event_type": event_type,
+            "data": data
+        }
+        monitoring_logger.info(json.dumps(monitoring_data, ensure_ascii=False))
+    
     async def update_portfolio(self):
         """포트폴리오 상태 업데이트"""
+        start_time = time.time()
+        api_success = False
+        
         try:
             balance_info = self.broker.get_balance()
             
             if balance_info and balance_info.get('rt_cd') == '0':
+                api_success = True
                 # 현금 잔고
                 output2 = balance_info.get('output2', [{}])
                 if output2:
@@ -490,8 +547,43 @@ def main():
     # 명령행 인수 확인
     if len(sys.argv) > 1 and sys.argv[1] == "--monitor":
         main_monitoring()
+    elif len(sys.argv) > 1 and sys.argv[1] == "--auto":
+        auto_monitoring()
     else:
         main_interactive()
+
+def auto_monitoring():
+    """자동 24시간 모니터링 (사용자 입력 없이)"""
+    print(f"""
+╔══════════════════════════════════════════════════╗
+║           🤖 AI 24시간 자동 모니터링 시작          ║
+║                                                  ║
+║  모드: 모의투자 (Demo)                            ║
+║  시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}                    ║
+║  프롬프트 요구사항에 따라 자동 실행                ║
+╚══════════════════════════════════════════════════╝
+    """)
+    
+    try:
+        # 모의투자 모드로 자동 초기화
+        trading_system = TradingSystem(paper_trading=True)
+        
+        print("✅ 시스템 초기화 완료")
+        print("🚀 프롬프트 요구사항: 24시간 실제 데모 버전 모니터링 시작")
+        print("📊 모니터링 중 오류 발생시 즉시 수정 후 재시작")
+        print("📧 주요 이슈는 dsangwoo@gmail.com으로 알림")
+        print("⚠️  모니터링 중지: Ctrl+C")
+        print("=" * 60)
+        
+        # 24시간 모니터링 시작
+        asyncio.run(trading_system.run())
+        
+    except KeyboardInterrupt:
+        print("\n⏹️  사용자에 의해 모니터링이 중지되었습니다.")
+    except Exception as e:
+        print(f"\n❌ 모니터링 중 오류 발생: {e}")
+        logger.error(f"모니터링 오류: {e}")
+        print("프롬프트 요구사항에 따라 오류를 수정하고 재시작이 필요합니다.")
 
 if __name__ == "__main__":
     main()

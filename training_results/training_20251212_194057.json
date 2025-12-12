@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-12-12T19:40:57.415748",
+  "duration": 81.189764,
+  "dqn_results": {
+    "\uc624\ub958": "Parent directory models does not exist."
+  },
+  "factor_results": {
+    "optimized_weights": {
+      "value": 0.35,
+      "quality": 0.3,
+      "momentum": 0.25,
+      "growth": 0.1
+    },
+    "improvement": 0.05
+  },
+  "tech_results": {
+    "optimized_params": {
+      "rsi_period": 14,
+      "macd_fast": 12,
+      "macd_slow": 26,
+      "bb_period": 20
+    }
+  },
+  "backtest_results": {
+    "total_trades": 2,
+    "win_rate": 0.0,
+    "total_return": -0.0009460992553350991
+  }
+}
